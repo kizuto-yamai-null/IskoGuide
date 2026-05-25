@@ -1,34 +1,37 @@
 # website/views.py
 from flask import Blueprint, render_template, request
-from website.auth import controller  # Import the single shared controller instance
+# Import the structural skeleton classes you just created
+from modules.admission import AdmissionModule
+from modules.scholarship import ScholarshipModule
 
 views = Blueprint('views', __name__)
 
+# Instantiate the modules so they are ready to process data
+admission_engine = AdmissionModule()
+scholarship_engine = ScholarshipModule()
+
 @views.route('/')
-@views.route('/home')
 def home():
-    # Detect active role string passed from authentication page state
-    current_role = request.args.get('role', 'Visitor')
-    return render_template("home.html", role=current_role)
+    return render_template("home.html")
 
 @views.route('/admission')
 def admission_guide():
-    """
-    Fetches raw requirements data arrays directly out of the data files 
-    via the admission module instance.
-    """
-    guide_data = controller.admission_module.get_Enrollment_Steps()
-    return render_template("admission.html", data=guide_data)
+    # Fetch the structural data from your module layer
+    steps = admission_engine.show_Enrollment_Guide()
+    # Pass it straight into Versoza's HTML frontend layout
+    return render_template("admission.html", enrollment_steps=steps)
 
 @views.route('/scholarship', methods=['GET', 'POST'])
 def scholarship_checker():
-    """
-    Receives GWA decimal inputs from browser forms and runs evaluation rules.
-    """
-    result_message = None
+    feedback_message = None
+    
     if request.method == 'POST':
-        student_gwa = float(request.form.get('gwa'))
-        # Execute logic inside your module instance
-        result_message = controller.scholarship_module.check_Eligibility(student_gwa)
-        
-    return render_template("scholarship.html", feedback=result_message)
+        try:
+            # Capture what the student typed into the webpage text box
+            user_gwa = float(request.form.get('gwa'))
+            # Send it to the backend engine logic rule to get an answer
+            feedback_message = scholarship_engine.check_Eligibility(user_gwa)
+        except (ValueError, TypeError):
+            feedback_message = "Please enter a valid numeric grade format (e.g., 1.75)."
+
+    return render_template("scholarship.html", feedback=feedback_message)
