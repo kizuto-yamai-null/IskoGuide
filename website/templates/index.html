@@ -1,0 +1,111 @@
+<!--Must Be in Same directory as style.css -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<!---- Main ---->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IskoGuide{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <section class="header">
+        <!-- Logo -->
+         <nav>
+            <a href="{{ url_for('static', filename='index.html') }}"><img src="{{ url_for('static', filename='images/pup_lol.png') }}"></a>
+
+            <!-- Main Modules/Page-->
+            <div class="nav-links" id="navLinks">
+               <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a class="nav-item nav-link" id="login" href="/aboutPUP">About PUP</a></li>
+                    <li><a class="nav-item nav-link" id="login" href="/admission">Admission</a></li>
+                    <li><a class="nav-item nav-link" id="login" href="/scholarship">Scholarship</a></li>
+                    <li><a class="nav-item nav-link" id="login" href="/forStudent"> For Students</a></li>
+                    <li><a class="nav-item nav-link" id="login" href="/forum">Forum</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+<!---->
+            <div class="container">
+            {% block content %}
+            {% endblock %}
+            </div>
+<!---->
+    <!-- Main Title -->    
+    <div class="text-box">
+        <h1>Welcome to Polytechnic University of the Philippines</h1>
+        <p>We are committed to providing quality education and fostering a culture of excellence. <br> Join us in our mission to empower students and contribute to the development of our nation.</p>
+        <a href="#" class="hero-btn">Visit Us Now</a>
+    </div>
+</section>
+
+<!----About us section---->
+
+<section class="faqs">
+    <h1>Frequently Asked Questions</h1>
+    <div class="faqs-row">
+        <div class="faqs-col">
+            <h3>What are the admission requirements?</h3>
+            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>What programs do you offer?</h3>
+            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>How can I contact the university?</h3>
+            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+        </div>
+    </div>
+</section>
+
+<!--- Campus Section --->
+
+<section class="campus">
+    <h1>Our Campus</h1>
+    <p>Explore our beautiful campus and the facilities we offer to support your academic journey.</p>
+
+    <div class="campus-row">
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/Sta mesa.jpg') }}">
+            <div class="layer">
+                <h3>Sta.mesa Campus</h3>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/QC.jpg') }}">
+            <div class="layer">
+                <h3>Quezon City Campus</h3>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/Taguig.jpg') }}">
+            <div class="layer">
+                <h3>Taguig Campus</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--- JavaScript for Toggle Menu --->
+<script>
+    var navLinks = document.getElementById("navLinks");
+    function showMenu(){
+        navLinks.style.right = "0";
+    }
+    function hideMenu(){
+        navLinks.style.right = "-200px";
+    }
+    
+</script>
+
+</body>
+</html>
