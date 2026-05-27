@@ -1,6 +1,7 @@
 <!-- style.css must be in website/static to be rendered -->
 <!-- all images must be in website/static to be rendered -->
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,23 +14,202 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        /* Hover Border Color*/
+        .univ-dropdown { position: relative; display: inline-block; margin-left: 12px; vertical-align: middle; }
+        .univ-btn {
+            background: transparent;
+            color: inherit;
+            color: #fff;
+            border: 2px solid rgba(220, 18, 18, 0.12);
+            padding: 6px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+        }
+        /* background color of hover*/
+        .univ-dropdown .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #fff;
+            min-width: 240px;
+            box-shadow: 0 8px 16px rgba(92, 25, 25, 0.15);
+            padding: 6px 0;
+            z-index: 100;
+            top: 110%;
+            left: 0;
+        }
+        .univ-dropdown:hover .dropdown-content,
+        .univ-dropdown:focus-within .dropdown-content {
+            display: block;
+        }
+        /* text color of hovers */
+        .dropdown-item {
+            padding: 8px 14px;
+            white-space: nowrap;
+            color: #222;
+            text-decoration: none;
+            display: block;
+            font-size: 14px;
+        }
+        .dropdown-item:hover { background: #f5f5f5; }
+
+        /* Nav item dropdowns */
+        .nav-links ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 12px; align-items: center; }
+        .nav-links ul li { position: relative; }
+        .nav-dropdown { position: relative; display: inline-block; }
+        .nav-link-btn {
+            background: transparent;
+            border: none;
+            padding: 6px 10px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            color: inherit;
+        }
+        .nav-dropdown .dropdown-content {
+            display: none;
+            position: absolute;
+            background: #fff;
+            min-width: 140px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+            padding: 6px 0;
+            z-index: 100;
+            top: 120%;
+            left: 0;
+        }
+        .nav-dropdown:hover .dropdown-content,
+        .nav-dropdown:focus-within .dropdown-content {
+            display: block;
+        }
+        .nav-dropdown .dropdown-item { padding: 6px 10px; font-size: 13px; }
+        .nav-dropdown .label { font-weight: 600; margin-right: 8px; color: #333; }
+
+        /* NEW: position nav items to the right and make top-level texts white,
+                 keep dropdown items dark and align their label/content */
+        nav { display: flex; align-items: center; gap: 12px; width: 100%; }
+        .nav-links { margin-left: auto; }                    /* push nav links to the right */
+        .nav-links .nav-item,
+        .nav-links .nav-link-btn { color: #fff; }            /* top-level link text color white */
+        .nav-links .nav-item:hover,
+        .nav-links .nav-link-btn:hover { color: #fff; }      /* keep top-level hover white */
+
+        /* dropdown placement & alignment under parent button */
+        .nav-dropdown .dropdown-content {
+            top: calc(100% + 6px);
+            left: 0;
+            min-width: 180px;
+            box-sizing: border-box;
+            white-space: nowrap;
+        }
+        /* dropdown items remain dark and aligned with a fixed label column */
+        .nav-dropdown .dropdown-item {
+            color: #222;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+        }
+        .nav-dropdown .dropdown-item:hover {
+            background: #f5f5f5;
+            color: #000;
+        }
+        .nav-dropdown .dropdown-item .label {
+            display: inline-block;
+            width: 24px;             /* fixed column for labels */
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            margin-right: 8px;
+        }
+
+        /* ensure single plain link (e.g. Scholarship) matches top-level styling */
+        .nav-links a.nav-item.nav-link { color: #fff; text-decoration: none; }
+        .nav-links a.nav-item.nav-link:hover { color: #fff; opacity: 0.95; }
+
+    </style>
+
 </head>
 
 <body>
     <section class="header">
         <!-- Logo -->
          <nav>
-            <a href="{{ url_for('static', filename='index.html') }}"><img src="{{ url_for('static', filename='images/pup_lol.png') }}"></a>
+            <a href="{{ url_for('static', filename='index.html') }}"><img src="{{ url_for('static', filename='images/pup_logo.png') }}"></a>
+
+            <div class="univ-dropdown" aria-label="Universities menu">
+                <button class="univ-btn" aria-haspopup="true" aria-expanded="false">Choose Universities</button>
+                <div class="dropdown-content" role="menu" aria-label="Universities list">
+                    <a class="dropdown-item" href="#">Polytechnic University of the Philippines</a>
+                    <a class="dropdown-item" href="#">University of the Philippines</a>
+                </div>
+            </div>
 
             <!-- Main Modules/Page-->
             <div class="nav-links" id="navLinks">
                <i class="fa fa-times" onclick="hideMenu()"></i>
+               <!-- Ignor this, to be reused if needed
                 <ul>
-                    <li><a class="nav-item nav-link" id="login" href="/aboutPUP">About PUP</a></li>
-                    <li><a class="nav-item nav-link" id="login" href="/admission">Admission</a></li>
-                    <li><a class="nav-item nav-link" id="login" href="/scholarship">Scholarship</a></li>
-                    <li><a class="nav-item nav-link" id="login" href="/forStudent"> For Students</a></li>
-                    <li><a class="nav-item nav-link" id="login" href="/forum">Forum</a></li>
+                    <li><a class="nav-item nav-link" id="aboutPUP" href="/aboutPUP">About PUP</a></li>
+                    <li><a class="nav-item nav-link" id="admission" href="/admission">Admission</a></li>
+                    <li><a class="nav-item nav-link" id="scholarship" href="/scholarship">Scholarship</a></li>
+                    <li><a class="nav-item nav-link" id="forStudent" href="/forStudent"> For Students</a></li>
+                    <li><a class="nav-item nav-link" id="forum" href="/forum">Forum</a></li>
+                </ul>
+                -->
+                <ul>
+                    <li>
+                        <div class="nav-dropdown" aria-label="About PUP menu">
+                            <button class="nav-link-btn">About PUP</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="#"><span class="label">Profile</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Awards/Recognitions</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Campuses</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">History</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Admission menu">
+                            <button class="nav-link-btn">Admission</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="#"><span class="label">Programs</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Colleges</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Requirements</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Timeline</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Admission menu">
+                            <button class="nav-link-btn">Scholarship</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="#"><span class="label">See Available</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="For Students menu">
+                            <button class="nav-link-btn">For Students</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="#"><span class="label">Services</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Organizations/Clubs</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Forms</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Forum menu">
+                            <button class="nav-link-btn">Forum</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="#"><span class="label">Discussions</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Announcements</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Help</span></a>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
             <i class="fa fa-bars" onclick="showMenu()"></i>
