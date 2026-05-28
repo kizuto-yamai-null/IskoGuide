@@ -1,5 +1,7 @@
 # website/auth.py
-from flask import Blueprint, render_template, request, redirect, url_prefix, url_for
+from flask import Blueprint, render_template, request, redirect, url_for
+
+# Corrected to absolute root import to find the file in the main IskoGuide folder
 from system_controller import IskoGuideController
 
 auth = Blueprint('auth', __name__)
@@ -13,22 +15,25 @@ def login():
     Catches HTML login actions and runs validation rules using the backend controller.
     """
     if request.method == 'POST':
-        # Retrieve input numbers from Versoza's HTML form inputs
-        selected_role = int(request.form.get('role_choice'))
-        user_pin = int(request.form.get('pin_input', 0))
-        
-        # Core logic gate verification check
-        if selected_role == 3:  # Visitor path
-            return redirect(url_for('views.home', role="Visitor"))
+        try:
+            # Retrieve input attributes from Dustin's HTML form inputs
+            selected_role = int(request.form.get('role_choice', 3))
+            user_pin = int(request.form.get('pin_input', 0))
             
-        is_valid = controller.verify_credentials(selected_role, user_pin)
-        
-        if is_valid:
-            role_label = "Admin" if selected_role == 1 else "Moderator"
-            return redirect(url_for('views.home', role=role_label))
-        else:
-            # Re-render login page with error text if PIN check fails
-            return render_template("login.html", error="Invalid Security PIN. Access Denied.")
+            # Core logic gate verification check for visitors
+            if selected_role == 3:  
+                return redirect(url_for('views.home', role="Visitor"))
+                
+            # Interacts perfectly with your root-level controller class methods
+            is_valid = controller.verify_credentials(selected_role, user_pin)
+            
+            if is_valid:
+                role_label = "Admin" if selected_role == 1 else "Moderator"
+                return redirect(url_for('views.home', role=role_label))
+            else:
+                return render_template("login.html", error="Invalid Security PIN. Access Denied.")
+        except (ValueError, TypeError):
+            return render_template("login.html", error="Invalid input format detected.")
             
     return render_template("login.html", error=None)
 
