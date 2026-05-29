@@ -1,47 +1,35 @@
 # website/views.py
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 
-# Import the module engines
-from modules.admission import AdmissionModule
-from modules.scholarship import ScholarshipModule
-from modules.directory import CampusDirectory
-from modules.forum import ForumModule
-from modules.about import AboutModule
+# Share the single initialized master controller state from your auth configuration
+from website.auth import controller
 
 views = Blueprint('views', __name__)
 
-# Initialize global engines to process data behind the scenes
-admission_engine = AdmissionModule()
-scholarship_engine = ScholarshipModule()
-directory_engine = CampusDirectory()
-forum_engine = ForumModule()
-about_engine = AboutModule()
-
-
 # ==================================================
-#               MAIN PAGES AND ROUTES
+#                  MAIN PAGES AND ROUTES
 # ==================================================
 
 @views.route('/')
 def home():
-    return render_template("index.html")
+    role_num = session.get('role', 4)
+    role_labels = {1: "Admin", 2: "Moderator", 3: "Student", 4: "Visitor"}
+    return render_template("index.html", role=role_labels.get(role_num, "Visitor"))
 
 
 @views.route('/admission', methods=["GET", "POST"])
 def admission_guide():
-    # Get standard steps and requirements
-    steps = admission_engine.show_Enrollment_Guide()
-    requirements = admission_engine.list_Requirements(gwa=1.0)
+    # Use the centralized controller instance to keep memory uniform across the app
+    steps = controller.admission_module.show_Enrollment_Guide()
+    requirements = controller.admission_module.list_Requirements(gwa=1.0)
     
     evaluation_result = None
     
-    # Process the document checklist when the user submits the form
     if request.method == 'POST':
         student_type = request.form.get('student_type')
         submitted_docs = request.form.getlist('documents') 
         
-        # Check which documents are missing
-        evaluation_result = admission_engine.check_submission_eligibility(student_type, submitted_docs)
+        evaluation_result = controller.admission_module.check_submission_eligibility(student_type, submitted_docs)
     
     return render_template(
         "admission.html", 
@@ -53,21 +41,18 @@ def admission_guide():
 
 @views.route('/scholarship', methods=['GET', 'POST'])
 def scholarship_checker():
-    # Get guidelines and deadlines
-    guidelines = scholarship_engine.get_grant_guidelines()
-    timelines = scholarship_engine.get_deadlines()
+    guidelines = controller.scholarship_module.get_grant_guidelines()
+    timelines = controller.scholarship_module.get_deadlines()
     
     evaluation_result = None
     
-    # Process the qualification form when the user submits their grades and income
     if request.method == 'POST':
         try:
             user_gwa = float(request.form.get('gwa'))
             user_income = float(request.form.get('income'))
             scholarship_type = request.form.get('scholarship_type')
             
-            # Evaluate if the user qualifies based on grades and family income
-            evaluation_result = scholarship_engine.evaluate_eligibility(user_gwa, user_income, scholarship_type)
+            evaluation_result = controller.scholarship_module.evaluate_eligibility(user_gwa, user_income, scholarship_type)
         except (ValueError, TypeError):
             evaluation_result = {
                 "is_eligible": False,
@@ -88,17 +73,15 @@ def scholarship_checker():
 
 @views.route('/forStudent', methods=['GET', 'POST'])
 def campus_directory():
-    # Load base landmarks and shops for initial viewing
-    landmarks_list = directory_engine.show_Landmarks()
-    shops_list = directory_engine.get_Shop_Locations()
+    landmarks_list = controller.campus_directory.show_Landmarks()
+    shops_list = controller.campus_directory.get_Shop_Locations()
     
     search_results = None
     query_string = ""
     
-    # Filter the list if the user types something into the search bar
     if request.method == 'POST':
         query_string = request.form.get('search_query', '').strip()
-        search_results = directory_engine.search_campus_directory(query_string)
+        search_results = controller.campus_directory.search_campus_directory(query_string)
         
     return render_template(
         "forStudent.html", 
@@ -111,23 +94,52 @@ def campus_directory():
 
 @views.route('/forum', methods=['GET', 'POST'])
 def student_forum():
-    # Create a new discussion post
-    if request.method == 'POST':
-        post_content = request.form.get('content')
-        if post_content:
-            forum_engine.create_Post(username="AnonymousIsko", content=post_content)
-            return redirect(url_for('views.student_forum'))
+    """
+    Handles rendering the forum ecosystem. Enforces Task 3 verification restrictions
+    and catches spam inputs through your custom bilingual filter engine.
+    """
+    # 1. Grab current login status tokens (Defaults to Role 4: Visitor)
+    current_role = session.get('role', 4)
+    user_email = session.get('user_email', "Guest_User")
+    
+    error_message = None
 
-    # Load and display active discussion threads
-    active_posts = forum_engine.view_threads()
-    return render_template("forum.html", posts=active_posts)
+    # 2. Process form submission attempts
+    if request.method == 'POST':
+        # 🔐 SAFETY GATE: Block Guests from pushing backend writes entirely
+        if current_role == 4:
+            active_posts = controller.forum_module.view_threads()
+            return render_template("forum.html", posts=active_posts, role=current_role, error="Access Denied: Visitors are limited to VIEW-ONLY access.")
+        
+        # Pull text components from Dustin's front-end input forms
+        # Adjust the keys ('title'/'content') to match exactly what Dustin named his HTML textareas
+        post_title = request.form.get('title', 'Campus Discussion')
+        post_content = request.form.get('content')
+        
+        if post_content:
+            # Send the input directly into your forum filter and pending queue pipeline
+            success, message = controller.forum_module.create_Post(user_email, post_title, post_content)
+            
+            if not success:
+                error_message = message  # Capture the "Profanity Detected" warning block
+            else:
+                return redirect(url_for('views.student_forum'))
+
+    # 3. Handle GET deliveries
+    active_posts = controller.forum_module.view_threads()
+    return render_template(
+        "forum.html", 
+        posts=active_posts, 
+        role=current_role, 
+        user_email=user_email, 
+        error=error_message
+    )
 
 
 @views.route('/aboutPUP')
 def about_credits():
-    # Load and display static university info and contact links
-    description = about_engine.show_School_Credits()
-    contacts = about_engine.show_Campus_Contacts()
+    description = controller.about_module.show_School_Credits()
+    contacts = controller.about_module.show_Campus_Contacts()
     
     return render_template(
         "aboutPUP.html", 
