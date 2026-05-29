@@ -7,7 +7,7 @@ class AdmissionModule:
         """
         # ==============================================================================
         # 📝 ENRICO'S TASK (33%): DATA SEEDING & STATIC TEXT DATA POOL
-        # Populate these properties with official text guidelines and step sequences.
+        # Assign strings/lists imported from mock_data.py here to keep this file lightweight.
         # ==============================================================================
         self.enrollment_steps = ""
         self.requirements = []
@@ -21,7 +21,6 @@ class AdmissionModule:
     def Get_Admission_FAQ(self): 
         # ==============================================================================
         # 📝 ENRICO'S TASK (33%): DATA SEEDING & STATIC TEXT DATA POOL
-        # Return a dictionary or list of frequently asked questions regarding PUP admissions.
         # ==============================================================================
         pass
 
@@ -29,9 +28,7 @@ class AdmissionModule:
     # 🧠 LEAD ARCHITECT LOGIC (66%): EVALUATION ENGINE
     # ==============================================================================
     def check_submission_eligibility(self, student_type: str, submitted_documents: list) -> dict:
-        """
-        Evaluates submitted documents against the track benchmarks.
-        """
+        """Evaluates submitted documents against the track benchmarks."""
         requirements_map = {
             "Freshman": ["Grade 12 Report Card", "PUPCET Results", "Birth Certificate"],
             "Transferee": ["Official Transcript of Records (TOR)", "Honorable Dismissal"],
