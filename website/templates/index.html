@@ -1,3 +1,4 @@
+<!-- This is the Main Page -->
 <!-- style.css must be in website/static to be rendered -->
 <!-- all images must be in website/static to be rendered -->
 
@@ -14,365 +15,117 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <style>
-    /* Design for specific */
-
-        html, body { overflow-x: hidden; }
-
-        /* Hover Border Color - Choose University */
-        .univ-dropdown { position: relative; display: inline-block; margin-left: 0px; vertical-align: middle; }
-        .univ-btn {
-            background: transparent;
-            color: inherit;
-            color: #fff;
-            border: 2px solid rgba(220, 18, 18, 0.12);
-            padding: 6px 80px;
-            border-radius: 400px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 14px;
-        }
-        /* background color of hover - Choose University */
-        .univ-dropdown .dropdown-content {
-            display: none;
-            position: absolute;
-            background: #fff;
-            min-width: 240px;
-            box-shadow: 0 8px 16px rgba(92, 25, 25, 0.15);
-            padding: 6px 0;
-            z-index: 100;
-            top: 110%;
-            left: 0;
-        }
-        /* To show the University Options */
-        .univ-dropdown:hover .dropdown-content,
-        .univ-dropdown:focus-within .dropdown-content {
-            display: block;
-        }
-        /* text color, size of hovers - Choose University */
-        .dropdown-item {
-            padding: 8px 14px;
-            white-space: nowrap;
-            color: #222;
-            text-decoration: none;
-            display: block;
-            font-size: 14px;
-        }
-        .dropdown-item:hover { background: #f5f5f5; }
-
-        /* Nav item dropdowns - About PUP, Admission, Scholarships, For Students, Forum */
-        .nav-links ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 12px; align-items: center; }
-        .nav-links ul li { position: relative; }
-        .nav-dropdown { position: relative; display: inline-block; }
-        .nav-link-btn {
-            background: transparent;
-            border: none;
-            padding: 6px 10px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 14px;
-            color: inherit;
-        }
-        .nav-dropdown .dropdown-content {
-            display: none;
-            position: absolute;
-            background: #fff;
-            min-width: 140px;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
-            padding: 6px 0;
-            z-index: 100;
-            top: 120%;
-            left: 0;
-        }
-        .nav-dropdown:hover .dropdown-content,
-        .nav-dropdown:focus-within .dropdown-content {
-            display: block;
-        }
-        .nav-dropdown .dropdown-item { padding: 6px 10px; font-size: 13px; }
-        .nav-dropdown .label { font-weight: 600; margin-right: 8px; color: #333; }
-
-        /* NEW: position nav items to the right and make top-level texts white,
-                 keep dropdown items dark and align their label/content */
-        nav { display: flex; align-items: center; gap: 12px; width: 100%; }
-        .nav-links { margin-left: auto; }                    /* push nav links to the right */
-        .nav-links .nav-item,
-        .nav-links .nav-link-btn { color: #fff; }            /* top-level link text color white */
-        .nav-links .nav-item:hover,
-        .nav-links .nav-link-btn:hover { color: #fff; }      /* keep top-level hover white */
-
-        /* dropdown placement & alignment under parent button */
-        .nav-dropdown .dropdown-content {
-            top: calc(100% + 6px);
-            left: 0;
-            min-width: 180px;
-            box-sizing: border-box;
-            white-space: nowrap;
-        }
-        /* dropdown items remain dark and aligned with a fixed label column */
-        .nav-dropdown .dropdown-item {
-            color: #222;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 12px;
-            
-        }
-        .nav-dropdown .dropdown-item:hover {
-            background: #f5f5f5;
-            color: #000;
-        }
-        .nav-dropdown .dropdown-item .label {
-            display: inline-block;
-            width: 24px;             /* fixed column for labels */
-            text-align: left;
-            font-weight: 600;
-            color: #333;
-            margin-right: 8px;
-        }
-
-        /* NEW: login button */
-        .login-btn {
-        /* This magic line pushes the button all the way to the right side of the flexbox */
-        margin-left: auto; 
-        
-        /* Optional: Stylings to match your design */
-        padding: 8px 16px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        }
-
-        /* ensure nav uses flex so items after .nav-links sit at the far right */
-        nav { 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; width: 80%; 
-            flex-wrap: wrap; /* allow multiple rows */
-        }
-        
-
-        .nav-links ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;       /* wrap buttons into new rows */
-            justify-content: flex-end;
-        }
-
-        /* style for login list item so it lines up with other nav items */
-        .nav-links ul li.login-li { align-items: center; }
-
-        .nav-links ul li {
-            margin: 6px 0;
-        }
-
-        .nav-dropdown .dropdown-content {
-            top: calc(100% + 6px);
-            left: 0;
-        }
-
-        /* ensure single plain link (e.g. Scholarship) matches top-level styling */
-        .nav-links a.nav-item.nav-link { color: #fff; text-decoration: none; }
-        .nav-links a.nav-item.nav-link:hover { color: #fff; opacity: 0.95; }
-
-         /* Menu button for compact mode */
-        .menu-btn {
-            display: none;
-            background: transparent;
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.15);
-            padding: 8px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 14px;
-            align-items: center;
-            gap: 8px;
-            left: -50px;
-        }
-
-        /* Compact mode — applied by JS when viewport < half the screen width */
-        body.compact .menu-btn { display: inline-flex; align-items: center; gap: 8px; }
-
-        /* Hide inline nav list in compact mode; show a floating panel when opened */
-        body.compact .nav-links { display: none; }
-        body.compact .nav-links.open {
-            display: block;
-            position: fixed;
-            top: 64px; /* adjust to your header height */
-            right: 12px;
-            background: #fff;
-            color: #000;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            width: 260px;
-            max-width: calc(100% - 32px);
-            padding: 12px;
-            z-index: 999;
-        }
-        /* Stack items vertically inside the opened compact panel */
-        body.compact .nav-links.open ul {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-            padding: 8px 0;
-        }
-        
-        body.compact .nav-links.open ul > li {
-        width: 100%;
-        border-bottom: 1px solid rgba(0,0,0,0.06);
-        }
-
-        /* In compact panel show dropdowns expanded inline for touch */
-        body.compact .nav-dropdown .dropdown-content {
-            position: static;
-            box-shadow: none;
-            background: transparent;
-            padding: 0;
-            min-width: 0;
-        }
-        body.compact .nav-dropdown .dropdown-item,
-        body.compact .nav-link-btn,
-        body.compact .login-btn,
-        body.compact .univ-btn {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 12px;
-            background: transparent;
-            color: #000;
-            border: none;
-            text-align: left;
-            font-size: 15px;
-        }
-
-        body.compact .nav-dropdown .dropdown-item {
-            display: block;
-            color: #000;
-            padding: 8px 12px;
-        }
-        body.compact .nav-dropdown .dropdown-item:hover { background: rgba(0,0,0,0.04); }
-
-        body.compact .nav-dropdown .dropdown-content {
-            display: none;
-            position: static;
-            box-shadow: none;
-            background: transparent;
-            padding-left: 18px;
-            padding-top: 6px;
-            padding-bottom: 6px;
-        }
-        body.compact .nav-dropdown.open .dropdown-content {
-            display: block;
-        }
-
-    </style>
-
 </head>
 
 <body>
-    <section class="header">
-<!-- Logo -->
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <section class="header" id="header">
+        <!-- Logo -->
         <nav>
-        <a href="{{ url_for('static', filename='index.html') }}"><img src="{{ url_for('static', filename='images/pup_logo.png') }}"></a>
+            <a href="{{ url_for('static', filename='index.html') }}"><img src="{{ url_for('static', filename='images/pup_logo.png') }}"></a>
 
-        <div class="univ-dropdown" aria-label="Universities menu">
-            <button class="univ-btn" aria-haspopup="true" aria-expanded="false">Choose University</button>
-            <div class="dropdown-content" role="menu" aria-label="Universities list">
-                <a class="dropdown-item" href="#">Polytechnic University of the Philippines</a>
-                <a class="dropdown-item" href="#">University of the Philippines</a>
+            <div class="univ-dropdown" aria-label="Universities menu">
+                <button class="univ-btn" aria-haspopup="true" aria-expanded="false">Choose Universities</button>
+                <div class="dropdown-content" role="menu" aria-label="Universities list">
+                    <a class="dropdown-item" href="#">Polytechnic University of the Philippines</a>
+                    <a class="dropdown-item" href="#">University of the Philippines</a>
+                </div>
             </div>
-        </div>
+            
+            <!-- Main Modules/Page-->
+            <div class="nav-links" id="navLinks" aria-hidden="true">
+                    <i class="fa fa-times" onclick="hideMenu()" aria-hidden="true"></i>
+                <ul>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Home menu">
+                            <button class="nav-link-btn" href="home">Home</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="/home#profile"><span class="label">Profile</span></a>
+                                <a class="dropdown-item" href="/home#awards-recognition"><span class="label">Awards/Recognitions</span></a>
+                                <a class="dropdown-item" href="/home#campuses"><span class="label">Campuses</span></a>
+                                <a class="dropdown-item" href="/home#history"><span class="label">History</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Admission menu">
+                            <button class="nav-link-btn" href="admission">Admission</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="/admission#programs"><span class="label">Programs</span></a>
+                                <a class="dropdown-item" href="/admission#colleges"><span class="label">Colleges</span></a>
+                                <a class="dropdown-item" href="/admission#requirements"><span class="label">Requirements</span></a>
+                                <a class="dropdown-item" href="/admission#timeline"><span class="label">Timeline</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Scholarship menu">
+                            <button class="nav-link-btn">Scholarship</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="#"><span class="label">See Available</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="For Students menu">
+                            <button class="nav-link-btn">For Students</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="#"><span class="label">Services</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Organizations/Clubs</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Forms</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Forum menu">
+                            <button class="nav-link-btn">Forum</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="#"><span class="label">Discussions</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Announcements</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Help</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="login-li">
+                        <a class="login-btn" href="signup">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+                <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
 
-        <!-- CSS-only Menu toggle (checkbox + label) -->
-        <label for="menuToggle" class="menu-btn">Menu <i class="fa fa-bars" style="margin-left:6px;"></i></label>
-
-<!-- Main Modules/Page-->
-        <div class="nav-links" id="navLinks">
-            <i class="fa fa-times" onclick="hideMenu()"></i>
-            <ul>
-                <li>
-                    <div class="nav-dropdown" aria-label="About PUP menu">
-                        <button class="nav-link-btn">About PUP</button>
-                        <div class="dropdown-content" role="menu">
-                            <a id="profile-link" class="dropdown-item" href="#faqs"><span class="label">Profile</span></a>
-                            <a class="dropdown-item" href="#"><span class="label">Awards/Recognitions</span></a>
-                            <a class="dropdown-item" href="#"><span class="label">Campuses</span></a>
-                            <a class="dropdown-item" href="#"><span class="label">History</span></a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="nav-dropdown" aria-label="Admission menu">
-                        <button class="nav-link-btn">Admission</button>
-                        <div class="dropdown-content" role="menu">
-                            <a class="dropdown-item" href="#"><span class="label">Programs</span></a>
-                            <a class="dropdown-item" href="#"><span class="label">Colleges</span></a>
-                            <a class="dropdown-item" href="#"><span class="label">Requirements</span></a>
-                            <a class="dropdown-item" href="#"><span class="label">Timeline</span></a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="nav-dropdown" aria-label="Admission menu">
-                        <button class="nav-link-btn">Scholarship</button>
-                        <div class="dropdown-content" role="menu">
-                            <a class="dropdown-item" href="#"><span class="label">See Available</span></a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="nav-dropdown" aria-label="For Students menu">
-                        <button class="nav-link-btn">For Students</button>
-                        <div class="dropdown-content" role="menu">
-                            <a class="dropdown-item" href="#"><span class="label">Services</span></a>
-                            <a class="dropdown-item" href="#"><span class="label">Organizations/Clubs</span></a>
-                            <a class="dropdown-item" href="#"><span class="label">Forms</span></a>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="nav-dropdown" aria-label="Forum menu">
-                        <button class="nav-link-btn">Forum</button>
-                        <div class="dropdown-content" role="menu">
-                            <a class="dropdown-item" href="#"><span class="label">Discussions</span></a>
-                            <a class="dropdown-item" href="#"><span class="label">Announcements</span></a>
-                            <a class="dropdown-item" href="#"><span class="label">Help</span></a>
-                        </div>
-                    </div>
-                </li>
-                <li class="login-li">
-                    <a class="login-btn" href="#">Log in</a>
-                </li>
-            </ul>
-        </div>
-        <i class="fa fa-bars" onclick="showMenu()"></i>
-    </nav>
-<!-- For Testing if modules are responding -->
-        <div class="container">
-        {% block content %}
-        {% endblock %}
-        </div>
-
-    <!-- Main Title -->    
+<!-- Main Title -->    
     <div class="text-box">
         <h1>Welcome to Polytechnic University of the Philippines</h1>
         <p>We are committed to providing quality education and fostering a culture of excellence. <br> Join us in our mission to empower students and contribute to the development of our nation.</p>
-        <a href="#" class="hero-btn">Visit Us Now</a>
+        <a href="https://www.pup.edu.ph/" class="hero-btn">Visit Us Now</a>
     </div>
 </section>
 
-<!----About us section---->
+<!----Profile section---->
 
-<section id="faqs" class="faqs">
-    <h1>Frequently Asked Questions</h1>
+<section class="faqs" id="profile">
+    <h1>Profile</h1>
+    <div class="faqs-row">
+        <div class="faqs-col">
+            <h3>What are the admission requirements?</h3>
+            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>What programs do you offer?</h3>
+            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>How can I contact the university?</h3>
+            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+        </div>
+    </div>
+</section>
+
+<!----Awards/Recognition section---->
+
+<section class="faqs" id="awards-recognition">
+    <h1>Awards and Recognition</h1>
     <div class="faqs-row">
         <div class="faqs-col">
             <h3>What are the admission requirements?</h3>
@@ -391,7 +144,7 @@
 
 <!--- Campus Section --->
 
-<section class="campus">
+<section class="campus" id="campuses">
     <h1>Our Campus</h1>
     <p>Explore our beautiful campus and the facilities we offer to support your academic journey.</p>
 
@@ -417,16 +170,50 @@
     </div>
 </section>
 
+<!----History section---->
+
+<section class="faqs" id="history">
+    <h1>History of PUP</h1>
+    <div class="faqs-row">
+        <div class="faqs-col">
+            <h3>What are the admission requirements?</h3>
+            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>What programs do you offer?</h3>
+            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>How can I contact the university?</h3>
+            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+        </div>
+    </div>
+</section>
+
+
+<!---- Footer Section ---->
+<footer>
+    <p>&copy; 2026 Polytechnic University of the Philippines. All rights reserved.</p>
+</footer>
+
 <!--- JavaScript for Toggle Menu --->
 <script>
     var navLinks = document.getElementById("navLinks");
+    var openBtn = document.querySelector('.fa-bars');
+    var closeBtn = document.querySelector('.fa-times');
     function showMenu(){
-        navLinks.style.right = "0";
+        navLinks.classList.add('open');
+        navLinks.setAttribute('aria-hidden','false');
+        if(openBtn) openBtn.setAttribute('aria-hidden','true');
+        if(closeBtn) closeBtn.setAttribute('aria-hidden','false');
     }
     function hideMenu(){
-        navLinks.style.right = "-250px";
+        navLinks.classList.remove('open');
+        navLinks.setAttribute('aria-hidden','true');
+        if(openBtn) openBtn.setAttribute('aria-hidden','false');
+        if(closeBtn) closeBtn.setAttribute('aria-hidden','true');
     }
+    
 </script>
-
 </body>
 </html>
