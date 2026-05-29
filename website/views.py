@@ -11,6 +11,7 @@ views = Blueprint('views', __name__)
 # ==================================================
 
 @views.route('/')
+@views.route('/home') # 🏢 FIX: Added alias so Dustin's navbar link doesn't break
 def home():
     role_num = session.get('role', 4)
     role_labels = {1: "Admin", 2: "Moderator", 3: "Student", 4: "Visitor"}
@@ -112,7 +113,6 @@ def student_forum():
             return render_template("forum.html", posts=active_posts, role=current_role, error="Access Denied: Visitors are limited to VIEW-ONLY access.")
         
         # Pull text components from Dustin's front-end input forms
-        # Adjust the keys ('title'/'content') to match exactly what Dustin named his HTML textareas
         post_title = request.form.get('title', 'Campus Discussion')
         post_content = request.form.get('content')
         
@@ -142,7 +142,7 @@ def about_credits():
     contacts = controller.about_module.show_Campus_Contacts()
     
     return render_template(
-        "aboutPUP.html", 
+        "aboutPUP.html", # 📝 NOTE: Matches your sidebar's template file exactly
         school_description=description, 
         campus_contacts=contacts
     )
