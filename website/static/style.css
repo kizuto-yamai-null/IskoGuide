@@ -1,3 +1,8 @@
+/* This is for every layout and design */
+/*==============================================================================================*/
+
+
+
 *{
     margin: 0;
     padding: 0;
@@ -10,13 +15,54 @@
     --text-light: #ffffff;
 }
 .header{
-    min-height: 100vh;
+    height: 100vh;
     width: 100%;
     background-image: linear-gradient(var(--bg-dark), rgba(154, 25, 25, 0.7)), url("images/pup.jpg");
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     position: relative;
 }
+
+
+/*==============================================================================================*/
+
+/* Admission page */
+
+/*==============================================================================================*/
+
+
+.header.header-admission {
+    background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.12)), url("images/admission.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+
+    /* ensure this overrides the default header background */
+}
+
+
+/*==============================================================================================*/
+
+/* Signup page header */
+
+/*==============================================================================================*/
+
+
+
+.header.header-signup {
+    background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.12)), url("images/home.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+}
+
+
 nav{
     display: flex;
     padding: 2% 6%;
@@ -25,6 +71,9 @@ nav{
 }
 nav img{
     width: 100px;
+}
+nav .fa{
+    display: none;
 }
 .nav-links{
     flex: 1;
@@ -54,6 +103,78 @@ nav img{
 }
 .nav-links ul li:hover::after{
     width: 100%;
+}
+/* place the Choose University button always to the right of the logo */
+.nav-dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    
+    /* --- CHANGED/ADDED PROPERTIES --- */
+    width: 100%;             /* Force it to match the parent button's width */
+    box-sizing: border-box;  /* Ensures padding doesn't break the 100% width */
+    /* min-width: 220px; */  /* REMOVE OR COMMENT THIS OUT */
+    /* -------------------------------- */
+
+    padding: 10px;
+    padding: auto;
+    z-index: 100;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 24px 40px rgba(35, 10, 10, 0.18);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+.univ-btn {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(220, 18, 18, 0.12);
+    padding: 6px 40px;
+    border-radius: 400px;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 14px;
+    margin-left: 12px;      /* gap from nav-links */
+    margin-right: 8px;      /* small gap from edge/padding */
+    display: inline-flex;
+    align-items: center;
+}
+/* Login button styling and spacing (separate from nav list) */
+.login-btn {
+    background: rgb(231, 83, 42);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 14px;
+    margin-left: 12px;      /* gap from nav-links */
+    margin-right: 8px;      /* small gap from edge/padding */
+    display: inline-flex;
+    align-items: center;
+}
+.login-btn:hover { background: rgba(255,255,255,0.06); }
+
+/* ensure logo + university button stay on a single row */
+.logo-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;               /* space between logo and button */
+}
+.logo-wrap { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 8px; 
+}
+.logo-wrap img { 
+    display: block; 
+    max-width: 160px; 
+    height: auto; 
 }
 .text-box{
     width: 90%;
@@ -91,8 +212,8 @@ nav img{
     transition: 0.5s;
 }
 
-nav .fa{
-    display: none;
+#header {
+    background-color: blue;
 }
 
 /*----- mobile size -----*/
@@ -119,6 +240,8 @@ nav .fa{
         background-image: linear-gradient(var(--bg-dark), rgba(154, 25, 25, 0.7)), url("images/pup.jpg");
         background-position: center;
         background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
         height: 100vh;
         width: var(--nav-width);
         top: 0;
@@ -145,7 +268,12 @@ nav .fa{
 
 
 
+
+/*==============================================================================================*/
+
 /*----- FAQs -----*/
+
+/*==============================================================================================*/
 
 
 
@@ -206,7 +334,11 @@ h3{
 
 
 
+/*==============================================================================================*/
+
 /*----- campus -----*/
+
+/*==============================================================================================*/
 
 
 
@@ -282,8 +414,178 @@ h3{
 
 
 
+/*==============================================================================================*/
+
+/* ----- Profile Section ----- */
+
+/*==============================================================================================*/
+
+
+
+
+.profile{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 50px;
+}
+.profile-container h1{ 
+    margin-bottom: 8px; 
+}
+.profile-container p{ 
+    color: #666; 
+    margin-bottom: 22px; 
+}
+.profile-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+.profile-card{
+    background: #ffffffee;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    border-left: 4px solid var(--accent);
+}
+.profile-card h3{ 
+    margin-bottom: 10px; 
+    color: #222; 
+}
+.profile-card p{ 
+    color: #444; 
+    line-height: 1.6; 
+}
+.profile-card b{ 
+    color: black;
+    font-weight: 600; 
+}
+.profile-card .signature{ 
+    margin-top: 12px; 
+    font-style: italic; 
+    color: #555; }
+
+@media (max-width: 900px){
+    .profile-grid{ 
+        grid-template-columns: 1fr; 
+    }
+}
+
+
+
+/*==============================================================================================*/
+
+/* ----- Map Section ----- */
+
+/*==============================================================================================*/
+
+
+
+.map{
+    width: 80%;
+    margin: 60px auto;
+    text-align: center;
+    padding-top: 20px;
+}
+.map-header h1{ 
+    margin-bottom: 6px; 
+}
+.map-header p{ 
+    color: #666; 
+    margin-bottom: 18px; 
+}
+.map-container{
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+.map-card{
+    flex: 2;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+}
+.map-embed{ 
+    width: 100%; 
+    height: 360px; 
+}
+.map-embed iframe{ 
+    width: 100%; 
+    height: 100%; 
+    border: 0; 
+    display: block; 
+}
+.map-details{
+    flex: 1;
+    background: #fffdfd;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: stretch;
+}
+.map-details .campus-thumb{
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+.map-details .campus-thumb:hover{
+    bottom: 49%;
+    transform: scale(1.02);
+    transition: 0.5s;
+}
+
+@media (max-width: 900px){
+    .map-details .campus-thumb{ height: 200px; }
+}
+.map-details h3{ 
+    margin: 8px 0 0 0; 
+}
+.map-details .addr{ 
+    color: #444; 
+    font-size: 14px; 
+    margin-bottom: 8px; 
+}
+.map-actions{ 
+    display:flex; 
+    gap: 10px; 
+    margin-top: 8px; 
+}
+.map-btn{
+    display: inline-block;
+    padding: 10px 12px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}
+.map-btn:hover{ opacity: 0.95; }
+.map-btn-outline{ background: transparent; color: var(--accent); border: 1px solid rgba(244,67,54,0.12); }
+
+@media (max-width: 900px){
+    .map-container{ flex-direction: column; }
+    .map-embed{ height: 300px; }
+}
+
+
+
+
+/*==============================================================================================*/
+
 /*----- dropdown -----*/
 /* Dropdown styles for both university and navigation dropdowns */
+
+/*==============================================================================================*/
 
 
 
@@ -491,6 +793,8 @@ nav {
         top: 0;
         height: 100vh;
         z-index: 2000;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
     .nav-links ul{
         padding: 40px 20px;
@@ -524,3 +828,20 @@ nav {
 }
 
 body { -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+
+
+/*==============================================================================================*/
+
+/* ----- Footer ----- */
+
+/*==============================================================================================*/
+
+
+
+footer {
+    background: #241111;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 14px;
+}
