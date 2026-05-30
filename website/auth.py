@@ -27,12 +27,12 @@ def login():
                 
             # --- ROLE GATE: STUDENT (Uses Email & Password validation) ---
             elif selected_role == 3:
-                email = request.form.get('email_input', '')
-                password = request.form.get('password_input', '')
+                # 🛠️ FIXED: Matched Dustin's frontend form name identifiers exactly
+                email = request.form.get('email', '')
+                password = request.form.get('password', '')
                 
-                # Check your controller state (We pass these to your verification engine)
-                # Note: You'll implement verify_student in your controller later
-                if hasattr(controller, 'verify_student') and controller.verify_student(email, password):
+                # 🛠️ FIXED: Removed hasattr safetynet to call the direct verification engine
+                if controller.verify_student(email, password):
                     session['role'] = 3
                     session['user_email'] = email
                     return redirect(url_for('views.home', role="Student"))
@@ -64,15 +64,15 @@ def signup():
     Handles capturing input from Dustin's signup form and sending it to the controller.
     """
     if request.method == 'POST':
-        email = request.form.get('email_input', '')
-        password = request.form.get('password_input', '')
+        # 🛠️ FIXED: Matched Dustin's frontend registration fields
+        email = request.form.get('email', '')
+        password = request.form.get('password', '')
         
-        # Call registration check in controller (will handle appending to your mock data array)
-        if hasattr(controller, 'register_student'):
-            success, message = controller.register_student(email, password)
-            if success:
-                return redirect(url_for('auth.login'))
-            return render_template("signup.html", error=message)
+        # 🛠️ FIXED: Removed hasattr check to directly register the student object instance
+        success, message = controller.register_student(email, password)
+        if success:
+            return redirect(url_for('auth.login'))
+        return render_template("signup.html", error=message)
             
     return render_template("signup.html", error=None)
 

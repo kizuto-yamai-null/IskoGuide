@@ -80,8 +80,6 @@ student_shops = [
     }
 ]
 
-# mock_data.py
-
 # 3. Upgraded Admissions Module Data Layout (modules/admission.py)
 # Trimmed Matrix: Exactly 4 high-priority tracking requirements per student track
 admission_requirements_matrix = {
@@ -104,4 +102,34 @@ admission_requirements_matrix = {
         "PUP Student ID Card for status reactivation tracking"
     ]
 }
-about_assets = {"website": "pup.edu.ph","social_media": {"twitter": "@ThePUPOfficial","linkedin": "PUP Official","facebook": "Polytechnic University of the Philippines"}}
+# 4. About Module Assets (modules/about.py)
+# Expanded Matrix: Includes social media handles, official administrative helpdesks, and hotlines
+about_assets = {
+    "website": "pup.edu.ph",
+    "social_media": {
+        "twitter": "@ThePUPOfficial",
+        "linkedin": "PUP Official",
+        "facebook": "Polytechnic University of the Philippines"
+    },
+    # 🏢 Added direct communication desks pulled from official university contact nodes
+    "helpdesks": [
+        {
+            "office": "PUP Office of the University Registrar",
+            "email": "registrar@pup.edu.ph",
+            "hotline": "(632) 5335-1787 local 6285",
+            "location": "Main Campus, Ground Floor South Wing"
+        },
+        {
+            "office": "PUP Admission Services Desk",
+            "email": "admissions@pup.edu.ph",
+            "hotline": "(632) 5335-1787 local 6287 or 6322",
+            "location": "Main Campus, Ground Floor East Wing"
+        },
+        {
+            "office": "PUP Medical Clinic / Health Services",
+            "email": "medical@pup.edu.ph",
+            "hotline": "(632) 5335-1777",
+            "location": "Main Campus, East Wing Grounds"
+        }
+    ]
+}
