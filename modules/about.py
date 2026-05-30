@@ -3,6 +3,7 @@ from mock_data import about_assets
 
 class AboutModule:
     def __init__(self):
+        # Establish reference to the centralized assets dictionary
         self.metadata = about_assets
 
     def show_School_Credits(self):
@@ -13,14 +14,21 @@ class AboutModule:
         }
 
     def show_Campus_Contacts(self):
-        """Extracts social channels dictionary data from Enrico's data arrays."""
-        contacts_table = []
-        socials = self.metadata.get("social_media", {})
+        """
+        Extracts both the social media platform handles AND the newly added 
+        official administrative phone numbers/emails for frontend rendering.
+        """
+        contacts_package = {
+            "socials": [],
+            "offices": self.metadata.get("helpdesks", [])  # ◄ Unpacks the fixed desk lists safely
+        }
         
+        # Loop through and structure social channels safely
+        socials = self.metadata.get("social_media", {})
         for platform, handle in socials.items():
-            contacts_table.append({
+            contacts_package["socials"].append({
                 "channel": platform.capitalize(),
                 "address": handle
             })
             
-        return contacts_table
+        return contacts_package
