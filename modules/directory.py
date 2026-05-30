@@ -17,8 +17,8 @@ class CampusDirectory:
 
     def search_campus_directory(self, query_string):
         """
-        Enrico's logic upgraded: Case-insensitive search filter that returns 
-        matching items from both landmarks and local consumer shops.
+        Upgraded Search Engine: Scans names, descriptions, AND 
+        custom keyword tags case-insensitively.
         """
         clean_query = query_string.lower().strip()
         if not clean_query:
@@ -28,12 +28,19 @@ class CampusDirectory:
         
         # Scan landmarks
         for item in self.landmarks_list:
-            if clean_query in item["name"].lower() or clean_query in item["description"].lower():
+            if (clean_query in item["name"].lower() or 
+                clean_query in item["description"].lower() or 
+                any(clean_query in tag for tag in item.get("keywords", []))):
+                
                 matches.append({"type": "Landmark", "name": item["name"], "info": f"{item['location']} - {item['description']}"})
                 
         # Scan shops
         for shop in self.shops_list:
-            if clean_query in shop["name"].lower() or clean_query in shop["description"].lower():
+            if (clean_query in shop["name"].lower() or 
+                clean_query in shop["description"].lower() or 
+                any(clean_query in tag for tag in shop.get("keywords", []))):
+                
                 matches.append({"type": "Shop/Service", "name": shop["name"], "info": f"[{shop['type_of_service']}] {shop['location']} - {shop['description']}"})
 
         return matches
+    
