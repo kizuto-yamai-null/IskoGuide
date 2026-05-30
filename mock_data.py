@@ -80,6 +80,28 @@ student_shops = [
     }
 ]
 
-# (Keep Enrico's exact admission_steps and about_assets lists down below unchanged)
-admission_steps = ["Original copy of SAR Form","Original copy of CTC of Grade 10 and 11 Report Cards","Original copy of Grade 12 Report Card","Original copy of PSA Birth Certificate","Original copy of Good Moral Certificate (with dry seal)","Original copy of Oath of Undertaking / Waiver","Original copy of Route & Approval Slip","Original copy of Health Information Form","Chest X-ray film or printed result (must be dated within 6 months prior to enrollment)"]
+# mock_data.py
+
+# 3. Upgraded Admissions Module Data Layout (modules/admission.py)
+# Trimmed Matrix: Exactly 4 high-priority tracking requirements per student track
+admission_requirements_matrix = {
+    "Freshman": [
+        "Original copy of SAR Form (PUP iApply Enrollment Voucher)",
+        "Original copy of Grade 12 Report Card (Form 138)",
+        "Original copy of PSA Birth Certificate",
+        "Original copy of Certificate of Good Moral Character (with dry seal)"
+    ],
+    "Transferee": [
+        "Certified True Copy of Honorable Dismissal / Transfer Credentials",
+        "Official Transcript of Records (TOR) or Informative Copy of Grades",
+        "Original copy of PSA Birth Certificate",
+        "Certificate of Good Moral Character from previous university"
+    ],
+    "Returnee": [
+        "Approved and signed Application for Readmission Form",
+        "PUP Student Academic Record (SAR) evaluation printout",
+        "University Clearance Form (Library, Accounting, and Registrar)",
+        "PUP Student ID Card for status reactivation tracking"
+    ]
+}
 about_assets = {"website": "pup.edu.ph","social_media": {"twitter": "@ThePUPOfficial","linkedin": "PUP Official","facebook": "Polytechnic University of the Philippines"}}

@@ -1,36 +1,50 @@
 # modules/admission.py
-from mock_data import admission_steps
+from mock_data import admission_requirements_matrix
 
 class AdmissionModule:
     def __init__(self):
-        self.steps_pool = admission_steps
+        # Load the newly refined requirement matrices
+        self.requirements_pool = admission_requirements_matrix
 
     def show_Enrollment_Guide(self):
-        """Upgraded from print: Returns the clean steps array to render on web views."""
-        return self.steps_pool
+        """Returns a generic master collection list across all enrollment pipelines."""
+        master_list = []
+        for track, docs in self.requirements_pool.items():
+            master_list.extend(docs)
+        return list(set(master_list)) # Returns unique checklist entries safely
 
     def list_Requirements(self, gwa=1.0):
-        """Baseline structural helper required by system controller specs."""
-        return [f"Maintain standard compliance thresholds (Current baseline filter: {gwa})"]
+        """Returns baseline threshold informational arrays for registration."""
+        return [f"General Weighted Average evaluation baseline: {gwa}. Verification tracking active."]
 
     def check_submission_eligibility(self, student_type, submitted_docs):
         """
-        Processes form checkboxes from the frontend to determine if the 
-        student has supplied all documents from Enrico's checklist array.
+        Dynamically filters checklists based on student_type. Checks incoming checkboxes 
+        strictly against the tailored documents required for that track.
         """
+        # Clean and safely map student type string input
+        target_track = "Freshman"
+        if student_type and "transferee" in student_type.lower():
+            target_track = "Transferee"
+        elif student_type and "returnee" in student_type.lower():
+            target_track = "Returnee"
+
+        required_docs = self.requirements_pool.get(target_track, self.requirements_pool["Freshman"])
+        
         if not submitted_docs:
-            return {"is_eligible": False, "missing": self.steps_pool, "message": "No documents submitted yet."}
+            return {"is_eligible": False, "missing": required_docs, "message": f"No files provided yet for the {target_track} stream."}
             
-        missing_docs = [step for step in self.steps_pool if step not in submitted_docs]
+        # Filter logic tracking missing arrays
+        missing_docs = [doc for doc in required_docs if doc not in submitted_docs]
         
         if len(missing_docs) == 0:
             return {
                 "is_eligible": True,
-                "message": f"Congratulations! Your documentation is complete for a {student_type} submission track."
+                "message": f"Documentation complete! All parameters satisfied for a secure {target_track} entry path."
             }
         else:
             return {
                 "is_eligible": False,
                 "missing": missing_docs,
-                "message": f"Pending Action: You have {len(missing_docs)} missing document requirements left to supply."
+                "message": f"Action Required: You have {len(missing_docs)} missing requirements specific to your {target_track} status."
             }
