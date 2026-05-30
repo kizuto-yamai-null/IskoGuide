@@ -1,17 +1,26 @@
 # modules/about.py
-import sys
-from pathlib import Path
-sys.path.append(str(Path(__file__).resolve().parent.parent))
-
 from mock_data import about_assets
 
-def display_university_info():
-    print("--- About Polytechnic University of the Philippines ---")
-    print(f"Official Website: {about_assets['website']}")
-    print("Social Media Handles:")
-    for platform, handle in about_assets['social_media'].items():
-        print(f"  - {platform.capitalize()}: {handle}")
+class AboutModule:
+    def __init__(self):
+        self.metadata = about_assets
 
-# Example usage:
-if __name__ == "__main__":
-    display_university_info()
+    def show_School_Credits(self):
+        """Returns institutional links and core descriptive profile tokens."""
+        return {
+            "description": "The Polytechnic University of the Philippines is a premier state university committed to providing inclusive and high-quality technological and professional education.",
+            "website": self.metadata.get("website", "pup.edu.ph")
+        }
+
+    def show_Campus_Contacts(self):
+        """Extracts social channels dictionary data from Enrico's data arrays."""
+        contacts_table = []
+        socials = self.metadata.get("social_media", {})
+        
+        for platform, handle in socials.items():
+            contacts_table.append({
+                "channel": platform.capitalize(),
+                "address": handle
+            })
+            
+        return contacts_table
