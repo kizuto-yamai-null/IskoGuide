@@ -1,6 +1,220 @@
-{% extends "index.html" %}
-{% block title %}Admission{% endblock %}
+<!-- This is for Admission Module -->
+<!-- style.css must be in website/static to be rendered -->
+<!-- all images must be in website/static to be rendered -->
 
-{% block content %}
-<h1>Admission</h1>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!---- Main ---->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IskoGuide{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- page-specific styling moved to static/style.css -->
+</head>
+
+<body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <section class="header header-admission">
+        <!-- Logo -->
+        <nav>
+            <a href="{{ url_for('static', filename='index.html') }}"><img src="{{ url_for('static', filename='images/pup_logo.png') }}"></a>
+
+            <div class="univ-dropdown" aria-label="Universities menu">
+                <button class="univ-btn" aria-haspopup="true" aria-expanded="false">Choose Universities</button>
+                <div class="dropdown-content" role="menu" aria-label="Universities list">
+                    <a class="dropdown-item" href="#">Polytechnic University of the Philippines</a>
+                    <a class="dropdown-item" href="#">University of the Philippines</a>
+                </div>
+            </div>
+
+            <!-- Main Title -->
+
+                <div class="nav-links" id="navLinks" aria-hidden="true">
+                    <i class="fa fa-times" onclick="hideMenu()" aria-hidden="true"></i>
+                <ul>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Home menu">
+                            <button class="nav-link-btn" href="home">Home</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="/home#profile"><span class="label">Profile</span></a>
+                                <a class="dropdown-item" href="/home#awards-recognition"><span class="label">Awards/Recognitions</span></a>
+                                <a class="dropdown-item" href="/home#campuses"><span class="label">Campuses</span></a>
+                                <a class="dropdown-item" href="/home#history"><span class="label">History</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Admission menu">
+                            <button class="nav-link-btn" href="admission">Admission</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="/admission#programs"><span class="label">Programs</span></a>
+                                <a class="dropdown-item" href="/admission#colleges"><span class="label">Colleges</span></a>
+                                <a class="dropdown-item" href="/admission#requirements"><span class="label">Requirements</span></a>
+                                <a class="dropdown-item" href="/admission#timeline"><span class="label">Timeline</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Scholarship menu">
+                            <button class="nav-link-btn">Scholarship</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="#"><span class="label">See Available</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="For Students menu">
+                            <button class="nav-link-btn">For Students</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="#"><span class="label">Services</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Organizations/Clubs</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Forms</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Forum menu">
+                            <button class="nav-link-btn">Forum</button>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="#"><span class="label">Discussions</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Announcements</span></a>
+                                <a class="dropdown-item" href="#"><span class="label">Help</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="login-li">
+                        <a class="login-btn" href="signup">Sign Up</a>
+                    </li>
+                </ul>
+            </div>
+                <i class="fa fa-bars" onclick="showMenu()"></i>
+
+                <div class="text-box">
+                    <h1>Admission</h1>
+                    <h2>Find what you needed here</h2>
+                    <p>We are commited in helping fellow iskolars. <br> Join us in our mission to empower students and contribute to the development of our nation.</p>
+                    <a href="#" class="hero-btn">Username</a>
+                    <a href="#" class="hero-btn">Password</a>
+                </div>
+        </nav>
+<!---->
+            <div class="container" id="main-content">
+            {% block content %}
+            {% endblock %}
+            </div>
+<!---->
+</section>
+
+
+<!----Programs section---->
+
+<section class="faqs" id="programs">
+    <h1>Programs</h1>
+    <div class="faqs-row">
+        <div class="faqs-col">
+            <h3>What are the admission requirements?</h3>
+            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>What programs do you offer?</h3>
+            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>How can I contact the university?</h3>
+            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+        </div>
+    </div>
+</section>
+
+<!----Colleges section---->
+
+<section class="faqs" id="colleges">
+    <h1>Colleges</h1>
+    <div class="faqs-row">
+        <div class="faqs-col">
+            <h3>What are the admission requirements?</h3>
+            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>What programs do you offer?</h3>
+            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>How can I contact the university?</h3>
+            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+        </div>
+    </div>
+</section>
+
+<!--- Requirements Section --->
+
+<section class="campus" id="requirements">
+    <h1>Requirements</h1>
+    <div class="faqs-row">
+        <div class="faqs-col">
+            <h3>What are the admission requirements?</h3>
+            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>What programs do you offer?</h3>
+            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>How can I contact the university?</h3>
+            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+        </div>
+    </div>
+</section>
+
+<!---- Timeline section---->
+
+<section class="faqs" id="timeline">
+    <h1>Timeline</h1>
+    <div class="faqs-row">
+        <div class="faqs-col">
+            <h3>What are the admission requirements?</h3>
+            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>What programs do you offer?</h3>
+            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>How can I contact the university?</h3>
+            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+        </div>
+    </div>
+</section>
+
+
+<!---- Footer Section ---->
+<footer>
+    <p>&copy; 2026 Polytechnic University of the Philippines. All rights reserved.</p>
+</footer>
+
+<!--- JavaScript for Toggle Menu --->
+<script>
+    var navLinks = document.getElementById("navLinks");
+    var openBtn = document.querySelector('.fa-bars');
+    var closeBtn = document.querySelector('.fa-times');
+    function showMenu(){
+        navLinks.classList.add('open');
+        navLinks.setAttribute('aria-hidden','false');
+        if(openBtn) openBtn.setAttribute('aria-hidden','true');
+        if(closeBtn) closeBtn.setAttribute('aria-hidden','false');
+    }
+    function hideMenu(){
+        navLinks.classList.remove('open');
+        navLinks.setAttribute('aria-hidden','true');
+        if(openBtn) openBtn.setAttribute('aria-hidden','false');
+        if(closeBtn) closeBtn.setAttribute('aria-hidden','true');
+    }
+    
+</script>
+</body>
+</html>
