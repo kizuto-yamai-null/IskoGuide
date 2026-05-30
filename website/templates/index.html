@@ -1,3 +1,4 @@
+<!-- This is the Main Page -->
 <!-- style.css must be in website/static to be rendered -->
 <!-- all images must be in website/static to be rendered -->
 
@@ -14,63 +15,51 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
 </head>
 
 <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <section class="header">
+    <section class="header" id="header">
         <!-- Logo -->
-            <nav>
+        <nav>
             <a href="{{ url_for('static', filename='index.html') }}"><img src="{{ url_for('static', filename='images/pup_logo.png') }}"></a>
 
+            <div class="univ-dropdown" aria-label="Universities menu">
+                <button class="univ-btn" aria-haspopup="true" aria-expanded="false">Choose Universities</button>
+                <div class="dropdown-content" role="menu" aria-label="Universities list">
+                    <a class="dropdown-item" href="#">Polytechnic University of the Philippines</a>
+                    <a class="dropdown-item" href="#">University of the Philippines</a>
+                </div>
+            </div>
+            
             <!-- Main Modules/Page-->
-                <div class="nav-links" id="navLinks" aria-hidden="true">
+            <div class="nav-links" id="navLinks" aria-hidden="true">
                     <i class="fa fa-times" onclick="hideMenu()" aria-hidden="true"></i>
-               <!-- Ignor this, to be reused if needed
-                <ul>
-                    <li><a class="nav-item nav-link" id="aboutPUP" href="/aboutPUP">About PUP</a></li>
-                    <li><a class="nav-item nav-link" id="admission" href="/admission">Admission</a></li>
-                    <li><a class="nav-item nav-link" id="scholarship" href="/scholarship">Scholarship</a></li>
-                    <li><a class="nav-item nav-link" id="forStudent" href="/forStudent"> For Students</a></li>
-                    <li><a class="nav-item nav-link" id="forum" href="/forum">Forum</a></li>
-                </ul>
-                -->
                 <ul>
                     <li>
-                        <div class="univ-dropdown" aria-label="Universities menu">
-                            <button class="univ-btn" aria-haspopup="true" aria-expanded="false">Choose Universities</button>
-                            <div class="dropdown-content" role="menu" aria-label="Universities list">
-                                <a class="dropdown-item" href="#">Polytechnic University of the Philippines</a>
-                                <a class="dropdown-item" href="#">University of the Philippines</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="nav-dropdown" aria-label="About PUP menu">
-                            <button class="nav-link-btn">About PUP</button>
+                        <div class="nav-dropdown" aria-label="Home menu">
+                            <button class="nav-link-btn" href="home">Home</button>
                             <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="#"><span class="label">Profile</span></a>
-                                <a class="dropdown-item" href="#"><span class="label">Awards/Recognitions</span></a>
-                                <a class="dropdown-item" href="#"><span class="label">Campuses</span></a>
-                                <a class="dropdown-item" href="#"><span class="label">History</span></a>
+                                <a class="dropdown-item" href="/home#profile"><span class="label">Profile</span></a>
+                                <a class="dropdown-item" href="/home#awards-recognition"><span class="label">Awards/Recognitions</span></a>
+                                <a class="dropdown-item" href="/home#campuses"><span class="label">Campuses</span></a>
+                                <a class="dropdown-item" href="/home#history"><span class="label">History</span></a>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="nav-dropdown" aria-label="Admission menu">
-                            <button class="nav-link-btn">Admission</button>
+                            <button class="nav-link-btn" href="admission">Admission</button>
                             <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="#"><span class="label">Programs</span></a>
-                                <a class="dropdown-item" href="#"><span class="label">Colleges</span></a>
-                                <a class="dropdown-item" href="#"><span class="label">Requirements</span></a>
-                                <a class="dropdown-item" href="#"><span class="label">Timeline</span></a>
+                                <a class="dropdown-item" href="/admission#programs"><span class="label">Programs</span></a>
+                                <a class="dropdown-item" href="/admission#colleges"><span class="label">Colleges</span></a>
+                                <a class="dropdown-item" href="/admission#requirements"><span class="label">Requirements</span></a>
+                                <a class="dropdown-item" href="/admission#timeline"><span class="label">Timeline</span></a>
                             </div>
                         </div>
                     </li>
                     <li>
-                        <div class="nav-dropdown" aria-label="Admission menu">
+                        <div class="nav-dropdown" aria-label="Scholarship menu">
                             <button class="nav-link-btn">Scholarship</button>
                             <div class="dropdown-content" role="menu">
                                 <a class="dropdown-item" href="#"><span class="label">See Available</span></a>
@@ -97,47 +86,66 @@
                             </div>
                         </div>
                     </li>
+                    <li class="login-li">
+                        <a class="login-btn" href="signup">Sign Up</a>
+                    </li>
                 </ul>
             </div>
-            <i class="fa fa-bars" onclick="showMenu()"></i>
+                <i class="fa fa-bars" onclick="showMenu()"></i>
         </nav>
-<!---->
-            <div class="container" id="main-content">
-            {% block content %}
-            {% endblock %}
-            </div>
-<!---->
-    <!-- Main Title -->    
+
+<!-- Main Title -->    
     <div class="text-box">
         <h1>Welcome to Polytechnic University of the Philippines</h1>
         <p>We are committed to providing quality education and fostering a culture of excellence. <br> Join us in our mission to empower students and contribute to the development of our nation.</p>
-        <a href="#" class="hero-btn">Visit Us Now</a>
+        <a href="https://www.pup.edu.ph/" class="hero-btn">Visit Us Now</a>
     </div>
 </section>
 
-<!----FAQS section---->
+<!----Profile section---->
 
-<section class="faqs">
-    <h1>Frequently Asked Questions</h1>
-    <div class="faqs-row">
-        <div class="faqs-col">
-            <h3>What are the admission requirements?</h3>
-            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>What programs do you offer?</h3>
-            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>How can I contact the university?</h3>
-            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+<section class="profile" id="profile">
+    <div class="profile-container">
+        <h1>Profile</h1>
+        <p>Learn about our mission, values, leadership message, and the inclusive educational approach that guides our community.</p>
+
+        <div class="profile-grid">
+            <article class="profile-card" id="mission">
+                <h3>Mission, Vision & Values</h3>
+                <p><b>Mission:</b> Advance An Inclusive Equitable, And Globally Relevent Polytechnic Education Towards National Development.<br>
+                <b>Vision:</b> A leading Comprehensive Polytechnic University In Asia.<br>
+                <b>Values:</b> Integrity, Excellence, Service, Inclusivity, and Innovation.</p>
+            </article>
+
+            <article class="profile-card" id="leadership">
+                <h3>Message from the Leadership</h3>
+                <p>Welcome to our institution. We are committed to nurturing talent and fostering a supportive environment where every student can thrive. Together, we build a brighter future.</p>
+                <p class="signature">— The President</p>
+            </article>
+
+            <article class="profile-card" id="diversity">
+                <h3>Diversity & Inclusion</h3>
+                <p>Our community represents a rich mix of backgrounds, cultures, and perspectives. We celebrate diversity and ensure equal opportunities through policies, support programs, and a welcoming campus culture.</p>
+            </article>
+
+            <article class="profile-card" id="philosophy">
+                <h3>Educational Philosophy</h3>
+                <p>We emphasize student-centered learning, practical engagement, and critical thinking. Our pedagogical approach combines theory, hands-on experience, and community partnerships to prepare graduates for real-world challenges.</p>
+            </article>
         </div>
     </div>
 </section>
+
+
+
+<!----Awards/Recognition section---->
+<!---- this section still under development --->
+
+
 
 <!--- Campus Section --->
 
-<section class="campus">
+<section class="campus" id="campuses">
     <h1>Our Campus</h1>
     <p>Explore our beautiful campus and the facilities we offer to support your academic journey.</p>
 
@@ -163,9 +171,45 @@
     </div>
 </section>
 
+
+<!---Map section--->
+
+<section class="map" id="map">
+    <div class="map-inner">
+        <header class="map-header">
+            <h1>Find Us</h1>
+            <p>Locate our main campus and facilities. Use the interactive map or open it in Google Maps for full directions.</p>
+        </header>
+
+        <div class="map-container">
+            <div class="map-card">
+                <div class="map-embed">
+                    <iframe src="https://www.google.com/maps?q=Polytechnic+University+of+the+Philippines&output=embed" title="PUP Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <aside class="map-details">
+                    <a href="{{ url_for('static', filename='images/MAP.jpg') }}" target="_blank" rel="noopener">
+                        <img class="campus-thumb" src="{{ url_for('static', filename='images/MAP.jpg') }}" alt="Campus map thumbnail">
+                    </a>
+                <div class="details-body">
+                    <h3>Main Campus — Sta. Mesa</h3>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+
+
+<!----History section--->
+<!---- this section still under development --->
+
+
+
 <!---- Footer Section ---->
 <footer>
-    <p>&copy; 2023 Polytechnic University of the Philippines. All rights reserved.</p>
+    <p>&copy; 2026 Polytechnic University of the Philippines. All rights reserved.</p>
 </footer>
 
 <!--- JavaScript for Toggle Menu --->
