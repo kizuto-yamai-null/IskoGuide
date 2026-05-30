@@ -1,51 +1,16 @@
 # modules/admission.py
+import sys
+from pathlib import Path
+# Allows importing from the parent directory if not running as a package
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
-class AdmissionModule:
-    def __init__(self):
-        """
-        Initializes the admission engine.
-        """
-        # ==============================================================================
-        # 📝 ENRICO'S TASK (33%): DATA SEEDING & STATIC TEXT DATA POOL
-        # Assign strings/lists imported from mock_data.py here to keep this file lightweight.
-        # ==============================================================================
-        self.enrollment_steps = ""
-        self.requirements = []
+from mock_data import admission_steps
 
-    def show_Enrollment_Guide(self) -> str: 
-        return self.enrollment_steps
+def show_Enrollment_Guide():
+    print("--- PUP Freshman Enrollment Checklist ---")
+    for index, step in enumerate(admission_steps, 1):
+        print(f"{index}. {step}")
 
-    def list_Requirements(self, gwa: float) -> list: 
-        return self.requirements
-
-    def Get_Admission_FAQ(self): 
-        # ==============================================================================
-        # 📝 ENRICO'S TASK (33%): DATA SEEDING & STATIC TEXT DATA POOL
-        # ==============================================================================
-        pass
-
-    # ==============================================================================
-    # 🧠 LEAD ARCHITECT LOGIC (66%): EVALUATION ENGINE
-    # ==============================================================================
-    def check_submission_eligibility(self, student_type: str, submitted_documents: list) -> dict:
-        """Evaluates submitted documents against the track benchmarks."""
-        requirements_map = {
-            "Freshman": ["Grade 12 Report Card", "PUPCET Results", "Birth Certificate"],
-            "Transferee": ["Official Transcript of Records (TOR)", "Honorable Dismissal"],
-            "Irregular": ["Informative Copy of Grades", "Approved Readmission Form"]
-        }
-        
-        mandatory_checklist = requirements_map.get(student_type, [])
-        missing_documents = [doc for doc in mandatory_checklist if doc not in submitted_documents]
-        is_eligible = len(missing_documents) == 0
-        
-        if is_eligible:
-            status_message = f"Clear for Enrollment! All mandatory {student_type} items verified."
-        else:
-            status_message = f"Action Required: Missing mandatory prerequisite documents."
-            
-        return {
-            "is_eligible": is_eligible,
-            "missing_documents": missing_documents,
-            "status_message": status_message
-        }
+# Example usage:
+if __name__ == "__main__":
+    show_Enrollment_Guide()

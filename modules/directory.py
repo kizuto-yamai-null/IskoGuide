@@ -1,68 +1,26 @@
 # modules/directory.py
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
-class CampusDirectory:
-    def __init__(self):
-        """
-        Initializes the Campus Directory Engine.
-        """
-        # ==============================================================================
-        # 📝 ENRICO'S TASK (33%): DATA SEEDING & STATIC TEXT DATA POOL
-        # Enrico will assign the imported arrays from mock_data.py here.
-        # Max 7 Landmarks: {"name", "location", "description"}
-        # Max 5 Local Shops: {"name", "type_of_service", "location", "description"}
-        # ==============================================================================
-        self.landmarks = []
-        self.local_Shops = []
+from mock_data import landmarks, student_shops
 
-    def show_Landmarks(self) -> list: 
-        return self.landmarks
-
-    def get_Shop_Locations(self) -> list: 
-        return self.local_Shops
-
-    # ==============================================================================
-    # 🧠 LEAD ARCHITECT LOGIC (66%): EVALUATION ENGINE
-    # ==============================================================================
-    def show_Landmark_Details(self, landmark_name: str) -> dict:
-        """Finds a specific landmark object, ignoring casing errors."""
-        if not landmark_name:
-            return {"error": "No landmark name provided", "status": 400}
-        clean_name = landmark_name.strip().lower()
-        for item in self.landmarks:
-            if item["name"].lower() == clean_name:
-                return item
-        return {"error": f"Landmark '{landmark_name}' not found", "status": 404}
-
-    def get_Shop_Details(self, shop_name: str) -> dict:
-        """Finds a specific shop object, ignoring casing errors."""
-        if not shop_name:
-            return {"error": "No shop name provided", "status": 400}
-        clean_name = shop_name.strip().lower()
-        for shop in self.local_Shops:
-            if shop["name"].lower() == clean_name:
-                return shop
-        return {"error": f"Shop '{shop_name}' not found", "status": 404}
-
-    def search_campus_directory(self, query: str) -> dict:
-        """Performs partial keyword matching across clean, data-agnostic attributes."""
-        if not query or not query.strip():
-            return {"landmarks": [], "shops": []}
+def get_Shop_Details(shop_name):
+    """
+    Scans through the mock student shop array and returns 
+    details for the matching shop key.
+    """
+    # Clean the query for case-insensitive matching
+    query = shop_name.lower().strip()
+    
+    for shop in student_shops:
+        if query in shop["name"].lower():
+            return shop
             
-        clean_query = query.strip().lower()
-        
-        matched_landmarks = [
-            item for item in self.landmarks 
-            if clean_query in item.get("name", "").lower() or clean_query in item.get("location", "").lower()
-        ]
-        
-        matched_shops = [
-            shop for shop in self.local_Shops 
-            if clean_query in shop.get("name", "").lower() or 
-               clean_query in shop.get("location", "").lower() or 
-               clean_query in shop.get("type_of_service", "").lower()
-        ]
-        
-        return {
-            "landmarks": matched_landmarks,
-            "shops": matched_shops
-        }
+    return {"error": f"Shop '{shop_name}' not found in the directory."}
+
+# Example usage:
+if __name__ == "__main__":
+    # Test lookup
+    details = get_Shop_Details("Full Cup")
+    print(details)
