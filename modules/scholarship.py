@@ -1,16 +1,19 @@
 # modules/scholarship.py
 
+# 🏢 FIXED: Pull the newly seeded data arrays from the mock database
+from mock_data import scholarship_guidelines_text, scholarship_deadlines_matrix
+
 class ScholarshipModule:
     def __init__(self):
         """
         Initializes the Scholarship and Financial Assistance Engine.
         """
         # ==============================================================================
-        # 📝 ENRICO'S TASK (33%): DATA SEEDING & STATIC TEXT DATA POOL
-        # Assign strings/dictionaries imported from mock_data.py here.
+        # 📝 DATA SEEDING & STATIC TEXT DATA POOL
+        # 🛠️ FIXED: Properties now pull from the centralized mock data file
         # ==============================================================================
-        self.grant_guidelines = ""
-        self.application_deadlines = {}
+        self.grant_guidelines = scholarship_guidelines_text
+        self.application_deadlines = scholarship_deadlines_matrix
 
     def get_grant_guidelines(self) -> str:
         return self.grant_guidelines
@@ -19,18 +22,23 @@ class ScholarshipModule:
         return self.application_deadlines
 
     # ==============================================================================
-    # 🧠 LEAD ARCHITECT LOGIC (66%): EVALUATION ENGINE
+    # 🧠 EVALUATION ENGINE
     # ==============================================================================
     def evaluate_eligibility(self, gwa: float, monthly_income: float, scholarship_type: str) -> dict:
         """Evaluates mathematical GWA limits and family income boundaries."""
+        # 🛠️ FIXED: Added the DOST-SEI parameter threshold matrix limits
         criteria_matrix = {
             "Tulong Dunong Program (TDP)": {
                 "max_gwa": 2.50,        
-                "max_income": 30000.00  
+                "max_income": 33333.00  # ~Php 400,000 annual gross ceiling
             },
             "University Merit Scholarship": {
                 "max_gwa": 1.75,        
                 "max_income": 50000.00  
+            },
+            "DOST-SEI Undergraduate Scholarship": {
+                "max_gwa": 1.75,        # 85% grade average equivalent
+                "max_income": 41666.00  # Php 500,000 annual gross ceiling
             }
         }
 

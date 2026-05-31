@@ -1,7 +1,9 @@
 # mock_data.py
 
-# 1. Campus Tourism & Directory Landmarks (modules/directory.py)
+# ==============================================================================
+# 1. CAMPUS TOURISM & DIRECTORY LANDMARKS (modules/directory.py)
 # 7 landmarks with name, location, description, and search keyword tags
+# ==============================================================================
 landmarks = [
     {
         "name": "The Pylon",
@@ -47,8 +49,10 @@ landmarks = [
     }
 ]
 
-# 2. Student Shop Locations (modules/directory.py)
+# ==============================================================================
+# 2. STUDENT SHOP LOCATIONS (modules/directory.py)
 # Formatted with name, type of service, location, description, and search keyword tags
+# ==============================================================================
 student_shops = [
     {
         "name": "Lagoon Food Stalls",
@@ -80,8 +84,10 @@ student_shops = [
     }
 ]
 
-# 3. Upgraded Admissions Module Data Layout (modules/admission.py)
+# ==============================================================================
+# 3. UPGRADED ADMISSIONS MODULE DATA LAYOUT (modules/admission.py)
 # Trimmed Matrix: Exactly 4 high-priority tracking requirements per student track
+# ==============================================================================
 admission_requirements_matrix = {
     "Freshman": [
         "Original copy of SAR Form (PUP iApply Enrollment Voucher)",
@@ -102,8 +108,11 @@ admission_requirements_matrix = {
         "PUP Student ID Card for status reactivation tracking"
     ]
 }
-# 4. About Module Assets (modules/about.py)
+
+# ==============================================================================
+# 4. ABOUT MODULE ASSETS (modules/about.py)
 # Expanded Matrix: Includes social media handles, official administrative helpdesks, and hotlines
+# ==============================================================================
 about_assets = {
     "website": "pup.edu.ph",
     "social_media": {
@@ -111,7 +120,7 @@ about_assets = {
         "linkedin": "PUP Official",
         "facebook": "Polytechnic University of the Philippines"
     },
-    # 🏢 Added direct communication desks pulled from official university contact nodes
+    # 🏢 Direct communication desks pulled from official university contact nodes
     "helpdesks": [
         {
             "office": "PUP Office of the University Registrar",
@@ -132,4 +141,21 @@ about_assets = {
             "location": "Main Campus, East Wing Grounds"
         }
     ]
+}
+
+# ==============================================================================
+# 5. SCHOLARSHIP & FINANCIAL ASSISTANCE ASSETS (modules/scholarship.py)
+# Expanded to support dynamic evaluation criteria for government and university grants
+# ==============================================================================
+scholarship_guidelines_text = (
+    "PUP Scholarship and Financial Assistance channels are open to regularly enrolled "
+    "undergraduate students. Applicants must maintain academic GWA caps and meet domestic "
+    "household income constraints specific to their government or institutional grant. "
+    "Dual-availment of national government funds is strictly monitored."
+)
+
+scholarship_deadlines_matrix = {
+    "Tulong Dunong Program (TDP)": "First Friday of the Academic Semester",
+    "University Merit Scholarship": "Prior to the official Midterm Examination period",
+    "DOST-SEI Undergraduate Scholarship": "November 21, 2026"
 }
