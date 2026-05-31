@@ -6,48 +6,37 @@ from website.auth import controller
 
 views = Blueprint('views', __name__)
 
-# ==================================================
-#                  MAIN PAGES AND ROUTES
-# ==================================================
+# ==============================================================================
+#                         MAIN PAGES AND ROUTES
+# ==============================================================================
 
 @views.route('/')
-@views.route('/home') # 🏢 FIX: Added alias so Dustin's navbar link doesn't break
+@views.route('/home') 
 def home():
     role_num = session.get('role', 4)
     role_labels = {1: "Admin", 2: "Moderator", 3: "Student", 4: "Visitor"}
     return render_template("index.html", role=role_labels.get(role_num, "Visitor"))
 
 
-@views.route('/admission', methods=["GET", "POST"])
+@views.route('/admission')
 def admission_guide():
-    # 🧩 FIXED: Use the default "Freshman" tracks blueprint pool for initial page loads
-    steps = controller.admission_module.requirements_pool.get("Freshman")
-    requirements = controller.admission_module.list_Requirements(gwa=1.0)
-    
-    evaluation_result = None
-    selected_track = "Freshman"
-    
-    if request.method == 'POST':
-        selected_track = request.form.get('student_type', 'Freshman')
-        submitted_docs = request.form.getlist('documents') 
-        
-        # Pull dynamic requirement check structures
-        evaluation_result = controller.admission_module.check_submission_eligibility(selected_track, submitted_docs)
-        
-        # Override displayed steps to match the user's specific student category track
-        steps = controller.admission_module.requirements_pool.get(selected_track, steps)
+    """
+    🛠️ PIVOTED / FIXED: Removed the complex POST form processor to minimize workload.
+    This endpoint now cleanly supplies the multi-role requirements dictionary 
+    directly to Dustin's frontend layout engine for tabbed roadmap rendering.
+    """
+    # Grab the clean 4-item list per track from the mock data matrix securely
+    from mock_data import admission_requirements_matrix
     
     return render_template(
         "admission.html", 
-        enrollment_steps=steps, 
-        requirements=requirements,
-        evaluation=evaluation_result,
-        current_track=selected_track
+        requirements_pool=admission_requirements_matrix
     )
 
 
 @views.route('/scholarship', methods=['GET', 'POST'])
 def scholarship_checker():
+    # 🛠️ FIXED: Guidelines and timelines now pull real data thanks to Phase 1/2 updates
     guidelines = controller.scholarship_module.get_grant_guidelines()
     timelines = controller.scholarship_module.get_deadlines()
     
@@ -74,9 +63,9 @@ def scholarship_checker():
     )
 
 
-# ==================================================
-#        CAMPUS LIFE AND STUDENT SUBMODULES
-# ==================================================
+# ==============================================================================
+#                  CAMPUS LIFE AND STUDENT SUBMODULES
+# ==============================================================================
 
 @views.route('/forStudent', methods=['GET', 'POST'])
 def campus_directory():
@@ -102,8 +91,8 @@ def campus_directory():
 @views.route('/forum', methods=['GET', 'POST'])
 def student_forum():
     """
-    Handles rendering the forum ecosystem. Enforces Task 3 verification restrictions
-    and catches spam inputs through your custom bilingual filter engine.
+    Handles rendering the forum ecosystem. Enforces verification restrictions
+    and catches spam inputs through your word-tokenized filter engine.
     """
     current_role = session.get('role', 4)
     user_email = session.get('user_email', "Guest_User")
@@ -146,6 +135,6 @@ def about_credits():
     return render_template(
         "aboutPUP.html", 
         school_description=description, 
-        social_channels=contacts_package["socials"], # ◄ Send clean list elements
-        helpdesk_offices=contacts_package["offices"]  # ◄ Send hotlines data table array
+        social_channels=contacts_package["socials"], 
+        helpdesk_offices=contacts_package["offices"]  
     )

@@ -3,12 +3,20 @@
 class ForumModule:
     def __init__(self):
         # Memory-based database tables (Lists of data payloads)
-        self.student_Posts = []    # Safe public feed visible to Guests/Visitors
+        # 💡 Perfect baseline sample to populate Dustin's UI grid instantly on load
+        self.student_Posts = [
+            {
+                "post_id": 1,
+                "author": "admin@iskoguide.edu.ph",
+                "title": "Welcome, Iskos! 🔴🟡",
+                "content": "Welcome to the official IskoGuide community forum. Feel free to ask questions about admissions, document deadlines, and campus directions!",
+                "status": "approved"
+            }
+        ]    
         self.pending_queue = []    # Sandbox holding area for Moderator review
-        self.active_Threads = 0    # Track total public posts counter
+        self.active_Threads = 1    # Track total public posts counter
 
-        # 🛡️ BILINGUAL SECURITY BASELINE
-        # Merged the jromest Filipino dataset with the api.dedolist.com English array.
+        # 🛡️ BILINGUAL SECURITY BASELINE PRESERVED
         # Encapsulated with double underscores to ensure strict OOP privacy.
         self.__profanity_blacklist = [
             # --- Filipino Dataset ---
@@ -31,15 +39,23 @@ class ForumModule:
 
     def check_for_spam(self, text_input: str) -> bool:
         """
-        Automated Security Filter: Normalizes text and evaluates content against the blacklist.
-        Returns True if profane terms are matched, otherwise False.
+        Automated Security Filter: Normalizes text, isolates individual words, 
+        and evaluates content against the blacklist to prevent false substring matches.
         """
-        # Lowercase incoming strings so users can't bypass via capitalization (e.g., "BoBo", "FucK")
-        cleaned_input = text_input.lower()
+        if not text_input:
+            return False
+
+        # 🛠️ FIXED: Lowercase the text and split it into an isolated list of words
+        input_words = text_input.lower().split()
         
-        for bad_word in self.__profanity_blacklist:
-            if bad_word in cleaned_input:
+        for word in input_words:
+            # 🛠️ FIXED: Clean off punctuation markers so "tanga!" or "gago," are still blocked
+            cleaned_word = word.strip(".,!?\"'()[]{}*&#_")
+            
+            # 🛠️ FIXED: Check for an exact vocabulary match instead of a substring position
+            if cleaned_word in self.__profanity_blacklist:
                 return True
+                
         return False
 
     def create_Post(self, author: str, title: str, content: str) -> tuple[bool, str]: 
@@ -104,3 +120,4 @@ class ForumModule:
                 self.active_Threads = len(self.student_Posts)
                 return True
         return False
+    
