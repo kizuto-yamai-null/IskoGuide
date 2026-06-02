@@ -27,8 +27,8 @@
             <div class="univ-dropdown" aria-label="Universities menu">
                 <button class="univ-btn" aria-haspopup="true" aria-expanded="false">Choose Universities</button>
                 <div class="dropdown-content" role="menu" aria-label="Universities list">
-                    <a class="dropdown-item" href="#">Polytechnic University of the Philippines</a>
-                    <a class="dropdown-item" href="#">University of the Philippines</a>
+                    <a class="dropdown-item" href="/">Polytechnic University of the Philippines</a>
+                    <a class="dropdown-item" href="/">University of the Philippines</a>
                 </div>
             </div>
             
@@ -38,7 +38,7 @@
                 <ul>
                     <li>
                         <div class="nav-dropdown" aria-label="Home menu">
-                            <button class="nav-link-btn" href="home">Home</button>
+                            <a class="btn" href="/"><button class="nav-link-btn" href="home">Home</button></a>
                             <div class="dropdown-content" role="menu">
                                 <a class="dropdown-item" href="/home#profile"><span class="label">Profile</span></a>
                                 <a class="dropdown-item" href="/home#awards-recognition"><span class="label">Awards/Recognitions</span></a>
@@ -49,7 +49,7 @@
                     </li>
                     <li>
                         <div class="nav-dropdown" aria-label="Admission menu">
-                            <button class="nav-link-btn" href="admission">Admission</button>
+                            <a class="btn" href="admission"><button class="nav-link-btn" href="admission">Admission</button></a>
                             <div class="dropdown-content" role="menu">
                                 <a class="dropdown-item" href="/admission#programs"><span class="label">Programs</span></a>
                                 <a class="dropdown-item" href="/admission#colleges"><span class="label">Colleges</span></a>
@@ -60,29 +60,29 @@
                     </li>
                     <li>
                         <div class="nav-dropdown" aria-label="Scholarship menu">
-                            <button class="nav-link-btn">Scholarship</button>
+                            <a class="btn" href="scholarship"><button class="nav-link-btn" href="scholarship">Scholarship</button></a>
                             <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="#"><span class="label">See Available</span></a>
+                                <a class="dropdown-item" href="/scholarship#seeAvailable"><span class="label">See Available</span></a>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="nav-dropdown" aria-label="For Students menu">
-                            <button class="nav-link-btn">For Students</button>
+                            <a class="btn" href="forStudent"><button class="nav-link-btn" href="forStudent">For Students</button></a>
                             <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="#"><span class="label">Services</span></a>
-                                <a class="dropdown-item" href="#"><span class="label">Organizations/Clubs</span></a>
-                                <a class="dropdown-item" href="#"><span class="label">Forms</span></a>
+                                <a class="dropdown-item" href="/forStudent#services"><span class="label">Services</span></a>
+                                <a class="dropdown-item" href="/forStudent#organizations-clubs"><span class="label">Organizations/Clubs</span></a>
+                                <a class="dropdown-item" href="/forStudent#forms"><span class="label">Forms</span></a>
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="nav-dropdown" aria-label="Forum menu">
-                            <button class="nav-link-btn">Forum</button>
+                            <a class="btn" href="forum"><button class="nav-link-btn" href="forum">Forum</button></a>
                             <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="#"><span class="label">Discussions</span></a>
-                                <a class="dropdown-item" href="#"><span class="label">Announcements</span></a>
-                                <a class="dropdown-item" href="#"><span class="label">Help</span></a>
+                                <a class="dropdown-item" href="/forum#discussions"><span class="label">Discussions</span></a>
+                                <a class="dropdown-item" href="/forum#announcements"><span class="label">Announcements</span></a>
+                                <a class="dropdown-item" href="/forum#help"><span class="label">Help</span></a>
                             </div>
                         </div>
                     </li>
@@ -95,7 +95,7 @@
         </nav>
 
 <!-- Main Title -->    
-    <div class="text-box">
+    <div class="text-box" id="welcome1">
         <h1>Welcome to Polytechnic University of the Philippines</h1>
         <p>We are committed to providing quality education and fostering a culture of excellence. <br> Join us in our mission to empower students and contribute to the development of our nation.</p>
         <a href="https://www.pup.edu.ph/" class="hero-btn">Visit Us Now</a>
@@ -104,43 +104,44 @@
 
 <!----Profile section---->
 
-<section class="faqs" id="profile">
-    <h1>Profile</h1>
-    <div class="faqs-row">
-        <div class="faqs-col">
-            <h3>What are the admission requirements?</h3>
-            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>What programs do you offer?</h3>
-            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>How can I contact the university?</h3>
-            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+<section class="profile" id="profile">
+    <div class="profile-container">
+        <h1>Profile</h1>
+        <p>Learn about our mission, values, leadership message, and the inclusive educational approach that guides our community.</p>
+
+        <div class="profile-grid">
+            <article class="profile-card" id="mission">
+                <h3>Mission, Vision & Values</h3>
+                <p><b>Mission:</b> Advance An Inclusive Equitable, And Globally Relevent Polytechnic Education Towards National Development.<br>
+                <b>Vision:</b> A leading Comprehensive Polytechnic University In Asia.<br>
+                <b>Values:</b> Integrity, Excellence, Service, Inclusivity, and Innovation.</p>
+            </article>
+
+            <article class="profile-card" id="leadership">
+                <h3>Message from the Leadership</h3>
+                <p>Welcome to our institution. We are committed to nurturing talent and fostering a supportive environment where every student can thrive. Together, we build a brighter future.</p>
+                <p class="signature">— The President</p>
+            </article>
+
+            <article class="profile-card" id="diversity">
+                <h3>Diversity & Inclusion</h3>
+                <p>Our community represents a rich mix of backgrounds, cultures, and perspectives. We celebrate diversity and ensure equal opportunities through policies, support programs, and a welcoming campus culture.</p>
+            </article>
+
+            <article class="profile-card" id="philosophy">
+                <h3>Educational Philosophy</h3>
+                <p>We emphasize student-centered learning, practical engagement, and critical thinking. Our pedagogical approach combines theory, hands-on experience, and community partnerships to prepare graduates for real-world challenges.</p>
+            </article>
         </div>
     </div>
 </section>
+
+
 
 <!----Awards/Recognition section---->
+<!---- this section still under development --->
 
-<section class="faqs" id="awards-recognition">
-    <h1>Awards and Recognition</h1>
-    <div class="faqs-row">
-        <div class="faqs-col">
-            <h3>What are the admission requirements?</h3>
-            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>What programs do you offer?</h3>
-            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>How can I contact the university?</h3>
-            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
-        </div>
-    </div>
-</section>
+
 
 <!--- Campus Section --->
 
@@ -170,25 +171,40 @@
     </div>
 </section>
 
-<!----History section---->
 
-<section class="faqs" id="history">
-    <h1>History of PUP</h1>
-    <div class="faqs-row">
-        <div class="faqs-col">
-            <h3>What are the admission requirements?</h3>
-            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>What programs do you offer?</h3>
-            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>How can I contact the university?</h3>
-            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+<!---Map section--->
+
+<section class="map" id="map">
+    <div class="map-inner">
+        <header class="map-header">
+            <h1>Find Us</h1>
+            <p>Locate our main campus and facilities. Use the interactive map or open it in Google Maps for full directions.</p>
+        </header>
+
+        <div class="map-container">
+            <div class="map-card">
+                <div class="map-embed">
+                    <iframe src="https://www.google.com/maps?q=Polytechnic+University+of+the+Philippines&output=embed" title="PUP Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <aside class="map-details">
+                    <a href="{{ url_for('static', filename='images/MAP.jpg') }}" target="_blank" rel="noopener">
+                        <img class="campus-thumb" src="{{ url_for('static', filename='images/MAP.jpg') }}" alt="Campus map thumbnail">
+                    </a>
+                <div class="details-body">
+                    <h3>Main Campus — Sta. Mesa</h3>
+                </div>
+            </aside>
         </div>
     </div>
 </section>
+
+
+
+<!----History section--->
+<!---- this section still under development --->
+
 
 
 <!---- Footer Section ---->
