@@ -1,37 +1,144 @@
 # website/views.py
-from flask import Blueprint, render_template, request
-# Import the structural skeleton classes you just created
-from modules.admission import AdmissionModule
-from modules.scholarship import ScholarshipModule
+from flask import Blueprint, render_template, request, redirect, url_for, session
+
+# Share the single initialized master controller state from your auth configuration
+from website.auth import controller
 
 views = Blueprint('views', __name__)
 
-# Instantiate the modules so they are ready to process data
-admission_engine = AdmissionModule()
-scholarship_engine = ScholarshipModule()
+# ==============================================================================
+#                         MAIN PAGES AND ROUTES
+# ==============================================================================
+
 
 @views.route('/')
+@views.route('/home')
 def home():
-    return render_template("home.html")
+    role_num = session.get('role', 4)
+    role_labels = {1: "Admin", 2: "Moderator", 3: "Student", 4: "Visitor"}
+    return render_template("index.html", role=role_labels.get(role_num, "Visitor"))
+
 
 @views.route('/admission')
 def admission_guide():
-    # Fetch the structural data from your module layer
-    steps = admission_engine.show_Enrollment_Guide()
-    # Pass it straight into Versoza's HTML frontend layout
-    return render_template("admission.html", enrollment_steps=steps)
+    """
+    🛠️ PIVOTED / FIXED: Removed the complex POST form processor to minimize workload.
+    This endpoint now cleanly supplies the multi-role requirements dictionary 
+    directly to Dustin's frontend layout engine for tabbed roadmap rendering.
+    """
+    # Grab the clean 4-item list per track from the mock data matrix securely
+    from mock_data import admission_requirements_matrix
+
+    return render_template(
+        "admission.html",
+        requirements_pool=admission_requirements_matrix
+    )
+
 
 @views.route('/scholarship', methods=['GET', 'POST'])
 def scholarship_checker():
-    feedback_message = None
-    
+    # 🛠️ FIXED: Guidelines and timelines now pull real data thanks to Phase 1/2 updates
+    guidelines = controller.scholarship_module.get_grant_guidelines()
+    timelines = controller.scholarship_module.get_deadlines()
+
+    evaluation_result = None
+
     if request.method == 'POST':
         try:
-            # Capture what the student typed into the webpage text box
             user_gwa = float(request.form.get('gwa'))
-            # Send it to the backend engine logic rule to get an answer
-            feedback_message = scholarship_engine.check_Eligibility(user_gwa)
-        except (ValueError, TypeError):
-            feedback_message = "Please enter a valid numeric grade format (e.g., 1.75)."
+            user_income = float(request.form.get('income'))
+            scholarship_type = request.form.get('scholarship_type')
 
-    return render_template("scholarship.html", feedback=feedback_message)
+            evaluation_result = controller.scholarship_module.evaluate_eligibility(
+                user_gwa, user_income, scholarship_type)
+        except (ValueError, TypeError):
+            evaluation_result = {
+                "is_eligible": False,
+                "status_message": "Please enter valid numbers for GWA and Income formats."
+            }
+
+    return render_template(
+        "scholarship.html",
+        evaluation=evaluation_result,
+        guidelines=guidelines,
+        timelines=timelines
+    )
+
+
+# ==============================================================================
+#                  CAMPUS LIFE AND STUDENT SUBMODULES
+# ==============================================================================
+
+@views.route('/forStudent', methods=['GET', 'POST'])
+def campus_directory():
+    landmarks_list = controller.campus_directory.show_Landmarks()
+    shops_list = controller.campus_directory.get_Shop_Locations()
+
+    search_results = None
+    query_string = ""
+
+    if request.method == 'POST':
+        query_string = request.form.get('search_query', '').strip()
+        search_results = controller.campus_directory.search_campus_directory(
+            query_string)
+
+    return render_template(
+        "forStudent.html",
+        landmarks=landmarks_list,
+        shops=shops_list,
+        search_results=search_results,
+        query=query_string
+    )
+
+
+@views.route('/forum', methods=['GET', 'POST'])
+def student_forum():
+    """
+    Handles rendering the forum ecosystem. Enforces verification restrictions
+    and catches spam inputs through your word-tokenized filter engine.
+    """
+    current_role = session.get('role', 4)
+    user_email = session.get('user_email', "Guest_User")
+
+    error_message = None
+
+    if request.method == 'POST':
+        if current_role == 4:
+            active_posts = controller.forum_module.view_threads()
+            return render_template("forum.html", posts=active_posts, role=current_role, error="Access Denied: Visitors are limited to VIEW-ONLY access.")
+
+        post_title = request.form.get('title', 'Campus Discussion')
+        post_content = request.form.get('content')
+
+        if post_content:
+            success, message = controller.forum_module.create_Post(
+                user_email, post_title, post_content)
+
+            if not success:
+                error_message = message
+            else:
+                return redirect(url_for('views.student_forum'))
+
+    active_posts = controller.forum_module.view_threads()
+    return render_template(
+        "forum.html",
+        posts=active_posts,
+        role=current_role,
+        user_email=user_email,
+        error=error_message
+    )
+
+
+@views.route('/aboutPUP')
+def about_credits():
+    description = controller.about_module.show_School_Credits()
+
+    # Unpack the structured data package generated by your updated about engine
+    contacts_package = controller.about_module.show_Campus_Contacts()
+
+    return render_template(
+        "aboutPUP.html",
+        school_description=description,
+        social_channels=contacts_package["socials"],
+        helpdesk_offices=contacts_package["offices"]
+    )
