@@ -1,90 +1,929 @@
+/* This is for every layout and design */
+/*==============================================================================================*/
+
 * {
-    margin: 0px;
-    padding: 0px;
-    font-family: Century;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box; /* added to prevent width overflow from padding/margins */
 }
 
-header {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(pup_background.jpg);
+/* prevent horizontal scrolling / white gap at right edge */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.root,
+:root {
+    --accent: #f44336;
+    --nav-width: 240px;
+    --bg-dark: rgba(30, 4, 4, 0.7);
+    --text-light: #ffffff;
+    --text-color: black;
+}
+
+.header {
     height: 100vh;
-    background-size: cover;
+    width: 100%;
+    background-image: linear-gradient(var(--bg-dark), rgba(154, 25, 25, 0.7)), url("images/pup.jpg");
     background-position: center;
-    min-height: 100px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
 }
 
-ul {
-    float: right;
-    list-style-type: none;
-    margin-top: 30px;
-    min-height: 400px;
-    margin-right: 60px;
-    font-size: 17px;
+/*==============================================================================================*/
+
+/* Admission page */
+
+/*==============================================================================================*/
+
+.header.header-admission {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.12)), url("images/admission.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+
+    /* ensure this overrides the default header background */
 }
 
-ul li {
+/*==============================================================================================*/
+
+/* Signup page header */
+
+/*==============================================================================================*/
+
+.header.header-signup {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.12)), url("images/home.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+}
+
+nav {
+    display: flex;
+    padding: 2% 6%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav img {
+    width: 100px;
+}
+
+nav .fa {
+    display: none;
+}
+
+.nav-links {
+    flex: 1;
+    text-align: right;
+}
+
+.nav-links ul li {
+    list-style: none;
     display: inline-block;
+    padding: 8px 12px;
+    position: relative;
 }
 
-ul li a {
-    text-decoration: none;
+.nav-links ul li a {
     color: #fff;
-    padding: 5px 20px;
-    border: 1px solid transparent;
-    transition: 0.5 ease;
+    text-decoration: none;
+    font-size: 13px;
+    font-family: poppins;
+    text-transform: uppercase;
 }
 
-ul li a:hover {
-    background-color: #af1313;
-    color: #000;
+.nav-links ul li::after {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: var(--accent);
+    display: block;
+    margin: auto;
+    transition: 0.5s;
 }
 
-ul li.active a {
-    background-color: #8B0000;
-    color: #000;
+.nav-links ul li:hover::after {
+    width: 100%;
 }
 
-.logo img {
-    float: left;
-    width: 150px;
+/* place the Choose University button always to the right of the logo */
+.nav-dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+
+    /* --- CHANGED/ADDED PROPERTIES --- */
+    width: 100%;
+    /* Force it to match the parent button's width */
+    box-sizing: border-box;
+    /* Ensures padding doesn't break the 100% width */
+    /* min-width: 220px; */
+    /* REMOVE OR COMMENT THIS OUT */
+    /* -------------------------------- */
+
+    padding: 10px;
+    padding: auto;
+    z-index: 100;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 24px 40px rgba(35, 10, 10, 0.18);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+.univ-btn {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(220, 18, 18, 0.12);
+    padding: 6px 40px;
+    border-radius: 400px;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 14px;
+    margin-left: 12px;
+    /* gap from nav-links */
+    margin-right: 8px;
+    /* small gap from edge/padding */
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Login button styling and spacing (separate from nav list) */
+.login-btn {
+    background: rgb(231, 83, 42);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 14px;
+    margin-left: 12px;
+    /* gap from nav-links */
+    margin-right: 8px;
+    /* small gap from edge/padding */
+    display: inline-flex;
+    align-items: center;
+}
+
+.login-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* ensure logo + university button stay on a single row */
+.logo-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    /* space between logo and button */
+}
+
+.logo-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.logo-wrap img {
+    display: block;
+    max-width: 160px;
     height: auto;
 }
 
-.main {
-    max-width: 1200px;
+.text-box {
+    width: 90%;
+    color: var(--text-light);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.text-box h1 {
+    font-size: 52px;
+    line-height: 1.05;
+}
+
+.text-box p {
+    margin: 10px auto;
+    font-size: 14px;
+    color: #e8dede;
+    max-width: 760px;
+    line-height: 1.6;
+}
+
+.hero-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--text-light);
+    border: 1px solid rgba(244, 24, 24, 0.9);
+    padding: 10px 30px;
+    margin-top: 20px;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.hero-btn:hover {
+    background: var(--accent);
+    color: var(--text-light);
+    transition: 0.5s;
+}
+
+
+#header {
+    background-color: blue;
+}
+
+/*----- mobile size -----*/
+
+@media (max-width: 700px) {
+    nav {
+        padding: 15px 20px;
+        align-items: flex-start;
+    }
+
+    nav img {
+        width: 70px;
+        position: relative;
+        z-index: 1001;
+        transition: 0.5s;
+    }
+
+    .text-box h1 {
+        font-size: 30px;
+    }
+
+    .nav-links ul li {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        background-image: linear-gradient(var(--bg-dark), rgba(154, 25, 25, 0.7)), url("images/pup.jpg");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        height: 100vh;
+        width: var(--nav-width);
+        top: 0;
+        right: calc(-1 * var(--nav-width));
+        text-align: left;
+        z-index: 2000;
+        transition: right 0.35s ease;
+        box-shadow: -6px 0 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .nav-links.open {
+        right: 0;
+    }
+
+    .nav-links ul {
+        padding: 30px;
+        margin-top: 50px;
+    }
+
+    nav .fa {
+        display: block;
+        color: #fff;
+        font-size: 22px;
+        margin: 10px;
+        cursor: pointer;
+        width: 50px;
+    }
+}
+
+/*==============================================================================================*/
+
+/*----- FAQs -----*/
+
+/*==============================================================================================*/
+
+.faqs {
+    width: 80%;
     margin: auto;
+    text-align: center;
+    padding-top: 100px;
 }
 
-.title {
-    position: absolute;
-    top: 47%;
-    left: 50%;
-    transform: translate(-50%, -50%)
+h1 {
+    font-size: 36px;
+    font-weight: 600;
 }
 
-.title h1 {
-    color: #fff;
-    font-size: 70px;
+p {
+    color: #777;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22px;
+    padding: 10px;
 }
 
-.button {
-    position: absolute;
-    top: 54%;
-    left: 50%;
-    transform: translate(-50%, -50%)
+.faqs-row {
+    margin: 5%;
+    display: flex;
+    justify-content: space-around;
 }
 
-.btn {
-    border: 1px solid #fff;
-    padding: 5px 20px;
-    color: #fff;
+.faqs-col {
+    flex-basis: 31%;
+    background: #fff3f3;
+    border-radius: 10px;
+    margin-bottom: 5%;
+    padding: 20px 12px;
+    box-sizing: border-box;
+}
+
+h3 {
+    text-align: center;
+    font-weight: 600;
+    margin: 0;
+}
+
+.faqs-col:hover {
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.5s;
+}
+
+/*----- mobile size -----*/
+
+@media(max-width: 700px) {
+    .faqs-row {
+        flex-direction: column;
+    }
+
+    .faqs-col {
+        flex-basis: 100%;
+    }
+
+}
+
+/*==============================================================================================*/
+
+/*----- campus -----*/
+
+/*==============================================================================================*/
+
+.campus {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.campus-row {
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.campus-col {
+    flex-basis: 32%;
+    min-width: 0;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.campus-col img {
+    width: 100%;
+    display: block;
+    height: 260px;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.layer {
     background: transparent;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.5s;
+}
+
+.layer:hover {
+    background: rgba(154, 25, 25, 0.7);
+}
+
+.layer h3 {
+    width: 100%;
+    font-weight: 500;
+    color: #fff;
+    font-size: 26px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.layer:hover h3 {
+    bottom: 49%;
+    opacity: 1;
+}
+
+/*----- mobile size -----*/
+
+@media(max-width: 700px) {
+    .campus-row {
+        flex-direction: column;
+    }
+
+    .campus-col img {
+        height: 220px;
+    }
+}
+
+/*==============================================================================================*/
+
+/* ----- Profile Section ----- */
+
+/*==============================================================================================*/
+
+.profile {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.profile-container h1 {
+    margin-bottom: 8px;
+}
+
+.profile-container p {
+    color: #666;
+    margin-bottom: 22px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.profile-card {
+    background: #ffffffee;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid var(--accent);
+}
+
+.profile-card h3 {
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.profile-card p {
+    color: #444;
+    line-height: 1.6;
+}
+
+.profile-card b {
+    color: black;
+    font-weight: 600;
+}
+
+.profile-card .signature {
+    margin-top: 12px;
+    font-style: italic;
+    color: #555;
+}
+
+@media (max-width: 900px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/*==============================================================================================*/
+
+/* ----- Map Section ----- */
+
+/*==============================================================================================*/
+
+.map {
+    width: 80%;
+    margin: 60px auto;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.map-header h1 {
+    margin-bottom: 6px;
+}
+
+.map-header p {
+    color: #666;
+    margin-bottom: 18px;
+}
+
+.map-container {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.map-card {
+    flex: 2;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+}
+
+.map-embed {
+    width: 100%;
+    height: 360px;
+}
+
+.map-embed iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+.map-details {
+    flex: 1;
+    background: #fffdfd;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.map-details .campus-thumb {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
     cursor: pointer;
-    transition: 0.5s ease;
-    font-size: 18px;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.map-details .campus-thumb:hover {
+    bottom: 49%;
+    transform: scale(1.02);
+    transition: 0.5s;
+}
+
+@media (max-width: 900px) {
+    .map-details .campus-thumb {
+        height: 200px;
+    }
+}
+
+.map-details h3 {
+    margin: 8px 0 0 0;
+}
+
+.map-details .addr {
+    color: #444;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.map-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.map-btn {
+    display: inline-block;
+    padding: 10px 12px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.map-btn:hover {
+    opacity: 0.95;
+}
+
+.map-btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid rgba(244, 67, 54, 0.12);
+}
+
+@media (max-width: 900px) {
+    .map-container {
+        flex-direction: column;
+    }
+
+    .map-embed {
+        height: 300px;
+    }
+}
+
+/*==============================================================================================*/
+
+/*----- dropdown -----*/
+/* Dropdown styles for both university and navigation dropdowns */
+
+/*==============================================================================================*/
+
+.univ-dropdown,
+.nav-dropdown {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.univ-btn,
+.nav-link-btn {
+    position: relative;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 5px;
+    padding: 8px 16px 8px 14px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.univ-btn::after,
+.nav-link-btn::after {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-left: 10px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 0.2s ease;
+}
+
+.univ-btn:hover,
+.nav-link-btn:hover {
+    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.14);
+    border-color: rgba(255, 255, 255, 0.28);
+    box-shadow: 0 14px 26px rgba(0, 0, 0, 0.12);
+}
+
+.univ-dropdown:focus-within .univ-btn::after,
+.nav-dropdown:focus-within .nav-link-btn::after,
+.univ-dropdown:hover .univ-btn::after,
+.nav-dropdown:hover .nav-link-btn::after {
+    transform: translateY(1px) rotate(225deg);
+}
+
+.univ-btn:focus-visible,
+.nav-link-btn:focus-visible,
+.hero-btn:focus-visible {
+    outline: 3px solid rgba(244, 67, 54, 0.28);
+    outline-offset: 3px;
+}
+
+.univ-dropdown .dropdown-content,
+.nav-dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    min-width: 210px;
+    padding: 10px;
+    z-index: 100;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 24px 40px rgba(35, 10, 10, 0.18);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+.univ-dropdown .dropdown-content::before,
+.nav-dropdown .dropdown-content::before {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: 18px;
+    width: 14px;
+    height: 14px;
+    background: inherit;
+    border-left: 1px solid rgba(255, 255, 255, 0.7);
+    border-top: 1px solid rgba(255, 255, 255, 0.7);
+    transform: rotate(45deg);
+}
+
+.univ-dropdown:hover .dropdown-content,
+.univ-dropdown:focus-within .dropdown-content,
+.nav-dropdown:hover .dropdown-content,
+.nav-dropdown:focus-within .dropdown-content {
+    display: block;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #241111;
+    font-size: 14px;
+    line-height: 1.3;
+    transition: background 0.18s ease, transform 0.18s ease, color 0.18s ease;
+    white-space: nowrap;
+}
+
+.dropdown-item:hover {
+    background: linear-gradient(90deg, rgba(244, 67, 54, 0.12), rgba(244, 67, 54, 0.04));
+    color: #111;
+    transform: translateX(4px);
+}
+
+
+.univ-dropdown .dropdown-item {
+    color: #000
+}
+
+.univ-dropdown .dropdown-item:hover {
+    color: #000
+}
+
+.nav-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.nav-links ul li {
+    position: relative;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.nav-links {
+    margin-left: auto;
+}
+
+.nav-links .nav-item,
+.nav-links .nav-link-btn {
+    color: #fff;
+}
+
+.nav-links .nav-item:hover,
+.nav-links .nav-link-btn:hover {
+    color: #fff;
+}
+
+.nav-dropdown .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+}
+
+.nav-dropdown .dropdown-item .label {
+    display: inline-block;
+    font-weight: 600;
+    color: #341212;
+    margin-right: 0;
+}
+
+.nav-links a.nav-item.nav-link {
+    color: #fff;
     text-decoration: none;
 }
 
-.btn:hover {
-    background-color: #af1313;
+.nav-links a.nav-item.nav-link:hover {
+    color: #fff;
+    opacity: 0.95;
+}
+
+/*----- mobile size -----*/
+
+@media (max-width: 700px) {
+    .header {
+        min-height: 80vh;
+        padding-bottom: 20px;
+    }
+
+    .text-box {
+        width: 95%;
+        top: 45%;
+        transform: translate(-50%, -45%);
+        padding: 0 12px;
+    }
+
+    .text-box h1 {
+        font-size: 28px;
+        line-height: 1.15;
+    }
+
+    .text-box p {
+        font-size: 13px;
+    }
+
+    .nav-links {
+        width: var(--nav-width);
+        right: calc(-1 * var(--nav-width));
+        top: 0;
+        height: 100vh;
+        z-index: 2000;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    .nav-links ul {
+        padding: 40px 20px;
+        margin-top: 80px;
+        display: block;
+    }
+
+    .nav-links ul li {
+        display: block;
+        padding: 12px 0;
+    }
+
+    .campus-col img {
+        height: 180px;
+    }
+}
+
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.skip-link:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    left: 20px;
+    top: 12px;
+    padding: 8px 12px;
+    background: #fff;
     color: #000;
+    z-index: 9999;
+    border-radius: 4px;
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*==============================================================================================*/
+
+/* ----- Footer ----- */
+
+/*==============================================================================================*/
+
+footer {
+    background: #241111;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 14px;
 }
