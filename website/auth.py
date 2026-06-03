@@ -1,5 +1,5 @@
 # website/auth.py
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash, make_response
 
 # Corrected to absolute root import to find the file in the main IskoGuide folder
 from system_controller import IskoGuideController
@@ -9,6 +9,7 @@ auth = Blueprint('auth', __name__)
 # Single shared initialization of your backend controller state
 controller = IskoGuideController()
 
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     """
@@ -17,6 +18,7 @@ def login():
     if request.method == 'POST':
         try:
             # 1. Read the form elements Dustin is providing
+            # 1: Admin, 2: Mod, 3: Student, 4: Visitor
             try:
                 selected_role = int(request.form.get('role_choice', 4))
             except (ValueError, TypeError):
@@ -30,9 +32,11 @@ def login():
                 
             # --- ROLE GATE: STUDENT (Uses Email & Password validation) ---
             elif selected_role == 3:
+                # Matched Dustin's frontend form name identifiers exactly
                 email = request.form.get('email', '')
                 password = request.form.get('password', '')
                 
+                # Direct verification engine call
                 if controller.verify_student(email, password):
                     session['role'] = 3
                     session['user_email'] = email
@@ -42,7 +46,7 @@ def login():
 
             # --- ROLE GATE: STAFF (Admin / Moderator PIN Validation) ---
             else:
-                # 🛡️ DEFENSIVE GUARD: Catch non-numeric PIN strings safely inside the execution logic
+                # DEFENSIVE GUARD: Catch non-numeric PIN strings safely inside the execution logic
                 try:
                     user_pin = int(request.form.get('pin_input', 0))
                 except (ValueError, TypeError):
@@ -71,11 +75,11 @@ def signup():
     Handles capturing input from Dustin's signup form and sending it to the controller.
     """
     if request.method == 'POST':
-        # 🛠️ FIXED: Matched Dustin's frontend registration fields
+        # Matched Dustin's frontend registration fields
         email = request.form.get('email', '')
         password = request.form.get('password', '')
         
-        # 🛠️ FIXED: Removed hasattr check to directly register the student object instance
+        # Directly register the student object instance
         success, message = controller.register_student(email, password)
         if success:
             return redirect(url_for('auth.login'))
@@ -88,3 +92,26 @@ def signup():
 def logout():
     session.clear() # Wipe session tokens cleanly
     return redirect(url_for('auth.login'))
+
+
+# --- EXPERIMENTAL DUSTIN TEST ROUTE ---
+# Kept intact to preserve testing functionalities established on his local branch
+@auth.route('/auth', methods=['GET', 'POST'])
+def form():
+    if request.method == 'POST':
+        action = request.form.get('action')  # 'login' or 'signup'
+        username = request.form.get('username', '').strip()
+        password = request.form.get('password', '').strip()
+
+        if not username or not password:
+            flash('Provide username and password', 'error')
+            return redirect(request.path)
+
+        if action == 'signup':
+            flash(f'Signed up {username}', 'success')
+        else:
+            return f"<h>The account is Success</h>"
+
+        return redirect(url_for('views.home'))
+
+    return render_template('signup.html')
