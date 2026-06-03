@@ -1,6 +1,158 @@
-{% extends "index.html" %}
-{% block title %}Admission{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-<h1>Admission</h1>
-{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IskoGuide Admission{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .header {
+            min-height: 60vh;
+            width: 100%;
+            background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.12)), url("{{ url_for('static', filename='images/admission.jpg') }}") !important;
+            background-position: center;
+            background-size: cover;
+            position: relative;
+            color: inherit;
+        }
+        .backend-matrix-box { background: #fff3f3; padding: 20px; border-radius: 10px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <section class="header">
+        <nav>
+            <a href="/"><img src="{{ url_for('static', filename='images/pup_logo.png') }}"></a>
+
+            <div class="univ-dropdown" aria-label="Universities menu">
+                <button class="univ-btn" aria-haspopup="true" aria-expanded="false">Choose Universities</button>
+                <div class="dropdown-content" role="menu" aria-label="Universities list">
+                    <a class="dropdown-item" href="/">Polytechnic University of the Philippines</a>
+                    <a class="dropdown-item" href="/">University of the Philippines</a>
+                </div>
+            </div>
+
+            <div class="nav-links" id="navLinks" aria-hidden="true">
+                    <i class="fa fa-times" onclick="hideMenu()" aria-hidden="true"></i>
+                <ul>
+                    <li><a class="nav-link-btn" href="/">Home</a></li>
+                    <li><a class="nav-link-btn" href="/admission">Admission</a></li>
+                    <li><a class="nav-link-btn" href="/scholarship">Scholarship</a></li>
+                    <li><a class="nav-link-btn" href="/forStudent">For Students</a></li>
+                    <li><a class="nav-link-btn" href="/forum">Forum</a></li>
+                </ul>
+            </div>
+                <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+
+<div class="text-box" id="welcome2">
+        <h1>Admission Page</h1>
+        <h2>Find what you needed here</h2>
+        <p>We are committed in helping fellow iskolars. <br> Join us in our mission to empower students and contribute to the development of our nation.</p>
+    </div>
+</section>
+
+<main class="faqs" id="main-content" style="padding-top: 40px; width: 80%; margin: auto;">
+    <h2>Official University Admission Tracks</h2>
+    <p style="margin-bottom: 30px;">Live criteria parsed directly from the system storage controllers matrix:</p>
+    
+    {% if requirements_pool %}
+        {% for track_name, track_rules in requirements_pool.items() %}
+            <div class="backend-matrix-box" style="text-align: left;">
+                <h3 style="color: var(--accent); margin-bottom: 12px; border-bottom: 2px solid rgba(0,0,0,0.05); padding-bottom: 6px;">{{ track_name }}</h3>
+                <ul style="list-style-type: disc; padding-left: 20px;">
+                    {% for rule in track_rules %}
+                        <li style="font-size: 14px; padding: 4px 0; color: #333;">{{ rule }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    {% endif %}
+</main>
+<section class="faqs" id="programs" style="padding-top: 20px;">
+    <h1>Programs</h1>
+    <div class="faqs-row">
+        <div class="faqs-col">
+            <h3>What are the admission requirements?</h3>
+            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>What programs do you offer?</h3>
+            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>How can I contact the university?</h3>
+            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+        </div>
+    </div>
+</section>
+
+<section class="faqs" id="colleges">
+    <h1>Colleges</h1>
+    <div class="faqs-row">
+        <div class="faqs-col">
+            <h3>What are the admission requirements?</h3>
+            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>What programs do you offer?</h3>
+            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>How can I contact the university?</h3>
+            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+        </div>
+    </div>
+</section>
+
+<section class="campus" id="requirements">
+    <h1>Requirements</h1>
+    <div class="faqs-row">
+        <div class="faqs-col">
+            <h3>What are the admission requirements?</h3>
+            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>What programs do you offer?</h3>
+            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>How can I contact the university?</h3>
+            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+        </div>
+    </div>
+</section>
+
+<section class="faqs" id="timeline">
+    <h1>Timeline</h1>
+    <div class="faqs-row">
+        <div class="faqs-col">
+            <h3>What are the admission requirements?</h3>
+            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>What programs do you offer?</h3>
+            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
+        </div>
+        <div class="faqs-col">
+            <h3>How can I contact the university?</h3>
+            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Polytechnic University of the Philippines. All rights reserved.</p>
+</footer>
+
+<script>
+    var navLinks = document.getElementById("navLinks");
+    function showMenu(){ navLinks.classList.add('open'); }
+    function hideMenu(){ navLinks.classList.remove('open'); }
+</script>
+</body>
+</html>
