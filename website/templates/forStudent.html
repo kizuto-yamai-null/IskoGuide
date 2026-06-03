@@ -1,6 +1,100 @@
-{% extends "index.html" %}
-{% block title %}For Students{% endblock %}
+{% extends "base.html" %}
+
+{% block title %}For Students | IskoGuide{% endblock %}
+{% block header_class %}header-students{% endblock %}
+
+{% block hero %}
+    <h1>For Students</h1>
+    <p>Search campus landmarks, student services, and shop locations using the Campus Directory module.</p>
+    <a href="#directory-search" class="hero-btn">Search Campus</a>
+{% endblock %}
 
 {% block content %}
-<h1>For Students</h1>
+<section class="module-section" id="directory-search">
+    <h1>Campus Directory Search</h1>
+    <p>Try keywords like library, coffee, print, oval, chapel, or tambayan.</p>
+
+    <form class="module-panel search-panel" method="post" action="{{ url_for('views.campus_directory') }}#directory-search">
+        <label class="form-field">
+            <span>Search Keyword</span>
+            <input type="search" name="search_query" value="{{ query }}" placeholder="Search campus places and services">
+        </label>
+        <button class="form-button" type="submit">Search</button>
+    </form>
+
+    {% if search_results is not none %}
+        <div class="status-box">
+            <h3>Search results for "{{ query }}"</h3>
+            {% if search_results %}
+                <div class="module-grid">
+                    {% for result in search_results %}
+                        <article class="module-card">
+                            <p class="tag">{{ result.type }}</p>
+                            <h3>{{ result.name }}</h3>
+                            <p>{{ result.info }}</p>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No matches found. Try a different keyword.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+</section>
+
+<section class="module-section" id="landmarks">
+    <h1>Campus Landmarks</h1>
+    <div class="module-grid">
+        {% for landmark in landmarks %}
+            <article class="module-card">
+                <p class="tag">Landmark</p>
+                <h3>{{ landmark.name }}</h3>
+                <p><b>Location:</b> {{ landmark.location }}</p>
+                <p>{{ landmark.description }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="module-section" id="shops">
+    <h1>Student Shops and Services</h1>
+    <div class="module-grid">
+        {% for shop in shops %}
+            <article class="module-card">
+                <p class="tag">{{ shop.type_of_service }}</p>
+                <h3>{{ shop.name }}</h3>
+                <p><b>Location:</b> {{ shop.location }}</p>
+                <p>{{ shop.description }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="map" id="map">
+    <div class="map-inner">
+        <header class="map-header">
+            <h1>Find Us</h1>
+            <p>Locate the main campus and open the map image for a closer look.</p>
+        </header>
+
+        <div class="map-container">
+            <div class="map-card">
+                <div class="map-embed">
+                    <iframe src="https://www.google.com/maps?q=Polytechnic+University+of+the+Philippines&output=embed" title="PUP Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+            <aside class="map-details">
+                <a href="{{ url_for('static', filename='images/MAP.jpg') }}" target="_blank" rel="noopener">
+                    <img class="campus-thumb" src="{{ url_for('static', filename='images/MAP.jpg') }}" alt="Campus map thumbnail">
+                </a>
+                <div class="details-body">
+                    <h3>Main Campus, Sta. Mesa</h3>
+                    <p class="addr">Use the student directory module to search landmarks, shops, and services around campus.</p>
+                    <a class="map-btn" href="{{ url_for('views.campus_directory') }}">Open Directory</a>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
 {% endblock %}
