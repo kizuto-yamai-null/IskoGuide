@@ -17,7 +17,10 @@ def login():
     if request.method == 'POST':
         try:
             # 1. Read the form elements Dustin is providing
-            selected_role = int(request.form.get('role_choice', 4)) # 1: Admin, 2: Mod, 3: Student, 4: Visitor
+            try:
+                selected_role = int(request.form.get('role_choice', 4))
+            except (ValueError, TypeError):
+                selected_role = 4 # Fallback safely to Visitor access
             
             # --- ROLE GATE: VISITOR (No credentials required) ---
             if selected_role == 4:  
@@ -27,11 +30,9 @@ def login():
                 
             # --- ROLE GATE: STUDENT (Uses Email & Password validation) ---
             elif selected_role == 3:
-                # 🛠️ FIXED: Matched Dustin's frontend form name identifiers exactly
                 email = request.form.get('email', '')
                 password = request.form.get('password', '')
                 
-                # 🛠️ FIXED: Removed hasattr safetynet to call the direct verification engine
                 if controller.verify_student(email, password):
                     session['role'] = 3
                     session['user_email'] = email
@@ -41,7 +42,12 @@ def login():
 
             # --- ROLE GATE: STAFF (Admin / Moderator PIN Validation) ---
             else:
-                user_pin = int(request.form.get('pin_input', 0))
+                # 🛡️ DEFENSIVE GUARD: Catch non-numeric PIN strings safely inside the execution logic
+                try:
+                    user_pin = int(request.form.get('pin_input', 0))
+                except (ValueError, TypeError):
+                    return render_template("login.html", error="Invalid Security PIN. Access Denied (Numeric inputs only).")
+
                 is_valid = controller.verify_credentials(selected_role, user_pin)
                 
                 if is_valid:
@@ -52,8 +58,9 @@ def login():
                 else:
                     return render_template("login.html", error="Invalid Security PIN. Access Denied.")
                     
-        except (ValueError, TypeError):
-            return render_template("login.html", error="Invalid input format detected.")
+        except Exception as e:
+            # Universal catch-all shield to keep the interface functional no matter what data lands
+            return render_template("login.html", error="An unexpected system error occurred.")
             
     return render_template("login.html", error=None)
 
