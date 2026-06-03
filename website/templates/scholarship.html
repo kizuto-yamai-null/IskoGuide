@@ -1,6 +1,65 @@
-{% extends "index.html" %}
-{% block title %}Scholarships{% endblock %}
+{% extends "base.html" %}
+
+{% block title %}Scholarship Checker | IskoGuide{% endblock %}
+{% block header_class %}header-scholarship{% endblock %}
+
+{% block hero %}
+    <h1>Scholarship Checker</h1>
+    <p>Enter your GWA and monthly household income to check your baseline eligibility for available scholarship programs.</p>
+    <a href="#checker" class="hero-btn">Check Eligibility</a>
+{% endblock %}
 
 {% block content %}
-<h1>Scholarships</h1>
+<section class="module-section" id="checker">
+    <h1>Eligibility Form</h1>
+    <p>{{ guidelines }}</p>
+
+    <form class="module-panel" method="post" action="{{ url_for('views.scholarship_checker') }}#checker">
+        <div class="form-grid">
+            <label class="form-field">
+                <span>Scholarship Program</span>
+                <select name="scholarship_type" required>
+                    <option value="">Choose program</option>
+                    {% for program in scholarship_options %}
+                        <option value="{{ program }}" {% if selected_scholarship == program %}selected{% endif %}>{{ program }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+
+            <label class="form-field">
+                <span>GWA</span>
+                <input type="number" name="gwa" min="1" max="5" step="0.01" value="{{ submitted_gwa }}" placeholder="Example: 1.75" required>
+            </label>
+
+            <label class="form-field">
+                <span>Monthly Household Income</span>
+                <input type="number" name="income" min="0" step="100" value="{{ submitted_income }}" placeholder="Example: 25000" required>
+            </label>
+        </div>
+
+        <button class="form-button" type="submit">Evaluate Scholarship</button>
+    </form>
+
+    {% if evaluation %}
+        <div class="status-box {% if evaluation.is_eligible %}status-success{% else %}status-warning{% endif %}">
+            <h3>{{ evaluation.status_message }}</h3>
+            {% if evaluation.checked_gwa is defined %}
+                <p>Checked GWA: {{ "%.2f"|format(evaluation.checked_gwa) }}</p>
+                <p>Checked monthly income: Php {{ "{:,.2f}".format(evaluation.checked_income) }}</p>
+            {% endif %}
+        </div>
+    {% endif %}
+</section>
+
+<section class="faqs" id="deadlines">
+    <h1>Scholarship Deadlines</h1>
+    <div class="faqs-row">
+        {% for program, deadline in timelines.items() %}
+            <article class="faqs-col">
+                <h3>{{ program }}</h3>
+                <p>{{ deadline }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}
