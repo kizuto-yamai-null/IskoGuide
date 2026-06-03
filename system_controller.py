@@ -41,14 +41,8 @@ class IskoGuideController:
     def register_student(self, email: str, password: str) -> tuple[bool, str]:
         """
         Validates student credentials, checks for duplication records, 
-        and stores a new Student object into the system. Fully guarded against TypeErrors.
+        and stores a new Student object into the system.
         """
-        # 🛡️ TYPE GUARD: Defensive cast to string if an integer or invalid type bypasses the form
-        if not isinstance(email, str):
-            email = str(email)
-        if not isinstance(password, str):
-            password = str(password)
-
         # Basic validation rules
         if "@" not in email or "." not in email:
             return False, "Invalid email format! Please use a valid email."
@@ -66,16 +60,10 @@ class IskoGuideController:
     def verify_student(self, email: str, password: str) -> bool:
         """
         Searches the student collection and uses encapsulated verification 
-        methods to validate incoming passwords. Fully guarded against TypeErrors.
+        methods to validate incoming passwords.
         """
-        # 🛡️ TYPE GUARD: Ensure inputs are treated strictly as string variables
-        if not isinstance(email, str) or not isinstance(password, str):
-            email = str(email)
-            password = str(password)
-
         for student in self.registered_students:
             if student.email == email:
                 # Utilizes the encapsulated check_password method from the Student object
                 return student.check_password(password)
         return False
-    
