@@ -1,6 +1,101 @@
-{% extends "index.html" %}
-{% block title %}Admission{% endblock %}
+{% extends "base.html" %}
+
+{% block title %}Admission Guide | IskoGuide{% endblock %}
+{% block header_class %}header-admission{% endblock %}
+
+{% block hero %}
+    <h1>Admission Guide</h1>
+    <p>Choose your student type, check the required documents, and let the Admission module tell you what is still missing.</p>
+    <a href="#requirements" class="hero-btn">Check Requirements</a>
+{% endblock %}
 
 {% block content %}
-<h1>Admission</h1>
+<section class="faqs" id="programs">
+    <h1>Programs</h1>
+    <p>Use this page as a first-stop admission checklist for freshman, transferee, and returnee applicants.</p>
+    <div class="faqs-row">
+        <article class="faqs-col">
+            <h3>Freshman</h3>
+            <p>For first-time college applicants entering after senior high school.</p>
+        </article>
+        <article class="faqs-col">
+            <h3>Transferee</h3>
+            <p>For students moving from another college or university into PUP.</p>
+        </article>
+        <article class="faqs-col">
+            <h3>Returnee</h3>
+            <p>For previous PUP students applying for readmission or reactivation.</p>
+        </article>
+    </div>
+</section>
+
+<section class="module-section" id="requirements">
+    <h1>Dynamic Requirements Checker</h1>
+    <p>The checklist below is loaded from <b>mock_data.py</b> through the Admission module.</p>
+
+    <form class="module-panel" method="post" action="{{ url_for('views.admission_guide') }}#requirements">
+        <div class="form-grid">
+            <label class="form-field">
+                <span>Student Type</span>
+                <select name="student_type">
+                    {% for track in requirements_pool.keys() %}
+                        <option value="{{ track }}" {% if selected_track == track %}selected{% endif %}>{{ track }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+
+        <div class="module-grid">
+            {% for track, docs in requirements_pool.items() %}
+                <article class="module-card">
+                    <h3>{{ track }}</h3>
+                    <ul class="checklist">
+                        {% for doc in docs %}
+                            <li>
+                                <label>
+                                    <input type="checkbox" name="submitted_docs" value="{{ doc }}" {% if selected_track == track and doc in submitted_docs %}checked{% endif %}>
+                                    <span>{{ doc }}</span>
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </article>
+            {% endfor %}
+        </div>
+
+        <button class="form-button" type="submit">Evaluate Checklist</button>
+    </form>
+
+    {% if checklist_result %}
+        <div class="status-box {% if checklist_result.is_eligible %}status-success{% else %}status-warning{% endif %}">
+            <h3>{{ checklist_result.message }}</h3>
+            {% if checklist_result.missing %}
+                <p>Missing documents:</p>
+                <ul>
+                    {% for item in checklist_result.missing %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endif %}
+</section>
+
+<section class="faqs" id="timeline">
+    <h1>Admission Timeline</h1>
+    <div class="faqs-row">
+        <article class="faqs-col">
+            <h3>Prepare</h3>
+            <p>Identify your student type and gather the documents listed by the checker.</p>
+        </article>
+        <article class="faqs-col">
+            <h3>Submit</h3>
+            <p>Use the complete checklist as your guide before submitting official requirements.</p>
+        </article>
+        <article class="faqs-col">
+            <h3>Verify</h3>
+            <p>Watch for registrar or admissions updates for document validation and enrollment instructions.</p>
+        </article>
+    </div>
+</section>
 {% endblock %}
