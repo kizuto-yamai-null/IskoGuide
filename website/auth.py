@@ -13,7 +13,10 @@ controller = IskoGuideController()
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     """
-    Catches HTML login actions and runs validation rules using the backend controller.
+    🏢 3-LAYER ARCHITECTURE - LAYER 1: PRESENTATION LAYER
+    This blueprint handles HTTP request processing, cookie session injection, and web
+    response redirection for user authentication. It transforms frontend form data text 
+    streams and hands them to Layer 2 (system_controller.py) to validate permissions.
     """
     if request.method == 'POST':
         try:
@@ -22,7 +25,7 @@ def login():
             try:
                 selected_role = int(request.form.get('role_choice', 4))
             except (ValueError, TypeError):
-                selected_role = 4 # Fallback safely to Visitor access
+                selected_role = 4 # Fallback safely to Visitor access if parsing fails
             
             # --- ROLE GATE: VISITOR (No credentials required) ---
             if selected_role == 4:  
@@ -36,7 +39,7 @@ def login():
                 email = request.form.get('email', '')
                 password = request.form.get('password', '')
                 
-                # Direct verification engine call
+                # Direct verification business logic engine call (Layer 2 execution)
                 if controller.verify_student(email, password):
                     session['role'] = 3
                     session['user_email'] = email
@@ -52,6 +55,7 @@ def login():
                 except (ValueError, TypeError):
                     return render_template("login.html", error="Invalid Security PIN. Access Denied (Numeric inputs only).")
 
+                # Direct verification matching call against encapsulated system secrets
                 is_valid = controller.verify_credentials(selected_role, user_pin)
                 
                 if is_valid:
@@ -79,7 +83,7 @@ def signup():
         email = request.form.get('email', '')
         password = request.form.get('password', '')
         
-        # Directly register the student object instance
+        # Directly register the student object instance through Layer 2 logic
         success, message = controller.register_student(email, password)
         if success:
             return redirect(url_for('auth.login'))
@@ -90,7 +94,7 @@ def signup():
 
 @auth.route('/logout')
 def logout():
-    session.clear() # Wipe session tokens cleanly
+    session.clear() # Wipe session tokens cleanly out of cookie memory
     return redirect(url_for('auth.login'))
 
 

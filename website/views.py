@@ -18,20 +18,35 @@ def home():
     return render_template("index.html", role=role_labels.get(role_num, "Visitor"))
 
 
-@views.route('/admission')
+@views.route('/admission', methods=['GET', 'POST'])
 def admission_guide():
     """
-    REFACTORED: Supplies the multi-role requirements dictionary 
-    directly to Dustin's frontend layout engine for tabbed roadmap rendering.
+    REFACTORED: Supplies the requirements dictionary for rendering,
+    captures document checkboxes via POST, and runs validation logic.
     """
-    # Grab the clean 4-item list per track from the mock data matrix securely
     from mock_data import admission_requirements_matrix
+
+    eligibility_result = None
+    selected_stream = None
+
+    if request.method == 'POST':
+        # 1. Capture user selection data strings from Dustin's frontend form fields
+        selected_stream = request.form.get('student_type', 'Freshman').strip()
+        
+        # 2. Extract checkboxes (Flask uses getlist() for inputs sharing the same name="documents")
+        submitted_documents = request.form.getlist('documents')
+
+        # 3. Process the validation checks using our backend Admission Module
+        eligibility_result = controller.admission_module.check_submission_eligibility(
+            selected_stream, submitted_documents
+        )
 
     return render_template(
         "admission.html",
-        requirements_pool=admission_requirements_matrix
+        requirements_pool=admission_requirements_matrix,
+        eligibility=eligibility_result,
+        current_stream=selected_stream
     )
-
 
 @views.route('/scholarship', methods=['GET', 'POST'])
 def scholarship_checker():
