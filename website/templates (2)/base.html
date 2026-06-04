@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}IskoGuide{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <section class="header {% block header_class %}{% endblock %}" id="header">
+        <nav>
+            <a href="{{ url_for('views.home') }}" aria-label="IskoGuide home">
+                <img src="{{ url_for('static', filename='images/pup_logo.png') }}" alt="PUP logo">
+            </a>
+
+            <div class="univ-dropdown" aria-label="Universities menu">
+                <button class="univ-btn" aria-haspopup="true" aria-expanded="false">Choose Universities</button>
+                <div class="dropdown-content" role="menu" aria-label="Universities list">
+                    <a class="dropdown-item" href="{{ url_for('views.home') }}">Polytechnic University of the Philippines</a>
+                    <a class="dropdown-item" href="{{ url_for('views.home') }}">University of the Philippines (in development)</a>
+                </div>
+            </div>
+
+            <div class="nav-links" id="navLinks" aria-hidden="true">
+                <i class="fa fa-times" onclick="hideMenu()" aria-hidden="true"></i>
+                <ul>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Home menu">
+                            <!-- Remove the redundant onclick attribute (which causes quote/parse conflicts) and rely on the href for navigation. -->
+                            <a class="nav-link-btn home-link" href="{{ url_for('views.home') }}" onclick="window.location.href=this.href">Home</a>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="{{ url_for('views.home') }}#profile"><span class="label">Profile</span></a>
+                                <a class="dropdown-item" href="{{ url_for('views.home') }}#campuses"><span class="label">Campuses</span></a>
+                                <a class="dropdown-item" href="{{ url_for('views.home') }}#map"><span class="label">Map</span></a>
+                                <a class="dropdown-item" href="{{ url_for('views.about_credits') }}"><span class="label">About PUP</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Admission menu">
+                            <a class="nav-link-btn" href="{{ url_for('views.admission_guide') }}" onclick="window.location.href=this.href">Admission</a>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="{{ url_for('views.admission_guide') }}#programs"><span class="label">Programs</span></a>
+                                <a class="dropdown-item" href="{{ url_for('views.admission_guide') }}#requirements"><span class="label">Requirements</span></a>
+                                <a class="dropdown-item" href="{{ url_for('views.admission_guide') }}#timeline"><span class="label">Timeline</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Scholarship menu">
+                            <a class="nav-link-btn" href="{{ url_for('views.scholarship_checker') }}" onclick="window.location.href=this.href">Scholarship</a>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="{{ url_for('views.scholarship_checker') }}#checker"><span class="label">Checker</span></a>
+                                <a class="dropdown-item" href="{{ url_for('views.scholarship_checker') }}#deadlines"><span class="label">Deadlines</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="For Students menu">
+                            <a class="nav-link-btn" href="{{ url_for('views.campus_directory') }}" onclick="window.location.href=this.href">For Students</a>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="{{ url_for('views.campus_directory') }}#directory-search"><span class="label">Search</span></a>
+                                <a class="dropdown-item" href="{{ url_for('views.campus_directory') }}#landmarks"><span class="label">Landmarks</span></a>
+                                <a class="dropdown-item" href="{{ url_for('views.campus_directory') }}#shops"><span class="label">Student Shops</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="nav-dropdown" aria-label="Forum menu">
+                            <a class="nav-link-btn" href="{{ url_for('views.student_forum') }}" onclick="window.location.href=this.href">Forum</a>
+                            <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="{{ url_for('views.student_forum') }}#discussions"><span class="label">Discussions</span></a>
+                                <a class="dropdown-item" href="{{ url_for('views.student_forum') }}#submit-post"><span class="label">Post</span></a>
+                                <a class="dropdown-item" href="{{ url_for('views.student_forum') }}#help"><span class="label">Help</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="login-li">
+                        {% if current_role == 4 %}
+                            <a class="login-btn" href="{{ url_for('auth.login') }}">Log In</a>
+                            <a class="login-btn login-btn-outline" href="{{ url_for('auth.signup') }}">Sign Up</a>
+                        {% else %}
+                            <span class="session-pill">{{ current_role_label }}</span>
+                            <a class="login-btn" href="{{ url_for('auth.logout') }}">Log Out</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()" aria-hidden="false"></i>
+        </nav>
+
+        <div class="text-box">
+            {% block hero %}{% endblock %}
+        </div>
+    </section>
+
+    <main id="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Polytechnic University of the Philippines. All rights reserved.</p>
+    </footer>
+
+    <script>
+        var navLinks = document.getElementById("navLinks");
+        var openBtn = document.querySelector('.fa-bars');
+        var closeBtn = document.querySelector('.fa-times');
+        function showMenu(){
+            navLinks.classList.add('open');
+            navLinks.setAttribute('aria-hidden','false');
+            if(openBtn) openBtn.setAttribute('aria-hidden','true');
+            if(closeBtn) closeBtn.setAttribute('aria-hidden','false');
+        }
+        function hideMenu(){
+            navLinks.classList.remove('open');
+            navLinks.setAttribute('aria-hidden','true');
+            if(openBtn) openBtn.setAttribute('aria-hidden','false');
+            if(closeBtn) closeBtn.setAttribute('aria-hidden','true');
+        }
+
+        var dropdowns = document.querySelectorAll('.univ-dropdown, .nav-dropdown');
+
+        function closeDropdown(dropdown) {
+            var trigger = dropdown.querySelector('.univ-btn, .nav-link-btn');
+            dropdown.classList.remove('is-open');
+            if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        }
+
+        dropdowns.forEach(function(dropdown) {
+            var trigger = dropdown.querySelector('.univ-btn, .nav-link-btn');
+            var menu = dropdown.querySelector('.dropdown-content');
+
+            if (!trigger || !menu) return;
+
+            trigger.setAttribute('aria-haspopup', 'true');
+            trigger.setAttribute('aria-expanded', 'false');
+
+            trigger.addEventListener('click', function(event) {
+                event.preventDefault();
+                var isOpen = dropdown.classList.contains('is-open');
+
+                dropdowns.forEach(closeDropdown);
+
+                if (!isOpen) {
+                    dropdown.classList.add('is-open');
+                    trigger.setAttribute('aria-expanded', 'true');
+                }
+            });
+
+            trigger.addEventListener('dblclick', function(event) {
+                if (trigger.tagName.toLowerCase() === 'a' && trigger.href) {
+                    event.preventDefault();
+                    window.location.href = trigger.href;
+                }
+            });
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.univ-dropdown, .nav-dropdown')) {
+                dropdowns.forEach(closeDropdown);
+            }
+        });
+
+        document.querySelectorAll('.dropdown-item').forEach(function(item) {
+            item.addEventListener('click', function() {
+                dropdowns.forEach(closeDropdown);
+            });
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                dropdowns.forEach(closeDropdown);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}About PUP | IskoGuide{% endblock %}
+{% block header_class %}header-about{% endblock %}
+
+{% block hero %}
+    <h1>About PUP</h1>
+    <p>Institutional profile, official channels, and helpdesk contacts are loaded through the About module.</p>
+    <a href="#about-content" class="hero-btn">View Contacts</a>
+{% endblock %}
+
+{% block content %}
+<section class="module-section" id="about-content">
+    <h1>{{ school_description.website }}</h1>
+    <p>{{ school_description.description }}</p>
+
+    <div class="module-grid">
+        {% for social in social_channels %}
+            <article class="module-card">
+                <p class="tag">Social Channel</p>
+                <h3>{{ social.channel }}</h3>
+                <p>{{ social.address }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="module-section" id="helpdesks">
+    <h1>Helpdesk Offices</h1>
+    <div class="module-grid">
+        {% for office in helpdesk_offices %}
+            <article class="module-card">
+                <p class="tag">Office</p>
+                <h3>{{ office.office }}</h3>
+                <p><b>Email:</b> {{ office.email }}</p>
+                <p><b>Hotline:</b> {{ office.hotline }}</p>
+                <p><b>Location:</b> {{ office.location }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

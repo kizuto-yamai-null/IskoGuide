@@ -1,0 +1,326 @@
+{% extends "base.html" %}
+
+{% block title %}Admission Guide | IskoGuide{% endblock %}
+{% block header_class %}header-admission{% endblock %}
+
+{% block hero %}
+    <h1>Admission Guide</h1>
+    <p>Choose your student type, check the required documents, and let the Admission module tell you what is still missing.</p>
+    <a href="#requirements" class="hero-btn">Check Requirements</a>
+{% endblock %}
+
+{% block content %}
+<section class="faqs" id="programs">
+    <h1>Programs</h1>
+    <p>Here are the offered programs for any student</p>
+
+    <!-- first row: 3 columns -->
+    <div class="faqs-row">
+        <article class="faqs-col">
+            <h3>Freshman</h3>
+            <p>For first-time college applicants entering after senior high school.</p>
+        </article>
+
+        <article class="faqs-col">
+            <h3>Transferee</h3>
+            <p>For students moving from another college or university into PUP.</p>
+        </article>
+
+        <article class="faqs-col">
+            <h3>Returnee</h3>
+            <p>For previous PUP students applying for readmission or reactivation.</p>
+        </article>
+    </div>
+
+    <!-- second row: program cards -->
+    <div class="faqs-row">
+        <article class="profile-card">
+            <h3>Open University System (OUS)</h3>
+            <p><b>(BSENTREP):</b> Bachelor of Science in Entrepreneurship.</p>
+            <p><b>(BABR):</b> Bachelor of Arts in Broadcasting.</p>
+            <p><b>(BSBAHRM):</b> Bachelor of Science in Business Administration major in Human Resource Management.</p>
+            <p><b>(BSBAMM):</b> Bachelor of Science in Business Administration major in Marketing Management.</p>
+            <p><b>(BSOA):</b> Bachelor of Science in Office Administration.</p>
+            <p><b>(BSTM):</b> Bachelor of Science in Tourism Management.</p>
+            <p><b>(BPA):</b> Bachelor of Public Administration.</p>
+        </article>
+        <article class="profile-card">
+            <h3>Institute of Technology (ITECH)</h3>
+            <p>Diploma in Computer Engineering Technology.</p>
+            <p>Diploma in Electronics Communications Engineering Technology.</p>
+            <p>Diploma in Electrical Engineering Technology.</p>
+            <p>Diploma in Information Communication Technology.</p>
+            <p>Diploma in Mechanical Engineering Technology.</p>
+            <p>Diploma in Office Management Technology.</p>
+        </article>
+        <article class="profile-card">
+            <h3>College of Accountancy and Finance (CAF)</h3>
+            <p><b>(BSENTREP):</b> Bachelor of Science in Accountancy.</p>
+            <p><b>(BSA):</b> Bachelor of Science in Accountancy.</p>
+            <p><b>(BSMA):</b> Bachelor of Science in Management Accounting.</p>
+            <p><b>(BSBAFM):</b> Bachelor of Science in Business Administration Major in Financial Management.</p>
+        </article>
+    </div>
+    <div class="faqs-row">
+        <article class="profile-card">
+            <h3>College of Architecture, Design and the Built Environment (CADBE)<br>(formerly the College of Architecture and Fine Arts)</h3>
+            <p><b>(BS-ARCH):</b> Bachelor of Science in Architecture.</p>
+            <p><b>(BSID):</b> Bachelor of Science in Interior Design.</p>
+            <p><b>(BSEP):</b> Bachelor of Science in Environmental Planning.</p>
+        </article>
+        <article class="profile-card">
+            <h3>College of Arts and Letters (CAL)</h3>
+            <p><b>(ABE):</b> Bachelor of Science in Architecture.</p>
+            <p><b>(ABF):</b> Bachelor of Arts in Filipino.</p>
+            <p><b>(ABPHILO):</b> Bachelor of Science in Environmental Planning.</p>
+            <p><b>(ABTA):</b> Bachelor of Arts in Theater Arts.</p>
+        </article>
+        <article class="profile-card">
+            <h3>College of Business Administration (CBA)</h3>
+            <p><b>(BSBA-MM):</b> Bachelor of Science in Business Administration major in Marketing Management.</p>
+            <p><b>(BSBA-HRDM):</b> Bachelor of Science in Business Administration major in Human Resource Development Management.</p>
+            <p><b>(BSEntrep):</b> Bachelor of Science in Entrepreneurship.</p>
+            <p><b>(BSOA):</b> Bachelor of Science in Office Administration.</p>
+        </article>
+    </div>
+    <div class="faqs-row">
+        <article class="profile-card">
+            <h3>College of Communication (COC)</h3>
+            <p><b>(BAPR):</b> Bachelor in Advertising and Public Relation.</p>
+            <p><b>(ABJ):</b> Bachelor of Arts in Journalism.</p>
+            <p><b>(BA Broadcasting):</b> Bachelor of Arts on Broadcasting.</p>
+            <p><b>(ABCR):</b> Bachelor of Arts in Communication Research.</p>
+        </article>
+        <article class="profile-card">
+            <h3>College of Computer and Information Sciences (CCIS)</h3>
+            <p><b>(BSCS):</b> Bachelor of Science in Computer Science.</p>
+            <p><b>(BSIT):</b> Bachelor of Science in Information Technology.</p>
+        </article>
+        <article class="profile-card">
+            <h3>College of Education (COED)</h3>
+            <p><b>(BTLEd):</b> Bachelor of Technology and Livelihood Education.<br>major in Home Economics, Industrial Arts, Information and Communication Technology</p>
+            <p><b>(BLIS):</b> Bachelor of Library and Information Science.</p>
+            <p><b>(BSEd):</b> Bachelor of Secondary Education.<br>major in English, Mathematics, Science, Filipino, Social Studies</p>
+            <p><b>(BEEd):</b> Bachelor of Elementary Education.</p>
+            <p><b>(BECEd):</b> Bachelor of Early Childhood Education.</p>
+        </article>
+    </div>
+    <div class="faqs-row">
+        <article class="profile-card">
+            <h3>College of Engineering (CE)</h3>
+            <p><b>(BSCE):</b> Bachelor of Science in Civil Engineering.</p>
+            <p><b>(BSCpE):</b> Bachelor of Science in Computer Engineering.</p>
+            <p><b>(BSEE):</b> Bachelor of Science in Electrical Engineering.</p>
+            <p><b>(BSECE):</b> Bachelor of Science in Electronics Engineering.</p>
+            <p><b>(BSIE):</b> Bachelor of Science in Industrial Engineering.</p>
+            <p><b>(BSME):</b> Bachelor of Science in Mechanical Engineering.</p>
+            <p><b>(BSRE):</b> Bachelor of Science in Railway Engineering.<br>(formerly Bachelor of Science in Railway Engineering and Management)</p>
+        </article>
+        <article class="profile-card">
+            <h3>College of Human Kinetics (CHK)</h3>
+            <p><b>(BPE):</b> Bachelor in Physical Education.</p>
+        </article>
+        <article class="profile-card">
+            <h3>College of Political Science and Public Administration (CPSPA)</h3>
+            <p><b>(BAPS):</b> Bachelor of Arts in Political Science.</p>
+            <p><b>(BAPE):</b> Bachelor of Arts in Political Economy.</p>
+            <p><b>(BAIS):</b> Bachelor of Arts in International Studies.</p>
+            <p><b>(BPA):</b> Bachelor of Public Administration.</p>
+        </article>
+    </div>
+    <div class="faqs-row">
+        <article class="profile-card">
+            <h3>College of Political Science and Public Administration (CPSPA)</h3>
+            <p><b>(BAPS):</b> Bachelor of Arts in Political Science.</p>
+            <p><b>(BAPE):</b> Bachelor of Arts in Political Economy.</p>
+            <p><b>(BAIS):</b> Bachelor of Arts in International Studies.</p>
+            <p><b>(BPA):</b> Bachelor of Public Administration.</p>
+        </article>
+        <article class="profile-card">
+            <h3>College of Social Sciences and Development (CSSD)</h3>
+            <p><b>(ABS):</b> Bachelor of Arts in Sociology.</p>
+            <p><b>(BSE):</b> Bachelor of Science in Economics .</p>
+            <p><b>(BAH):</b> Bachelor of Arts in History.</p>
+            <p><b>(BAPHS):</b> Bachelor of Arts in Philippine Studies.</p>
+            <p><b>(BSPSY):</b> Bachelor of Science in Psychology.</p>
+            <p><b>(BHS):</b> Bachelor in Human Services.</p>
+            <p><b>(BSSW):</b> Bachelor of Science in Social Work.</p>
+        </article>
+        <article class="profile-card">
+            <h3>College of Science (CS)</h3>
+            <p><b>(BAS):</b> Bachelor in Applied Statistics.</p>
+            <p><b>(BSAM):</b> Bachelor of Science in Applied Mathematics.<br>major in Actuarial Mathematics</p>
+            <p><b>(BSBIO):</b> Bachelor of Science in Biology.</p>
+            <p><b>(BSCHEM):</b> Bachelor of Science in Chemistry.</p>
+            <p><b>(BSFT):</b> Bachelor of Science in Food Technology.</p>
+            <p><b>(BSM):</b>Bachelor of Science in Mathematics.</p>
+            <p><b>(BSND):</b> Bachelor of Science in Nutrition and Dietetics.</p>
+            <p><b>(BSP):</b> Bachelor of Science in Physics.</p>
+        </article>
+    </div>
+    <div class="faqs-row">
+        <article class="profile-card">
+            <h3>College of Science (CS)</h3>
+            <p><b>(BAS):</b> Bachelor in Applied Statistics.</p>
+            <p><b>(BSAM):</b> Bachelor of Science in Applied Mathematics.<br>major in Actuarial Mathematics</p>
+            <p><b>(BSBIO):</b> Bachelor of Science in Biology.</p>
+            <p><b>(BSCHEM):</b> Bachelor of Science in Chemistry.</p>
+            <p><b>(BSFT):</b> Bachelor of Science in Food Technology.</p>
+            <p><b>(BSM):</b>Bachelor of Science in Mathematics.</p>
+            <p><b>(BSND):</b> Bachelor of Science in Nutrition and Dietetics.</p>
+            <p><b>(BSP):</b> Bachelor of Science in Physics.</p>
+        </article>
+        <article class="profile-card">
+            <h3>College of Tourism, Hospitality and Transportation Management (CTHTM)</h3>
+            <p><b>(BSTM):</b> Bachelor of Science in Tourism Management.</p>
+            <p><b>(BTM):</b> Bachelor in Transportation Management.</p>
+            <p><b>(BSHM):</b> Bachelor of Science in Hospitality Management .</p>
+        </article>
+    </div>
+</section>
+
+<section class="module-section" id="requirements">
+    <h1>Dynamic Requirements Checker</h1>
+    <p>The checklist below is loaded from <b>mock_data.py</b> through the Admission module.</p>
+
+    <form class="module-panel" method="post" action="{{ url_for('views.admission_guide') }}#requirements">
+        <div class="form-grid">
+            <label class="form-field">
+                <span>Student Type</span>
+                <select name="student_type">
+                    {% for track in requirements_pool.keys() %}
+                        <option value="{{ track }}" {% if selected_track == track %}selected{% endif %}>{{ track }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+
+        <div class="module-grid">
+            {% for track, docs in requirements_pool.items() %}
+                <article class="module-card">
+                    <h3>{{ track }}</h3>
+                    <ul class="checklist">
+                        {% for doc in docs %}
+                            <li>
+                                <label>
+                                    <input type="checkbox" name="submitted_docs" value="{{ doc }}" {% if selected_track == track and doc in submitted_docs %}checked{% endif %}>
+                                    <span>{{ doc }}</span>
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </article>
+            {% endfor %}
+        </div>
+
+        <button class="form-button" type="submit">Evaluate Checklist</button>
+    </form>
+
+    {% if checklist_result %}
+        <div class="status-box {% if checklist_result.is_eligible %}status-success{% else %}status-warning{% endif %}">
+            <h3>{{ checklist_result.message }}</h3>
+            {% if checklist_result.missing %}
+                <p>Missing documents:</p>
+                <ul>
+                    {% for item in checklist_result.missing %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    {% endif %}
+</section>
+
+<section class="faqs" id="timeline">
+    <h1>Admission Timeline</h1>
+    <div class="faqs-row">
+        <article class="faqs-col">
+            <h2>Prepare</h2>
+            <p>Identify your student type and gather the documents listed by the checker.</p>
+            <h5><b>PUP iApply<br>
+                Admission Start: NOVEMBER 10, YEAR<br>
+                Admission End:   DECEMBER 31, YEAR</b></h5>
+            <p>Note: PUP's standard admission time starts at November and ends in late December.</p>
+        </article>
+    </div>
+
+
+    <div class="faqs-row">
+        <article class="profile-card">
+            <h2>2026, JULY</h2>
+            <p><b>6-17</b></p>
+            <p>Processing of First Year Admission and Enrollment and Printing of Registration Card (Face to Face) <br>PUP Main Campus, Sta. Mesa, Manila</p>
+        </article>
+        <article class="profile-card">
+            <h2>2026, AUGUST</h2>
+            <p><b>17</b></p>
+            <p>Start of the First Semester</p>
+        </article>
+        <article class="profile-card">
+            <h2>2026, OCTOBER</h2>
+            <p><b>12-17</b></p>
+            <p>Mid-Term and Departmental Examinations</p>
+            <p><b>22</b></p>
+            <p>PUP's 122nd Founding Anniversary</p>
+        </article>
+    </div>
+
+    <div class="faqs-row">
+        <article class="profile-card">
+            <h2>2026, DECEMBER</h2>
+            <p><b>16-22</b></p>
+            <p>Final and Departmental Examination of Non-Graduating Students</p>
+            <p><b>22</b></p>
+            <p>End of the First Semester</p>
+        </article>
+        <article class="profile-card">
+            <h2>2027, JANUARY</h2>
+            <p><b>6-12</b></p>
+            <p>Online encoding of Final Grades of Non-Graduating Students for the First Semester, A.Y. 2026-2027 <br>First Year Online Registration (Sta. Mesa, Manila)</p>
+            <p><b>15</b></p>
+            <p>Submission of First Semester, A.Y. 2026-2027 grade sheets to the Office of the Dean or Director</p>
+            <p><b>19</b></p>
+            <p>Submission of First Semester, A.Y. 2026-2027 grade sheets to the Office of the University Registrar <br>Auto finalization of grades of Non-Graduating Students for the First Semester, A.Y. 2026-2027</p>
+            <p><b>20</b></p>
+            <p>Start of the Second Semester  <br>Start of the Adjustment Period</p>
+        </article>
+        <article class="profile-card">
+            <h2>2027, FEBRUARY</h2>
+            <p><b>5</b></p>
+            <p> Deadline of submission of Completion Forms for Incomplete Marks <br>First Semester, A.Y. 2025-2026 to the Office of the University Registrar</p>
+            <p><b>12</b></p>
+            <p>Auto finalization of grades in the PUPSIS (First Semester, A.Y. 2026-2027)</p>
+            <p><b>19</b></p>
+            <p>End of the Adjustment Period</p>
+        </article>
+    </div>
+    <div class="faqs-row">
+        <article class="profile-card">
+            <h2>2027, MARCH</h2>
+            <p><b>15-20</b></p>
+            <p>Mid-Term and Departmental Examinations</p>
+            <p><b>29</b></p>
+            <p>Start of Online encoding of Mid-Term grades</p>
+        </article>
+        <article class="profile-card">
+            <h2>2027, APRIL</h2>
+            <p><b>3</b></p>
+            <p>End of Online encoding of Mid-Term grades</p>
+        </article>
+        <article class="profile-card">
+            <h2>2027, MAY</h2>
+            <p><b>17-22</b></p>
+
+            <p>Final Examinations for Graduating Students and Departmental Examinations</p>
+            <p><b>19-24</b></p>
+            <p>Final Examinations of Non-Graduating Students</p>
+            <p><b>27-30</b></p>
+            <p>Final Examinations of Non-Graduating Students</p>
+            <p><b>19-24</b></p>
+            <p>Final Examinations of Non-Graduating Students</p>
+            <p><b>27-30</b></p>
+            <p>Final Examinations of Non-Graduating Students</p>
+        </article>
+    </div>
+</section>
+{% endblock %}
