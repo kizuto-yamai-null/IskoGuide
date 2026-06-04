@@ -1,11 +1,11 @@
 # website/views.py
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, request, redirect, url_for, session, current_app
 
 from website.auth import controller
 
 views = Blueprint('views', __name__)
 
-
+# ------------------------- HOME -----------------------------------
 @views.route('/')
 @views.route('/home')
 def home():
@@ -35,7 +35,7 @@ def admission_guide():
         checklist_result=checklist_result
     )
 
-
+# ----------------------- SCHOLARSHIP ------------------------------
 @views.route('/scholarship', methods=['GET', 'POST'])
 def scholarship_checker():
     guidelines = controller.scholarship_module.get_grant_guidelines()
@@ -72,7 +72,7 @@ def scholarship_checker():
             'income', '') if request.method == 'POST' else ''
     )
 
-
+# ------------------ FOR STUDENTS ----------------------------------------
 @views.route('/forStudent', methods=['GET', 'POST'])
 def campus_directory():
     landmarks_list = controller.campus_directory.show_Landmarks()
@@ -93,7 +93,7 @@ def campus_directory():
         query=query_string
     )
 
-
+# --------------------------- FORUM -------------------------------
 @views.route('/forum', methods=['GET', 'POST'])
 def student_forum():
     current_role = session.get('role', 4)

@@ -10,9 +10,6 @@ from system_controller import IskoGuideController
 
 auth = Blueprint('auth', __name__)
 
-# --- simple sqlite helpers (database stored next to this file) ---
-DB_PATH = os.path.join(os.path.dirname(__file__), 'database.db')
-
 # Single shared initialization of your backend controller state
 controller = IskoGuideController()
 
