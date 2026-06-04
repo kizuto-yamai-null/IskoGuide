@@ -1,3 +1,5 @@
+# test_system_controller.py
+import os
 import unittest
 from unittest.mock import patch
 # Import directly since it is in the same folder
@@ -13,7 +15,27 @@ class TestSystemController(unittest.TestCase):
              patch('modules.about.AboutModule'):
             
             self.controller = IskoGuideController()
-    
+            
+            # 🎯 SANDBOX FIX: Divert production database paths to temporary test boundaries
+            self.controller.accounts_file = "test_accounts.csv"
+            self.controller.history_file = "test_login_history.csv"
+            
+            # Reset active runtime database states to ensure a completely clean memory canvas
+            self.controller.registered_students = {}
+
+    def tearDown(self):
+        """🧹 POST-TEST SANITIZER: Deletes sandbox storage rows to leave no file debris behind."""
+        if os.path.exists("test_accounts.csv"):
+            try:
+                os.remove("test_accounts.csv")
+            except OSError:
+                pass
+        if os.path.exists("test_login_history.csv"):
+            try:
+                os.remove("test_login_history.csv")
+            except OSError:
+                pass
+
     def test_register_student_success(self):
         success, message = self.controller.register_student("test@edu.ph", "pass123")
         self.assertTrue(success)
