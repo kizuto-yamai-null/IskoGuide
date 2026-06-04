@@ -1,143 +1,35 @@
-<!-- This is for Sign up/Log in Page -->
-<!-- style.css must be in website/static to be rendered -->
-<!-- all images must be in website/static to be rendered -->
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block title %}Sign Up | IskoGuide{% endblock %}
+{% block header_class %}header-signup{% endblock %}
 
-<!---- Main ---->
+{% block hero %}
+    <h1>Create Student Account</h1>
+    <p>Register a student email and password so the forum can verify you before accepting posts.</p>
+    <a href="#signup-form" class="hero-btn">Sign Up</a>
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}IskoGuide{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- page-specific header styles moved to static/style.css (.header-signup) -->
-</head>
+{% block content %}
+<section class="module-section" id="signup-form">
+    <h1>Student Registration</h1>
 
-<body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <section class="header header-signup">
-        <!-- Logo -->
-        <nav>
-            <a href="{{ url_for('static', filename='index.html') }}"><img src="{{ url_for('static', filename='images/pup_lol.png') }}"></a>
+    {% if error %}
+        <div class="status-box status-warning">
+            <h3>{{ error }}</h3>
+        </div>
+    {% endif %}
 
-            <div class="univ-dropdown" aria-label="Universities menu">
-                <button class="univ-btn" aria-haspopup="true" aria-expanded="false">Choose Universities</button>
-                <div class="dropdown-content" role="menu" aria-label="Universities list">
-                    <a class="dropdown-item" href="/">Polytechnic University of the Philippines</a>
-                    <a class="dropdown-item" href="/">University of the Philippines</a>
-                </div>
-            </div>
-            
-            <!-- Main Modules/Page-->
-            <div class="nav-links" id="navLinks" aria-hidden="true">
-                    <i class="fa fa-times" onclick="hideMenu()" aria-hidden="true"></i>
-                <ul>
-                    <li>
-                        <div class="nav-dropdown" aria-label="Home menu">
-                            <a class="btn" href="/"><button class="nav-link-btn" href="home">Home</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/home#profile"><span class="label">Profile</span></a>
-                                <a class="dropdown-item" href="/home#awards-recognition"><span class="label">Awards/Recognitions</span></a>
-                                <a class="dropdown-item" href="/home#campuses"><span class="label">Campuses</span></a>
-                                <a class="dropdown-item" href="/home#history"><span class="label">History</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="nav-dropdown" aria-label="Admission menu">
-                            <a class="btn" href="admission"><button class="nav-link-btn" href="admission">Admission</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/admission#programs"><span class="label">Programs</span></a>
-                                <a class="dropdown-item" href="/admission#colleges"><span class="label">Colleges</span></a>
-                                <a class="dropdown-item" href="/admission#requirements"><span class="label">Requirements</span></a>
-                                <a class="dropdown-item" href="/admission#timeline"><span class="label">Timeline</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="nav-dropdown" aria-label="Scholarship menu">
-                            <a class="btn" href="scolarship"><button class="nav-link-btn" href="scholarship">Scholarship</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/scholarship#seeAvailable"><span class="label">See Available</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="nav-dropdown" aria-label="For Students menu">
-                            <a class="btn" href="forStudent"><button class="nav-link-btn" href="forStudent">For Students</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/forStudent#services"><span class="label">Services</span></a>
-                                <a class="dropdown-item" href="/forStudent#organizations-clubs"><span class="label">Organizations/Clubs</span></a>
-                                <a class="dropdown-item" href="/forStudent#forms"><span class="label">Forms</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="nav-dropdown" aria-label="Forum menu">
-                            <a class="btn" href="forum"><button class="nav-link-btn" href="forum">Forum</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/forum#discussions"><span class="label">Discussions</span></a>
-                                <a class="dropdown-item" href="/forum#announcements"><span class="label">Announcements</span></a>
-                                <a class="dropdown-item" href="/forum#help"><span class="label">Help</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="login-li">
-                        <a class="login-btn" href="/signup#form">Sign Up</a>
-                    </li>
-                </ul>
-            </div>
-                <i class="fa fa-bars" onclick="showMenu()"></i>
-        </nav>
-            <div class="text-box">
-                <h1>Sign Up Here</h1>
-                <h2>Be part of our Moderator Team</h2>
-                <p>We are commited in helping fellow iskolars. <br> Join us in our mission to empower students and contribute to the development of our nation.</p>
-
-                <form method="post" action="/auth" class="auth-form" id="form">
-                    <div>
-                        <a class="hero-btn"><button type="submit" name="action" value="signup">Log In</button></a>
-                        <a class="hero-btn"><button type="submit" name="action" value="signup">Sign up</button></a>
-                    </div>
-                    <input class="hero-input" type="text" name="username" id="username" placeholder="Username" required>
-                    <input class="hero-input" type="password" name="password" id="password" placeholder="Password" required>
-                    <a class="hero-btn"><button type="submit" name="action" value="signup">Submit</button></a>
-                </form>
-            </div>
-            
-            <div class="container">
-            {% block content %}
-            {% endblock %}
-            </div>
+    <form class="module-panel auth-panel" method="post" action="{{ url_for('auth.signup') }}">
+        <label class="form-field">
+            <span>Email</span>
+            <input type="email" name="email" placeholder="student@example.com" required>
+        </label>
+        <label class="form-field">
+            <span>Password</span>
+            <input type="password" name="password" minlength="4" placeholder="Create a password" required>
+        </label>
+        <button class="form-button" type="submit">Create Account</button>
+        <p class="auth-switch">Already registered? <a href="{{ url_for('auth.login') }}">Log in here</a>.</p>
+    </form>
 </section>
-
-<!---- Footer Section ---->
-<footer>
-    <p>&copy; 2026 Polytechnic University of the Philippines. All rights reserved.</p>
-</footer>
-
-<!--- JavaScript for Toggle Menu --->
-<script>
-    var navLinks = document.getElementById("navLinks");
-    var openBtn = document.querySelector('.fa-bars');
-    var closeBtn = document.querySelector('.fa-times');
-    function showMenu(){
-        navLinks.classList.add('open');
-        navLinks.setAttribute('aria-hidden','false');
-        if(openBtn) openBtn.setAttribute('aria-hidden','true');
-        if(closeBtn) closeBtn.setAttribute('aria-hidden','false');
-    }
-    function hideMenu(){
-        navLinks.classList.remove('open');
-        navLinks.setAttribute('aria-hidden','true');
-        if(openBtn) openBtn.setAttribute('aria-hidden','false');
-        if(closeBtn) closeBtn.setAttribute('aria-hidden','true');
-    }
-    
-</script>
-</body>
-</html>
+{% endblock %}

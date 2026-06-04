@@ -1,227 +1,174 @@
-<!-- This is for Admission Page -->
-<!-- style.css must be in website/static to be rendered -->
-<!-- all images must be in website/static to be rendered -->
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block title %}Student Forum | IskoGuide{% endblock %}
+{% block header_class %}header-forum{% endblock %}
 
-<!---- Main ---->
+{% block hero %}
+    <h1>Welcome to the IskoGuide Forum</h1>
+    <p>Ask questions, share ideas, and connect with people.</p>
+    <a href="#submit-post" class="hero-btn">New Post</a>
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}IskoGuide{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        .header-home{
-            min-height: 100vh;
-            width: 100%;
-            background-image: linear-gradient(url("images/forum.jpg"));
-            background-position: center;
-            background-size: cover;
-            position: relative;
-        }
-        .header-home{
-            min-height: 100vh;
-            width: 100%;
-            /* keep same visual effect but use home.jpg as the background */
-            background-image:
-                linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.12)),
-                url("{{ url_for('static', filename='images/forum.jpg') }}");
-            background-position: center;
-            background-size: cover;
-            position: relative;
-            color: inherit;
-        }
-        /* override the global .header background only on this page */
-        .header {
-            min-height: 100vh;
-            width: 100%;
-            background-image:
-                linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.12)),
-                url("{{ url_for('static', filename='images/forum.jpg') }}") !important;
-            background-position: center;
-            background-size: cover;
-            position: relative;
-            color: inherit;
-        }
-    </style>
-</head>
+{% block content %}
+<section class="forum-page">
+    {% if notice %}
+        <div class="forum-alert forum-alert-success">
+            <h3>{{ notice }}</h3>
+        </div>
+    {% endif %}
 
-<body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <section class="header">
-        <!-- Logo -->
-        <nav>
-            <a href="{{ url_for('static', filename='index.html') }}"><img src="{{ url_for('static', filename='images/pup_logo.png') }}"></a>
+    {% if error %}
+        <div class="forum-alert forum-alert-warning">
+            <h3>{{ error }}</h3>
+        </div>
+    {% endif %}
 
-            <div class="univ-dropdown" aria-label="Universities menu">
-                <button class="univ-btn" aria-haspopup="true" aria-expanded="false">Choose Universities</button>
-                <div class="dropdown-content" role="menu" aria-label="Universities list">
-                    <a class="dropdown-item" href="/">Polytechnic University of the Philippines</a>
-                    <a class="dropdown-item" href="/">University of the Philippines</a>
+    <main class="forum-container" id="discussions">
+        <section class="forum-card">
+            <div class="forum-top-bar">
+                <div>
+                    <h2>Latest Discussions</h2>
+                    <p>{{ current_role_label }} access: {{ current_user_email }}</p>
+                </div>
+                <a class="new-post-btn" href="#submit-post">+ New Post</a>
+            </div>
+
+            <div class="forum-post-list">
+                {% for post in posts %}
+                    <article class="forum-post">
+                        <div class="forum-avatar">{{ post.author[:2]|upper }}</div>
+                        <div class="forum-post-content">
+                            <h3>{{ post.title }}</h3>
+                            <p>{{ post.content }}</p>
+
+                            <div class="forum-tags">
+                                <span class="forum-tag">IskoGuide</span>
+                                <span class="forum-tag">{{ post.status }}</span>
+                            </div>
+
+                            <p class="forum-post-info">Posted by {{ post.author }}</p>
+
+                            {% if role != 4 %}
+                                <form method="post" action="{{ url_for('views.student_forum') }}#discussions">
+                                    <input type="hidden" name="action" value="report">
+                                    <input type="hidden" name="post_id" value="{{ post.post_id }}">
+                                    <button class="forum-text-btn" type="submit">Report</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% else %}
+                    <div class="forum-empty">
+                        <h3>No approved posts found.</h3>
+                        <p>Try a different search keyword or create the first discussion.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <aside class="forum-sidebar">
+            <div class="forum-sidebar-card forum-search-box">
+                <h3>Search Forum</h3>
+                <form method="get" action="{{ url_for('views.student_forum') }}#discussions">
+                    <input type="text" name="q" value="{{ forum_query }}" placeholder="Search topics...">
+                    <button class="forum-search-btn" type="submit">Search</button>
+                </form>
+            </div>
+
+            <div class="forum-sidebar-card">
+                <h3>Categories</h3>
+
+                <div class="forum-category">
+                    <span>General Discussion</span>
+                    <strong>{{ total_posts }}</strong>
+                </div>
+
+                <div class="forum-category">
+                    <span>IskoGuide</span>
+                    <strong>{{ total_posts }}</strong>
+                </div>
+
+                <div class="forum-category">
+                    <span>Pending Review</span>
+                    <strong>{{ pending_posts|length }}</strong>
                 </div>
             </div>
 
-            <!-- Main Title -->
+            <div class="forum-sidebar-card">
+                <h3>Forum Stats</h3>
 
-                <div class="nav-links" id="navLinks" aria-hidden="true">
-                    <i class="fa fa-times" onclick="hideMenu()" aria-hidden="true"></i>
-                <ul>
-                    <li>
-                        <div class="nav-dropdown" aria-label="Home menu">
-                            <a class="btn" href="/"><button class="nav-link-btn" href="home">Home</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/home#profile"><span class="label">Profile</span></a>
-                                <a class="dropdown-item" href="/home#awards-recognition"><span class="label">Awards/Recognitions</span></a>
-                                <a class="dropdown-item" href="/home#campuses"><span class="label">Campuses</span></a>
-                                <a class="dropdown-item" href="/home#history"><span class="label">History</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="nav-dropdown" aria-label="Admission menu">
-                            <a class="btn" href="admission"><button class="nav-link-btn" href="admission">Admission</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/admission#programs"><span class="label">Programs</span></a>
-                                <a class="dropdown-item" href="/admission#colleges"><span class="label">Colleges</span></a>
-                                <a class="dropdown-item" href="/admission#requirements"><span class="label">Requirements</span></a>
-                                <a class="dropdown-item" href="/admission#timeline"><span class="label">Timeline</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="nav-dropdown" aria-label="Scholarship menu">
-                            <a class="btn" href="scholarship"><button class="nav-link-btn" href="scholarship">Scholarship</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/scholarship#seeAvailable"><span class="label">See Available</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="nav-dropdown" aria-label="For Students menu">
-                            <a class="btn" href="forStudent"><button class="nav-link-btn" href="forStudent">For Students</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/forStudent#services"><span class="label">Services</span></a>
-                                <a class="dropdown-item" href="/forStudent#organizations-clubs"><span class="label">Organizations/Clubs</span></a>
-                                <a class="dropdown-item" href="/forStudent#forms"><span class="label">Forms</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="nav-dropdown" aria-label="Forum menu">
-                            <a class="btn" href="forum"><button class="nav-link-btn" href="forum">Forum</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/forum#discussions"><span class="label">Discussions</span></a>
-                                <a class="dropdown-item" href="/forum#announcements"><span class="label">Announcements</span></a>
-                                <a class="dropdown-item" href="/forum#help"><span class="label">Help</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="login-li">
-                        <a class="login-btn" href="signup">Sign Up</a>
-                    </li>
-                </ul>
+                <div class="forum-stats">
+                    <div class="forum-stat-box">
+                        <strong>{{ total_posts }}</strong>
+                        Posts
+                    </div>
+
+                    <div class="forum-stat-box">
+                        <strong>{{ pending_posts|length }}</strong>
+                        Pending
+                    </div>
+
+                    <div class="forum-stat-box">
+                        <strong>{{ posts|length }}</strong>
+                        Visible
+                    </div>
+
+                    <div class="forum-stat-box">
+                        <strong>{{ current_role_label }}</strong>
+                        Access
+                    </div>
+                </div>
             </div>
-                <i class="fa fa-bars" onclick="showMenu()"></i>
-        </nav>
+        </aside>
+    </main>
 
-<!-- Main Title -->           
-    <div class="text-box" id="welcome2">
-        <h1>Forum Pge</h1>
-        <h2>Find what you needed here</h2>
-        <p>We are commited in helping fellow iskolars. <br> Join us in our mission to empower students and contribute to the development of our nation.</p>
-        <a href="#" class="hero-btn">Username</a>
-        <a href="#" class="hero-btn">Password</a>
-    </div>
+    <section class="forum-create-post" id="submit-post">
+        <h2>Create a Post</h2>
+
+        {% if role == 4 %}
+            <p>Visitors can read approved posts. Log in as a student, moderator, or admin to submit a post.</p>
+            <a class="forum-primary-btn" href="{{ url_for('auth.login') }}">Log In</a>
+        {% else %}
+            <form method="post" action="{{ url_for('views.student_forum') }}#submit-post">
+                <input type="hidden" name="action" value="create">
+                <input type="text" name="title" maxlength="80" placeholder="Post Title" required>
+                <textarea name="content" placeholder="Write your discussion..." required></textarea>
+                <button class="forum-primary-btn" type="submit">Post Discussion</button>
+            </form>
+        {% endif %}
+    </section>
+
+    {% if role in [1, 2] %}
+        <section class="forum-create-post" id="moderation">
+            <h2>Moderator Queue</h2>
+
+            {% for post in pending_posts %}
+                <article class="forum-post forum-pending-post">
+                    <div class="forum-avatar">{{ post.author[:2]|upper }}</div>
+                    <div class="forum-post-content">
+                        <h3>{{ post.title }}</h3>
+                        <p>{{ post.content }}</p>
+                        <p class="forum-post-info">Submitted by {{ post.author }}</p>
+                        <div class="forum-actions">
+                            <form method="post" action="{{ url_for('views.student_forum') }}#moderation">
+                                <input type="hidden" name="action" value="approve">
+                                <input type="hidden" name="post_id" value="{{ post.post_id }}">
+                                <button class="forum-text-btn approve" type="submit">Approve</button>
+                            </form>
+                            <form method="post" action="{{ url_for('views.student_forum') }}#moderation">
+                                <input type="hidden" name="action" value="reject">
+                                <input type="hidden" name="post_id" value="{{ post.post_id }}">
+                                <button class="forum-text-btn reject" type="submit">Reject</button>
+                            </form>
+                        </div>
+                    </div>
+                </article>
+            {% else %}
+                <div class="forum-empty">
+                    <h3>No pending posts.</h3>
+                </div>
+            {% endfor %}
+        </section>
+    {% endif %}
 </section>
-
-<!---- Discussions section---->
-
-<section class="faqs" id="discussions">
-    <h1>Discussions</h1>
-    <div class="faqs-row">
-        <div class="faqs-col">
-            <h3>What are the admission requirements?</h3>
-            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>What programs do you offer?</h3>
-            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>How can I contact the university?</h3>
-            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
-        </div>
-    </div>
-</section>
-
-<!---- Announcements section---->
-
-<section class="faqs" id="announcements">
-    <h1>Announcements</h1>
-    <div class="faqs-row">
-        <div class="faqs-col">
-            <h3>What are the admission requirements?</h3>
-            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>What programs do you offer?</h3>
-            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>How can I contact the university?</h3>
-            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
-        </div>
-    </div>
-</section>
-
-<!--- Help Section --->
-
-<section class="campus" id="help">
-    <h1>Help</h1>
-    <div class="faqs-row">
-        <div class="faqs-col">
-            <h3>What are the admission requirements?</h3>
-            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>What programs do you offer?</h3>
-            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>How can I contact the university?</h3>
-            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
-        </div>
-    </div>
-</section>
-
-
-<!---- Footer Section ---->
-<footer>
-    <p>&copy; 2026 Polytechnic University of the Philippines. All rights reserved.</p>
-</footer>
-
-<!--- JavaScript for Toggle Menu --->
-<script>
-    var navLinks = document.getElementById("navLinks");
-    var openBtn = document.querySelector('.fa-bars');
-    var closeBtn = document.querySelector('.fa-times');
-    function showMenu(){
-        navLinks.classList.add('open');
-        navLinks.setAttribute('aria-hidden','false');
-        if(openBtn) openBtn.setAttribute('aria-hidden','true');
-        if(closeBtn) closeBtn.setAttribute('aria-hidden','false');
-    }
-    function hideMenu(){
-        navLinks.classList.remove('open');
-        navLinks.setAttribute('aria-hidden','true');
-        if(openBtn) openBtn.setAttribute('aria-hidden','false');
-        if(closeBtn) closeBtn.setAttribute('aria-hidden','true');
-    }
-    
-</script>
-</body>
-</html>
+{% endblock %}
