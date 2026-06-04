@@ -1,6 +1,12 @@
 # modules/forum.py
 
 class ForumModule:
+    """
+    🏢 3-LAYER ARCHITECTURE - LAYER 2: BUSINESS LOGIC LAYER
+    This module encapsulates the core text-processing filters, string normalization, 
+    and multi-stage queue state workflows for the student discussion board. It implements
+    automated validation checks on raw text payloads before exposing them to the UI.
+    """
     def __init__(self):
         # Memory-based database tables (Lists of data payloads)
         # 💡 Perfect baseline sample to populate Dustin's UI grid instantly on load
@@ -17,7 +23,9 @@ class ForumModule:
         self.active_Threads = 1    # Track total public posts counter
 
         # 🛡️ BILINGUAL SECURITY BASELINE PRESERVED
+        # ⭐ OOP PILLAR: ENCAPSULATION (Private Variables)
         # Encapsulated with double underscores to ensure strict OOP privacy.
+        # This prevents other components or templates from modifying or reading the blacklist values directly.
         self.__profanity_blacklist = [
             # --- Filipino Dataset ---
             "amputa", "animal ka", "bilat", "bobo", "boba", "bogok", "boto", 
@@ -45,14 +53,14 @@ class ForumModule:
         if not text_input:
             return False
 
-        # 🛠️ FIXED: Lowercase the text and split it into an isolated list of words
+        # Lowercase the text and split it into an isolated list of words
         input_words = text_input.lower().split()
         
         for word in input_words:
-            # 🛠️ FIXED: Clean off punctuation markers so "tanga!" or "gago," are still blocked
+            # Clean off punctuation markers so "tanga!" or "gago," are still blocked
             cleaned_word = word.strip(".,!?\"'()[]{}*&#_")
             
-            # 🛠️ FIXED: Check for an exact vocabulary match instead of a substring position
+            # Check for an exact vocabulary match against our encapsulated private blacklist
             if cleaned_word in self.__profanity_blacklist:
                 return True
                 

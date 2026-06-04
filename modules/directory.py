@@ -2,6 +2,12 @@
 from mock_data import landmarks, student_shops
 
 class CampusDirectory:
+    """
+    🏢 3-LAYER ARCHITECTURE - LAYER 2: BUSINESS LOGIC LAYER
+    This module encapsulates the core textual search algorithms, keyword string parsing,
+    and classification rules for campus navigation. It transforms structural datasets 
+    from Layer 3 (mock_data.py) into unified, sorted lookup arrays for presentation layers.
+    """
     def __init__(self):
         # Master references loaded directly from Enrico's seeded data pool
         self.landmarks_list = landmarks

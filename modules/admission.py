@@ -2,8 +2,14 @@
 from mock_data import admission_requirements_matrix
 
 class AdmissionModule:
+    """
+    🏢 3-LAYER ARCHITECTURE - LAYER 2: BUSINESS LOGIC LAYER
+    This module enforces the evaluation algorithms, checklist compilation, 
+    and document validation logic for all student categories. It acts as an 
+    isolated logical component processing data inputs before committing state flags.
+    """
     def __init__(self):
-        # Load the newly refined requirement matrices
+        # Load the newly refined requirement matrices from Layer 3 Storage
         self.requirements_pool = admission_requirements_matrix
 
     def show_Enrollment_Guide(self):
@@ -48,3 +54,4 @@ class AdmissionModule:
                 "missing": missing_docs,
                 "message": f"Action Required: You have {len(missing_docs)} missing requirements specific to your {target_track} status."
             }
+        

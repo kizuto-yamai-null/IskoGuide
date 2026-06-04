@@ -2,12 +2,18 @@
 from mock_data import about_assets
 
 class AboutModule:
+    """
+    🏢 3-LAYER ARCHITECTURE - LAYER 2: BUSINESS LOGIC LAYER
+    This module handles data parsing, transformation, and string cleansing for 
+    the institutional profile and contact datasets. It reads raw data structures from 
+    Layer 3 (mock_data.py) and formats them into exact UI payloads for Layer 1 (views.py).
+    """
     def __init__(self):
         self.metadata = about_assets
 
     def show_School_Credits(self) -> dict:
         """Returns institutional links and core descriptive profile tokens."""
-        # 🛠️ FIXED: Defensive data lookup type assertions
+        # 🛡️ TYPE GUARD: Defensive data lookup type assertions to isolate runtime risks
         if not isinstance(self.metadata, dict):
             return {"description": "Information temporarily unavailable.", "website": "pup.edu.ph"}
             
@@ -20,7 +26,7 @@ class AboutModule:
         """
         Extracts social media metadata platform arrays and packages structured helpdesk tables.
         """
-        # 🛠️ FIXED: Uses explicit datatype checks and fallbacks to securely isolate runtime errors
+        # 🛡️ TYPE GUARD: Uses explicit datatype checks and fallbacks to securely isolate runtime errors
         is_valid_data = isinstance(self.metadata, dict)
         
         contacts_package = {

@@ -1,5 +1,12 @@
 # mock_data.py
 
+"""
+🏢 3-LAYER ARCHITECTURE - LAYER 3: DATA STORAGE LAYER (STATIC DATA REGISTRIES)
+This file houses the application's global static data arrays, configuration matrices, 
+and informational registries. It feeds pre-structured mock data payloads to Layer 2 (Modules/Controllers)
+independent of database engines or live external dependencies.
+"""
+
 # ==============================================================================
 # 1. CAMPUS TOURISM & DIRECTORY LANDMARKS (modules/directory.py)
 # 7 landmarks with name, location, description, and search keyword tags
@@ -120,7 +127,7 @@ about_assets = {
         "linkedin": "PUP Official",
         "facebook": "Polytechnic University of the Philippines"
     },
-    # 🏢 Direct communication desks pulled from official university contact nodes
+    # Direct communication desks pulled from official university contact nodes
     "helpdesks": [
         {
             "office": "PUP Office of the University Registrar",
