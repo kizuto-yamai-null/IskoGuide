@@ -1,10 +1,17 @@
 # website/auth.py
-from flask import Blueprint, render_template, request, redirect, url_for, session, flash, make_response
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash, make_response, g, current_app
+import os
+import sqlite3
+from datetime import datetime, timezone
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # Corrected to absolute root import to find the file in the main IskoGuide folder
 from system_controller import IskoGuideController
 
 auth = Blueprint('auth', __name__)
+
+# --- simple sqlite helpers (database stored next to this file) ---
+DB_PATH = os.path.join(os.path.dirname(__file__), 'database.db')
 
 # Single shared initialization of your backend controller state
 controller = IskoGuideController()
