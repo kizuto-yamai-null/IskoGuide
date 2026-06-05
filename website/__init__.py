@@ -26,6 +26,17 @@ def create_app():
     app.config['SESSION_TYPE'] = 'filesystem'
     app.config['SESSION_PERMANENT'] = False
 
+    # 🎭 DYNAMIC ROLE CONTEXT INJECTION (Dustin's Feature Integration)
+    @app.context_processor
+    def inject_user_context():
+        role_num = session.get('role', 4)
+        role_labels = {1: "Admin", 2: "Moderator", 3: "Student", 4: "Visitor"}
+        return {
+            "current_role": role_num,
+            "current_role_label": role_labels.get(role_num, "Visitor"),
+            "current_user_email": session.get("user_email", "Guest_User"),
+        }
+
     from .views import views
     from .auth import auth
 

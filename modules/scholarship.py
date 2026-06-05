@@ -3,6 +3,9 @@
 # 🏢 FIXED: Pull the newly seeded data arrays from the mock database
 from mock_data import scholarship_guidelines_text, scholarship_deadlines_matrix
 
+# 🏢 FIXED: Pull the newly seeded data arrays from the mock database
+from mock_data import scholarship_guidelines_text, scholarship_deadlines_matrix
+
 class ScholarshipModule:
     """
     🏢 3-LAYER ARCHITECTURE - LAYER 2: BUSINESS LOGIC LAYER

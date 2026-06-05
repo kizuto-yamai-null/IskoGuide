@@ -1,5 +1,9 @@
 # website/auth.py
-from flask import Blueprint, render_template, request, redirect, url_for, session, flash, make_response
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash, make_response, g, current_app
+import os
+import sqlite3
+from datetime import datetime, timezone
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # Corrected to absolute root import to find the file in the main IskoGuide folder
 from system_controller import IskoGuideController
