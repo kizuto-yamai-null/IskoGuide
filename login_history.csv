@@ -13,3 +13,12 @@ timestamp,email,role,status
 2026-06-05 11:11:27,Attempted_Unknown Staff,Unknown Staff,Failed Login (Invalid PIN)
 2026-06-05 11:11:27,test@edu.ph,Student,Successful Login
 2026-06-05 11:11:27,test@edu.ph,Student,Failed Login
+2026-06-05 11:21:38,Admin,Admin,Successful Login
+2026-06-05 11:21:38,Attempted_Admin,Admin,Failed Login (Invalid PIN)
+2026-06-05 11:21:38,happy@student.edu.ph,Student,Successful Login
+2026-06-05 11:23:49,Admin,Admin,Successful Login
+2026-06-05 11:23:49,Attempted_Admin,Admin,Failed Login (Invalid PIN)
+2026-06-05 11:23:50,happy@student.edu.ph,Student,Successful Login
+2026-06-05 11:26:34,Admin,Admin,Successful Login
+2026-06-05 11:26:34,Attempted_Admin,Admin,Failed Login (Invalid PIN)
+2026-06-05 11:26:34,happy@student.edu.ph,Student,Successful Login
