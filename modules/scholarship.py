@@ -4,13 +4,20 @@
 from mock_data import scholarship_guidelines_text, scholarship_deadlines_matrix
 
 class ScholarshipModule:
+    """
+    🏢 3-LAYER ARCHITECTURE - LAYER 2: BUSINESS LOGIC LAYER
+    This module encapsulates the mathematical evaluation engines, threshold validations, 
+    and policy constraints for institutional and national grants. It ingests primitive numerical
+    inputs from Layer 1 forms and performs strict matrix operations against Layer 3 criteria sets.
+    """
     def __init__(self):
         """
         Initializes the Scholarship and Financial Assistance Engine.
         """
         # ==============================================================================
         # 📝 DATA SEEDING & STATIC TEXT DATA POOL
-        # 🛠️ FIXED: Properties now pull from the centralized mock data file
+        # 🏢 3-LAYER ARCHITECTURE - LAYER 3 CONNECTIVITY
+        # Properties now pull from the centralized mock data file
         # ==============================================================================
         self.grant_guidelines = scholarship_guidelines_text
         self.application_deadlines = scholarship_deadlines_matrix
@@ -26,7 +33,7 @@ class ScholarshipModule:
     # ==============================================================================
     def evaluate_eligibility(self, gwa: float, monthly_income: float, scholarship_type: str) -> dict:
         """Evaluates mathematical GWA limits and family income boundaries."""
-        # 🛠️ FIXED: Added the DOST-SEI parameter threshold matrix limits
+        # Added the DOST-SEI parameter threshold matrix limits
         criteria_matrix = {
             "Tulong Dunong Program (TDP)": {
                 "max_gwa": 2.50,        
@@ -70,3 +77,4 @@ class ScholarshipModule:
             "checked_gwa": gwa,
             "checked_income": monthly_income
         }
+    
