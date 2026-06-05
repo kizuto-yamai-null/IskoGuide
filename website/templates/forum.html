@@ -35,7 +35,7 @@
 
             <div class="forum-post-list">
                 {% for post in posts %}
-                    <article class="forum-post">
+                    <article class="forum-post" id="post-{{ post.post_id }}">
                         <div class="forum-avatar">{{ post.author[:2]|upper }}</div>
                         <div class="forum-post-content">
                             <h3>{{ post.title }}</h3>
@@ -46,7 +46,7 @@
                                 <span class="forum-tag">{{ post.status }}</span>
                             </div>
 
-                            <p class="forum-post-info">Posted by {{ post.author }}</p>
+                            <p class="forum-post-info">Posted by {{ post.author }} - {{ post.replies|length }} replies</p>
 
                             {% if role != 4 %}
                                 <form method="post" action="{{ url_for('views.student_forum') }}#discussions">
@@ -55,6 +55,38 @@
                                     <button class="forum-text-btn" type="submit">Report</button>
                                 </form>
                             {% endif %}
+
+                            <details class="forum-replies">
+                                <summary>
+                                    <span>Replies ({{ post.replies|length }})</span>
+                                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                                </summary>
+
+                                <div class="forum-reply-list">
+                                    {% for reply in post.replies %}
+                                        <article class="forum-reply">
+                                            <div class="forum-reply-avatar">{{ reply.author[:2]|upper }}</div>
+                                            <div class="forum-reply-body">
+                                                <p>{{ reply.content }}</p>
+                                                <span>Reply by {{ reply.author }}</span>
+                                            </div>
+                                        </article>
+                                    {% else %}
+                                        <p class="forum-reply-empty">No replies yet.</p>
+                                    {% endfor %}
+                                </div>
+
+                                {% if role in [1, 2] %}
+                                    <form class="forum-reply-form" method="post" action="{{ url_for('views.student_forum') }}#post-{{ post.post_id }}">
+                                        <input type="hidden" name="action" value="reply">
+                                        <input type="hidden" name="post_id" value="{{ post.post_id }}">
+                                        <textarea name="reply_content" maxlength="300" placeholder="Write a reply..." required></textarea>
+                                        <button class="forum-text-btn" type="submit">Reply</button>
+                                    </form>
+                                {% else %}
+                                    <p class="forum-reply-empty">Only admins and moderators can reply.</p>
+                                {% endif %}
+                            </details>
                         </div>
                     </article>
                 {% else %}
@@ -114,6 +146,11 @@
                     </div>
 
                     <div class="forum-stat-box">
+                        <strong>{{ total_replies }}</strong>
+                        Replies
+                    </div>
+
+                    <div class="forum-stat-box">
                         <strong>{{ current_role_label }}</strong>
                         Access
                     </div>
@@ -127,9 +164,9 @@
 
         {% if role == 4 %}
             <p>Visitors can read approved posts. Log in as a student, moderator, or admin to submit a post.</p>
-            <a class="forum-primary-btn" href="{{ url_for('auth.login') }}">Log In</a>
+            <a class="forum-primary-btn" href="{{ url_for('auth.login') }}">Log In</a>                                   <!-- Go to auth.py def login() -->
         {% else %}
-            <form method="post" action="{{ url_for('views.student_forum') }}#submit-post">
+            <form method="post" action="{{ url_for('views.student_forum') }}#submit-post">                               <!-- Go to views.py def student_forum() -->
                 <input type="hidden" name="action" value="create">
                 <input type="text" name="title" maxlength="80" placeholder="Post Title" required>
                 <textarea name="content" placeholder="Write your discussion..." required></textarea>
@@ -150,12 +187,12 @@
                         <p>{{ post.content }}</p>
                         <p class="forum-post-info">Submitted by {{ post.author }}</p>
                         <div class="forum-actions">
-                            <form method="post" action="{{ url_for('views.student_forum') }}#moderation">
+                            <form method="post" action="{{ url_for('views.student_forum') }}#moderation">            <!-- Go to views.py def student_forum() -->
                                 <input type="hidden" name="action" value="approve">
                                 <input type="hidden" name="post_id" value="{{ post.post_id }}">
                                 <button class="forum-text-btn approve" type="submit">Approve</button>
                             </form>
-                            <form method="post" action="{{ url_for('views.student_forum') }}#moderation">
+                            <form method="post" action="{{ url_for('views.student_forum') }}#moderation">             <!-- Go to views.py def student_forum() -->
                                 <input type="hidden" name="action" value="reject">
                                 <input type="hidden" name="post_id" value="{{ post.post_id }}">
                                 <button class="forum-text-btn reject" type="submit">Reject</button>

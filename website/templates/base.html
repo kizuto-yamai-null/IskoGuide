@@ -14,7 +14,7 @@
     <section class="header {% block header_class %}{% endblock %}" id="header">
         <nav>
             <a href="{{ url_for('views.home') }}" aria-label="IskoGuide home">
-                <img src="{{ url_for('static', filename='images/pup_logo.png') }}" alt="PUP logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="PUP logo">
             </a>
 
             <div class="univ-dropdown" aria-label="Universities menu">
@@ -34,8 +34,6 @@
                             <a class="nav-link-btn home-link" href="{{ url_for('views.home') }}" onclick="window.location.href=this.href">Home</a>
                             <div class="dropdown-content" role="menu">
                                 <a class="dropdown-item" href="{{ url_for('views.home') }}#profile"><span class="label">Profile</span></a>
-                                <a class="dropdown-item" href="{{ url_for('views.home') }}#campuses"><span class="label">Campuses</span></a>
-                                <a class="dropdown-item" href="{{ url_for('views.home') }}#map"><span class="label">Map</span></a>
                                 <a class="dropdown-item" href="{{ url_for('views.about_credits') }}"><span class="label">About PUP</span></a>
                             </div>
                         </div>
@@ -45,7 +43,8 @@
                             <a class="nav-link-btn" href="{{ url_for('views.admission_guide') }}" onclick="window.location.href=this.href">Admission</a>
                             <div class="dropdown-content" role="menu">
                                 <a class="dropdown-item" href="{{ url_for('views.admission_guide') }}#programs"><span class="label">Programs</span></a>
-                                <a class="dropdown-item" href="{{ url_for('views.admission_guide') }}#requirements"><span class="label">Requirements</span></a>
+                                <a class="dropdown-item" href="{{ url_for('views.admission_guide') }}#requirement"><span class="label">Requirement</span></a>
+                                <a class="dropdown-item" href="{{ url_for('views.admission_guide') }}#requirements"><span class="label">Checker</span></a>
                                 <a class="dropdown-item" href="{{ url_for('views.admission_guide') }}#timeline"><span class="label">Timeline</span></a>
                             </div>
                         </div>
@@ -63,9 +62,11 @@
                         <div class="nav-dropdown" aria-label="For Students menu">
                             <a class="nav-link-btn" href="{{ url_for('views.campus_directory') }}" onclick="window.location.href=this.href">For Students</a>
                             <div class="dropdown-content" role="menu">
+                                <a class="dropdown-item" href="{{ url_for('views.campus_directory') }}#campus"><span class="label">Campus</span></a>
                                 <a class="dropdown-item" href="{{ url_for('views.campus_directory') }}#directory-search"><span class="label">Search</span></a>
                                 <a class="dropdown-item" href="{{ url_for('views.campus_directory') }}#landmarks"><span class="label">Landmarks</span></a>
                                 <a class="dropdown-item" href="{{ url_for('views.campus_directory') }}#shops"><span class="label">Student Shops</span></a>
+                                <a class="dropdown-item" href="{{ url_for('views.campus_directory') }}#map"><span class="label">Map</span></a>
                             </div>
                         </div>
                     </li>
@@ -104,6 +105,7 @@
 
     <footer>
         <p>&copy; 2026 Polytechnic University of the Philippines. All rights reserved.</p>
+        <p>&copy; 2026 IskoGuide. All rights reserved.</p>
     </footer>
 
     <script>
