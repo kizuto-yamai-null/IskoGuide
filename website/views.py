@@ -1,11 +1,11 @@
 # website/views.py
-from flask import Blueprint, render_template, request, redirect, url_for, session, current_app
+from flask import Blueprint, render_template, request, redirect, url_for, session
 
 from website.auth import controller
 
 views = Blueprint('views', __name__)
 
-# ------------------------- HOME -----------------------------------
+
 @views.route('/')
 @views.route('/home')
 def home():
@@ -35,7 +35,7 @@ def admission_guide():
         checklist_result=checklist_result
     )
 
-# ----------------------- SCHOLARSHIP ------------------------------
+
 @views.route('/scholarship', methods=['GET', 'POST'])
 def scholarship_checker():
     guidelines = controller.scholarship_module.get_grant_guidelines()
@@ -72,7 +72,7 @@ def scholarship_checker():
             'income', '') if request.method == 'POST' else ''
     )
 
-# ------------------ FOR STUDENTS ----------------------------------------
+
 @views.route('/forStudent', methods=['GET', 'POST'])
 def campus_directory():
     landmarks_list = controller.campus_directory.show_Landmarks()
@@ -93,7 +93,7 @@ def campus_directory():
         query=query_string
     )
 
-# --------------------------- FORUM -------------------------------
+
 @views.route('/forum', methods=['GET', 'POST'])
 def student_forum():
     current_role = session.get('role', 4)
@@ -135,6 +135,25 @@ def student_forum():
                 except (ValueError, TypeError):
                     error_message = "Invalid post selected."
 
+        elif action == 'reply':
+            if current_role not in (1, 2):
+                error_message = "Only Admins and Moderators can reply to posts."
+            else:
+                try:
+                    post_id = int(request.form.get('post_id', 0))
+                    reply_content = request.form.get('reply_content', '').strip()
+                    success, message = controller.forum_module.add_reply(
+                        post_id,
+                        user_email,
+                        reply_content
+                    )
+                    if success:
+                        session['forum_notice'] = message
+                        return redirect(url_for('views.student_forum') + f"#post-{post_id}")
+                    error_message = message
+                except (ValueError, TypeError):
+                    error_message = "Invalid post selected."
+
         elif action == 'create':
             if current_role == 4:
                 error_message = "Visitors are limited to view-only access. Log in to submit a post."
@@ -167,14 +186,21 @@ def student_forum():
             if clean_query in post.get('title', '').lower()
             or clean_query in post.get('content', '').lower()
             or clean_query in post.get('author', '').lower()
+            or any(
+                clean_query in reply.get('content', '').lower()
+                or clean_query in reply.get('author', '').lower()
+                for reply in post.get('replies', [])
+            )
         ]
 
+    total_replies = sum(len(post.get('replies', [])) for post in active_posts)
     pending_posts = controller.forum_module.get_pending_queue(
     ) if current_role in (1, 2) else []
     return render_template(
         "forum.html",
         posts=displayed_posts,
         total_posts=len(active_posts),
+        total_replies=total_replies,
         role=current_role,
         user_email=user_email,
         pending_posts=pending_posts,
