@@ -10,6 +10,32 @@
 {% endblock %}
 
 {% block content %}
+<section class="campus" id="campus">
+    <h1>Campus</h1>
+    <p>Explore the campus locations featured in IskoGuide.</p>
+
+    <div class="campus-row">
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/Sta mesa.jpg') }}" alt="PUP Sta. Mesa Campus">
+            <div class="layer">
+                <h3>Sta. Mesa Campus</h3>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/QC.jpg') }}" alt="PUP Quezon City Campus">
+            <div class="layer">
+                <h3>Quezon City Campus</h3>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/Taguig.jpg') }}" alt="PUP Taguig Campus">
+            <div class="layer">
+                <h3>Taguig Campus</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="module-section" id="directory-search">
     <h1>Campus Directory Search</h1>
     <p>Try keywords like library, coffee, print, oval, chapel, or tambayan.</p>
