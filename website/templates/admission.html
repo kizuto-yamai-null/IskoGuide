@@ -6,31 +6,301 @@
 {% block hero %}
     <h1>Admission Guide</h1>
     <p>Choose your student type, check the required documents, and let the Admission module tell you what is still missing.</p>
-    <a href="#requirements" class="hero-btn">Check Requirements</a>
+    <a href="#requirement" class="hero-btn">View Requirements</a>
 {% endblock %}
 
 {% block content %}
 <section class="faqs" id="programs">
     <h1>Programs</h1>
-    <p>Use this page as a first-stop admission checklist for freshman, transferee, and returnee applicants.</p>
+    <p>Here are the offered programs for any student</p>
+
+    <!-- first row: 3 columns -->
     <div class="faqs-row">
         <article class="faqs-col">
             <h3>Freshman</h3>
             <p>For first-time college applicants entering after senior high school.</p>
         </article>
+
         <article class="faqs-col">
             <h3>Transferee</h3>
             <p>For students moving from another college or university into PUP.</p>
         </article>
+
         <article class="faqs-col">
             <h3>Returnee</h3>
             <p>For previous PUP students applying for readmission or reactivation.</p>
         </article>
     </div>
+
+    <!-- program dropdowns -->
+    <div class="program-dropdowns">
+        <details class="program-dropdown" open>
+            <summary>
+                <span>Open University System (OUS)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="program-list">
+                <li><b>(BSENTREP):</b> Bachelor of Science in Entrepreneurship.</li>
+                <li><b>(BABR):</b> Bachelor of Arts in Broadcasting.</li>
+                <li><b>(BSBAHRM):</b> Bachelor of Science in Business Administration major in Human Resource Management.</li>
+                <li><b>(BSBAMM):</b> Bachelor of Science in Business Administration major in Marketing Management.</li>
+                <li><b>(BSOA):</b> Bachelor of Science in Office Administration.</li>
+                <li><b>(BSTM):</b> Bachelor of Science in Tourism Management.</li>
+                <li><b>(BPA):</b> Bachelor of Public Administration.</li>
+            </ul>
+        </details>
+
+        <details class="program-dropdown">
+            <summary>
+                <span>Institute of Technology (ITECH)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="program-list">
+                <li>Diploma in Computer Engineering Technology.</li>
+                <li>Diploma in Electronics Communications Engineering Technology.</li>
+                <li>Diploma in Electrical Engineering Technology.</li>
+                <li>Diploma in Information Communication Technology.</li>
+                <li>Diploma in Mechanical Engineering Technology.</li>
+                <li>Diploma in Office Management Technology.</li>
+            </ul>
+        </details>
+
+        <details class="program-dropdown">
+            <summary>
+                <span>College of Accountancy and Finance (CAF)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="program-list">
+                <li><b>(BSENTREP):</b> Bachelor of Science in Accountancy.</li>
+                <li><b>(BSA):</b> Bachelor of Science in Accountancy.</li>
+                <li><b>(BSMA):</b> Bachelor of Science in Management Accounting.</li>
+                <li><b>(BSBAFM):</b> Bachelor of Science in Business Administration Major in Financial Management.</li>
+            </ul>
+        </details>
+
+        <details class="program-dropdown">
+            <summary>
+                <span>College of Architecture, Design and the Built Environment (CADBE)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <p class="program-note">(formerly the College of Architecture and Fine Arts)</p>
+            <ul class="program-list">
+                <li><b>(BS-ARCH):</b> Bachelor of Science in Architecture.</li>
+                <li><b>(BSID):</b> Bachelor of Science in Interior Design.</li>
+                <li><b>(BSEP):</b> Bachelor of Science in Environmental Planning.</li>
+            </ul>
+        </details>
+
+        <details class="program-dropdown">
+            <summary>
+                <span>College of Arts and Letters (CAL)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="program-list">
+                <li><b>(ABE):</b> Bachelor of Science in Architecture.</li>
+                <li><b>(ABF):</b> Bachelor of Arts in Filipino.</li>
+                <li><b>(ABPHILO):</b> Bachelor of Science in Environmental Planning.</li>
+                <li><b>(ABTA):</b> Bachelor of Arts in Theater Arts.</li>
+            </ul>
+        </details>
+
+        <details class="program-dropdown">
+            <summary>
+                <span>College of Business Administration (CBA)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="program-list">
+                <li><b>(BSBA-MM):</b> Bachelor of Science in Business Administration major in Marketing Management.</li>
+                <li><b>(BSBA-HRDM):</b> Bachelor of Science in Business Administration major in Human Resource Development Management.</li>
+                <li><b>(BSEntrep):</b> Bachelor of Science in Entrepreneurship.</li>
+                <li><b>(BSOA):</b> Bachelor of Science in Office Administration.</li>
+            </ul>
+        </details>
+
+        <details class="program-dropdown">
+            <summary>
+                <span>College of Communication (COC)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="program-list">
+                <li><b>(BAPR):</b> Bachelor in Advertising and Public Relation.</li>
+                <li><b>(ABJ):</b> Bachelor of Arts in Journalism.</li>
+                <li><b>(BA Broadcasting):</b> Bachelor of Arts on Broadcasting.</li>
+                <li><b>(ABCR):</b> Bachelor of Arts in Communication Research.</li>
+            </ul>
+        </details>
+
+        <details class="program-dropdown">
+            <summary>
+                <span>College of Computer and Information Sciences (CCIS)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="program-list">
+                <li><b>(BSCS):</b> Bachelor of Science in Computer Science.</li>
+                <li><b>(BSIT):</b> Bachelor of Science in Information Technology.</li>
+            </ul>
+        </details>
+
+        <details class="program-dropdown">
+            <summary>
+                <span>College of Education (COED)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="program-list">
+                <li><b>(BTLEd):</b> Bachelor of Technology and Livelihood Education.<br>major in Home Economics, Industrial Arts, Information and Communication Technology</li>
+                <li><b>(BLIS):</b> Bachelor of Library and Information Science.</li>
+                <li><b>(BSEd):</b> Bachelor of Secondary Education.<br>major in English, Mathematics, Science, Filipino, Social Studies</li>
+                <li><b>(BEEd):</b> Bachelor of Elementary Education.</li>
+                <li><b>(BECEd):</b> Bachelor of Early Childhood Education.</li>
+            </ul>
+        </details>
+
+        <details class="program-dropdown">
+            <summary>
+                <span>College of Engineering (CE)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="program-list">
+                <li><b>(BSCE):</b> Bachelor of Science in Civil Engineering.</li>
+                <li><b>(BSCpE):</b> Bachelor of Science in Computer Engineering.</li>
+                <li><b>(BSEE):</b> Bachelor of Science in Electrical Engineering.</li>
+                <li><b>(BSECE):</b> Bachelor of Science in Electronics Engineering.</li>
+                <li><b>(BSIE):</b> Bachelor of Science in Industrial Engineering.</li>
+                <li><b>(BSME):</b> Bachelor of Science in Mechanical Engineering.</li>
+                <li><b>(BSRE):</b> Bachelor of Science in Railway Engineering.<br>(formerly Bachelor of Science in Railway Engineering and Management)</li>
+            </ul>
+        </details>
+
+        <details class="program-dropdown">
+            <summary>
+                <span>College of Human Kinetics (CHK)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="program-list">
+                <li><b>(BPE):</b> Bachelor in Physical Education.</li>
+            </ul>
+        </details>
+
+        <details class="program-dropdown">
+            <summary>
+                <span>College of Political Science and Public Administration (CPSPA)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="program-list">
+                <li><b>(BAPS):</b> Bachelor of Arts in Political Science.</li>
+                <li><b>(BAPE):</b> Bachelor of Arts in Political Economy.</li>
+                <li><b>(BAIS):</b> Bachelor of Arts in International Studies.</li>
+                <li><b>(BPA):</b> Bachelor of Public Administration.</li>
+            </ul>
+        </details>
+
+        <details class="program-dropdown">
+            <summary>
+                <span>College of Social Sciences and Development (CSSD)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="program-list">
+                <li><b>(ABS):</b> Bachelor of Arts in Sociology.</li>
+                <li><b>(BSE):</b> Bachelor of Science in Economics.</li>
+                <li><b>(BAH):</b> Bachelor of Arts in History.</li>
+                <li><b>(BAPHS):</b> Bachelor of Arts in Philippine Studies.</li>
+                <li><b>(BSPSY):</b> Bachelor of Science in Psychology.</li>
+                <li><b>(BHS):</b> Bachelor in Human Services.</li>
+                <li><b>(BSSW):</b> Bachelor of Science in Social Work.</li>
+            </ul>
+        </details>
+
+        <details class="program-dropdown">
+            <summary>
+                <span>College of Science (CS)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="program-list">
+                <li><b>(BAS):</b> Bachelor in Applied Statistics.</li>
+                <li><b>(BSAM):</b> Bachelor of Science in Applied Mathematics.<br>major in Actuarial Mathematics</li>
+                <li><b>(BSBIO):</b> Bachelor of Science in Biology.</li>
+                <li><b>(BSCHEM):</b> Bachelor of Science in Chemistry.</li>
+                <li><b>(BSFT):</b> Bachelor of Science in Food Technology.</li>
+                <li><b>(BSM):</b> Bachelor of Science in Mathematics.</li>
+                <li><b>(BSND):</b> Bachelor of Science in Nutrition and Dietetics.</li>
+                <li><b>(BSP):</b> Bachelor of Science in Physics.</li>
+            </ul>
+        </details>
+
+        <details class="program-dropdown">
+            <summary>
+                <span>College of Tourism, Hospitality and Transportation Management (CTHTM)</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </summary>
+            <ul class="program-list">
+                <li><b>(BSTM):</b> Bachelor of Science in Tourism Management.</li>
+                <li><b>(BTM):</b> Bachelor in Transportation Management.</li>
+                <li><b>(BSHM):</b> Bachelor of Science in Hospitality Management.</li>
+            </ul>
+        </details>
+    </div>
+</section>
+
+<section class="requirement-section" id="requirement">
+    <div class="requirement-header">
+        <h1>Requirement</h1>
+        <p>Prepare these documents before applying online and before confirming your enrollment slot.</p>
+    </div>
+
+    <div class="requirement-grid">
+        <article class="requirement-card">
+            <div class="requirement-card-head">
+                <span class="requirement-icon"><i class="fa fa-laptop" aria-hidden="true"></i></span>
+                <div>
+                    <h2>Online Requirements</h2>
+                    <p>Exclusive for PUPCET takers</p>
+                </div>
+            </div>
+            <ol class="requirement-list">
+                <li>2x2-inch colored photo with name tag in JPEG format, not more than 300 KB.</li>
+                <li>Grade 11 report card showing complete name, LRN, first semester GWA, and second semester GWA.</li>
+            </ol>
+        </article>
+
+        <article class="requirement-card">
+            <div class="requirement-card-head">
+                <span class="requirement-icon"><i class="fa fa-file-text-o" aria-hidden="true"></i></span>
+                <div>
+                    <h2>Enrollment Requirements</h2>
+                    <p>Exclusive for PUPCET passers</p>
+                </div>
+            </div>
+            <ol class="requirement-list">
+                <li>Passed PUP College Entrance Exam Test (PUPCET).</li>
+                <li>Confirmation requirements after confirming your slot through the PUP iApply Portal.</li>
+                <li>High school graduate credentials.</li>
+                <li>High School Card (Form 138).</li>
+                <li>Form 137-A.</li>
+                <li>Medical Clearance from PUP Medical Clinic.</li>
+                <li>Certification of Good Moral Character signed by the high school principal or guidance counselor.</li>
+                <li>NSO authenticated copy of Birth Certificate or Certificate of Live Birth.</li>
+            </ol>
+        </article>
+    </div>
+
+    <div class="requirement-actions" aria-label="Requirement links">
+        <a class="requirement-action" href="https://iapply.pup.edu.ph" target="_blank" rel="noopener">
+            <i class="fa fa-external-link" aria-hidden="true"></i>
+            <span>PUP iApply Portal</span>
+        </a>
+        <a class="requirement-action requirement-action-light" href="https://www.pup.edu.ph/iapply/procedure/pupcet" target="_blank" rel="noopener">
+            <i class="fa fa-list-alt" aria-hidden="true"></i>
+            <span>PUPCET Procedure</span>
+        </a>
+        <a class="requirement-action requirement-action-light" href="https://www.pup.edu.ph/itech/requirements" target="_blank" rel="noopener">
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            <span>Detailed Requirements</span>
+        </a>
+    </div>
 </section>
 
 <section class="module-section" id="requirements">
-    <h1>Dynamic Requirements Checker</h1>
+    <h1>Requirements Checker</h1>
     <p>The checklist below is loaded from <b>mock_data.py</b> through the Admission module.</p>
 
     <form class="module-panel" method="post" action="{{ url_for('views.admission_guide') }}#requirements">
@@ -81,20 +351,162 @@
     {% endif %}
 </section>
 
-<section class="faqs" id="timeline">
-    <h1>Admission Timeline</h1>
-    <div class="faqs-row">
-        <article class="faqs-col">
-            <h3>Prepare</h3>
-            <p>Identify your student type and gather the documents listed by the checker.</p>
+<section class="timeline-section" id="timeline">
+    <div class="timeline-header">
+        <span class="timeline-kicker">Admission Calendar</span>
+        <h1>Admission Timeline</h1>
+        <p>Track important application, enrollment, semester, and examination dates in one calendar-style view.</p>
+    </div>
+
+    <article class="calendar-window">
+        <div class="calendar-window-icon">
+            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+        </div>
+        <div>
+            <span>PUP iApply Window</span>
+            <h2>November 10 to December 31</h2>
+            <p>Identify your student type and prepare the documents listed in the checker before the online admission period.</p>
+        </div>
+    </article>
+
+    <div class="calendar-grid">
+        <article class="calendar-month">
+            <header>
+                <span>2026</span>
+                <h2>July</h2>
+            </header>
+            <div class="calendar-event">
+                <time>6-17</time>
+                <p>Processing of First Year Admission and Enrollment and Printing of Registration Card, face to face at PUP Main Campus, Sta. Mesa, Manila.</p>
+            </div>
         </article>
-        <article class="faqs-col">
-            <h3>Submit</h3>
-            <p>Use the complete checklist as your guide before submitting official requirements.</p>
+
+        <article class="calendar-month">
+            <header>
+                <span>2026</span>
+                <h2>August</h2>
+            </header>
+            <div class="calendar-event">
+                <time>17</time>
+                <p>Start of the First Semester.</p>
+            </div>
         </article>
-        <article class="faqs-col">
-            <h3>Verify</h3>
-            <p>Watch for registrar or admissions updates for document validation and enrollment instructions.</p>
+
+        <article class="calendar-month">
+            <header>
+                <span>2026</span>
+                <h2>October</h2>
+            </header>
+            <div class="calendar-event">
+                <time>12-17</time>
+                <p>Mid-Term and Departmental Examinations.</p>
+            </div>
+            <div class="calendar-event">
+                <time>22</time>
+                <p>PUP's 122nd Founding Anniversary.</p>
+            </div>
+        </article>
+
+        <article class="calendar-month">
+            <header>
+                <span>2026</span>
+                <h2>December</h2>
+            </header>
+            <div class="calendar-event">
+                <time>16-22</time>
+                <p>Final and Departmental Examination of Non-Graduating Students.</p>
+            </div>
+            <div class="calendar-event">
+                <time>22</time>
+                <p>End of the First Semester.</p>
+            </div>
+        </article>
+
+        <article class="calendar-month">
+            <header>
+                <span>2027</span>
+                <h2>January</h2>
+            </header>
+            <div class="calendar-event">
+                <time>6-12</time>
+                <p>Online encoding of final grades for non-graduating students and First Year Online Registration.</p>
+            </div>
+            <div class="calendar-event">
+                <time>15</time>
+                <p>Submission of grade sheets to the Office of the Dean or Director.</p>
+            </div>
+            <div class="calendar-event">
+                <time>19</time>
+                <p>Submission of grade sheets to the Office of the University Registrar and auto finalization of grades.</p>
+            </div>
+            <div class="calendar-event">
+                <time>20</time>
+                <p>Start of the Second Semester and Adjustment Period.</p>
+            </div>
+        </article>
+
+        <article class="calendar-month">
+            <header>
+                <span>2027</span>
+                <h2>February</h2>
+            </header>
+            <div class="calendar-event">
+                <time>5</time>
+                <p>Deadline of submission of Completion Forms for Incomplete Marks to the Office of the University Registrar.</p>
+            </div>
+            <div class="calendar-event">
+                <time>12</time>
+                <p>Auto finalization of grades in the PUPSIS for the First Semester, A.Y. 2026-2027.</p>
+            </div>
+            <div class="calendar-event">
+                <time>19</time>
+                <p>End of the Adjustment Period.</p>
+            </div>
+        </article>
+
+        <article class="calendar-month">
+            <header>
+                <span>2027</span>
+                <h2>March</h2>
+            </header>
+            <div class="calendar-event">
+                <time>15-20</time>
+                <p>Mid-Term and Departmental Examinations.</p>
+            </div>
+            <div class="calendar-event">
+                <time>29</time>
+                <p>Start of online encoding of Mid-Term grades.</p>
+            </div>
+        </article>
+
+        <article class="calendar-month">
+            <header>
+                <span>2027</span>
+                <h2>April</h2>
+            </header>
+            <div class="calendar-event">
+                <time>3</time>
+                <p>End of online encoding of Mid-Term grades.</p>
+            </div>
+        </article>
+
+        <article class="calendar-month">
+            <header>
+                <span>2027</span>
+                <h2>May</h2>
+            </header>
+            <div class="calendar-event">
+                <time>17-22</time>
+                <p>Final Examinations for Graduating Students and Departmental Examinations.</p>
+            </div>
+            <div class="calendar-event">
+                <time>19-24</time>
+                <p>Final Examinations of Non-Graduating Students.</p>
+            </div>
+            <div class="calendar-event">
+                <time>27-30</time>
+                <p>Final Examinations of Non-Graduating Students.</p>
+            </div>
         </article>
     </div>
 </section>
