@@ -32,11 +32,11 @@ def login():
                 selected_role = 4 # Fallback safely to Visitor access if parsing fails
             
             # --- ROLE GATE: VISITOR (No credentials required) ---
-            if selected_role == 4:  
+            if selected_role == 4:
                 session['role'] = 4
                 session['user_email'] = "Guest_User"
                 return redirect(url_for('views.home', role="Visitor"))
-                
+
             # --- ROLE GATE: STUDENT (Uses Email & Password validation) ---
             elif selected_role == 3:
                 # Matched Dustin's frontend form name identifiers exactly
@@ -69,11 +69,12 @@ def login():
                     return redirect(url_for('views.home', role=role_label))
                 else:
                     return render_template("login.html", error="Invalid Security PIN. Access Denied.")
-                    
-        except Exception as e:
-            # Universal catch-all shield to keep the interface functional no matter what data lands
+
+        except (ValueError, TypeError):
+            return render_template("login.html", error="Invalid input format detected.")
+        except Exception:
             return render_template("login.html", error="An unexpected system error occurred.")
-            
+
     return render_template("login.html", error=None)
 
 
@@ -92,7 +93,7 @@ def signup():
         if success:
             return redirect(url_for('auth.login'))
         return render_template("signup.html", error=message)
-            
+
     return render_template("signup.html", error=None)
 
 

@@ -1,7 +1,6 @@
 # website/views.py
 from flask import Blueprint, render_template, request, redirect, url_for, session
 
-# Share the single initialized master controller state from your auth configuration
 from website.auth import controller
 
 views = Blueprint('views', __name__)
@@ -12,12 +11,14 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 @views.route('/home')
+@views.route('/home')
 def home():
     role_num = session.get('role', 4)
     role_labels = {1: "Admin", 2: "Moderator", 3: "Student", 4: "Visitor"}
     return render_template("index.html", role=role_labels.get(role_num, "Visitor"))
 
 
+@views.route('/admission', methods=['GET', 'POST'])
 @views.route('/admission', methods=['GET', 'POST'])
 def admission_guide():
     """
@@ -79,10 +80,7 @@ def scholarship_checker():
             # STRUCTURAL FALLBACK: Prevents the app from throwing 500 runtime errors
             evaluation_result = {
                 "is_eligible": False,
-                "status_message": "Please enter valid numbers for GWA and Income formats.",
-                "scholarship_name": str(request.form.get('scholarship_type', 'Selected Program')),
-                "gwa_status": "Invalid format",
-                "income_status": "Invalid format"
+                "status_message": "Please enter valid numbers for GWA and income."
             }
 
     return render_template(

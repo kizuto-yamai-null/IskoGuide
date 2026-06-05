@@ -16,7 +16,8 @@ class ForumModule:
                 "author": "admin@iskoguide.edu.ph",
                 "title": "Welcome, Iskos! 🔴🟡",
                 "content": "Welcome to the official IskoGuide community forum. Feel free to ask questions about admissions, document deadlines, and campus directions!",
-                "status": "approved"
+                "status": "approved",
+                "replies": []
             }
         ]    
         self.pending_queue = []    # Sandbox holding area for Moderator review
@@ -81,10 +82,34 @@ class ForumModule:
             "author": author,
             "title": title,
             "content": content,
-            "status": "pending"
+            "status": "pending",
+            "replies": []
         }
         self.pending_queue.append(post_payload)
         return True, "Post submitted successfully! Awaiting moderator validation."
+
+    def add_reply(self, post_id: int, author: str, content: str) -> tuple[bool, str]:
+        """
+        Adds a clean reply to an approved public post.
+        """
+        clean_content = content.strip() if content else ""
+        if not clean_content:
+            return False, "Please write a reply before submitting."
+
+        if self.check_for_spam(clean_content):
+            return False, "Reply Blocked: Inappropriate or profane language detected."
+
+        for post in self.student_Posts:
+            if post["post_id"] == post_id:
+                replies = post.setdefault("replies", [])
+                replies.append({
+                    "reply_id": len(replies) + 1,
+                    "author": author,
+                    "content": clean_content
+                })
+                return True, "Reply posted."
+
+        return False, "Post was not found."
 
     def view_threads(self) -> list: 
         """
