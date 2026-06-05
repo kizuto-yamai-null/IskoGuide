@@ -1,3 +1,47 @@
+<style>
+    /* ensure content sections sit below the hero and don't overlap */
+    .hero { z-index: 1; position: relative; }
+    .module-section { margin-top: 40px; clear: both; padding-top: 18px; }
+    .module-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+    a.module-card { display:block; text-decoration:none; color:inherit; }
+
+    /* new: center hero buttons and place a "Like" button to the right of the primary button */
+    .hero-btns {
+        display: flex;
+        gap: 12px;
+        justify-content: center; /* center the whole group */
+        align-items: center;
+        margin-top: 18px;
+        flex-wrap: wrap;
+    }
+
+    .hero-btn {
+        display: inline-block;
+        padding: 10px 18px;
+        border-radius: 6px;
+        background: var(--accent, #1a73e8);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: transform .12s ease, box-shadow .12s ease;
+    }
+
+    .hero-like-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 6px;
+        background: #e9f1ff;
+        color: var(--accent, #1a73e8);
+        text-decoration: none;
+        font-weight: 600;
+        border: 1px solid rgba(26,115,232,0.12);
+    }
+
+    .hero-btn:hover, .hero-like-btn:hover { transform: translateY(-3px); }
+</style>
+
 {% extends "base.html" %}
 
 {% block title %}IskoGuide | PUP Student Guide{% endblock %}
@@ -6,40 +50,50 @@
     <h1>Welcome to ISKOGUIDE</h1>
     <p>Navigate your path to university success with Iskoguide. From discovering your ideal campus to securing the right scholarships, we provide the essential tools and verified guidance you need. Join a supportive hub where your academic questions are met with reliable, expert-validated answers.</p>
     <p class="hero-role">Current access: {{ current_role_label }}</p>
-    <a href="{{ url_for('views.admission_guide') }}" class="hero-btn">Start Exploring</a>
+    <a href="{{ url_for('views.about_credits') }}" class="hero-btn">Start Exploring</a>
     <a href="https://www.pup.edu.ph/" class="hero-btn" target="_blank" rel="noopener">PUP Official Website</a>
 {% endblock %}
 
 {% block content %}
-<section class="profile" id="profile">
-    <div class="profile-container">
-        <h1>Profile</h1>
-        <p>Learn about the mission, values, campuses, and student support areas that guide the PUP community.</p>
+    <section class="module-section" id="about-content">
+        <h1>About Us</h1>
+        <p>We are a team of students dedicated in helping you navigate the college life ahead</p>
 
-        <div class="profile-grid">
-            <article class="profile-card">
-                <h3>Mission, Vision & Values</h3>
-                <p><b>Mission:</b> Advance inclusive, equitable, and globally relevant polytechnic education towards national development.</p>
-                <p><b>Vision:</b> A leading comprehensive polytechnic university in Asia.</p>
-                <p><b>Values:</b> Integrity, excellence, service, inclusivity, and innovation.</p>
-            </article>
-
-            <article class="profile-card">
-                <h3>Student-Centered Guide</h3>
-                <p>Use the dynamic modules to check requirements, estimate scholarship eligibility, search campus places, and join student discussions.</p>
-            </article>
-
-            <article class="profile-card">
-                <h3>Diversity & Inclusion</h3>
-                <p>The university community represents many backgrounds, cultures, and perspectives, with support services for new students.</p>
-            </article>
-
-            <article class="profile-card">
-                <h3>Practical Learning</h3>
-                <p>PUP emphasizes applied learning, community involvement, and preparation for real-world challenges.</p>
-            </article>
+        <div class="module-grid">
+            <a class="module-card" target="_blank" rel="noopener">
+                <h3>Meet The Team</h3>
+                <p><b>Project Manager:</b> Matthew Mulato</p>
+                <p><b>Front-End:</b> Cappal Laud, Verzosa Dustin Lei</p>
+                <p><b>Back-End:</b> Oraiz, Whole-U, Paigna Enrico</p>
+                <p><b>Tester:</b> Casimiro Kyla</p>
+            </a>
+            <a class="module-card" href="https://www.facebook.com/profile.php?id=61580032224759" target="_blank" rel="noopener">
+                <p class="tag">Social Channel</p>
+                <h3>Facebook</h3>
+                <p class="link-label">Corei6 FB Page</p>
+            </a>
+            <a class="module-card" href="https://github.com/kizuto-yamai-null/IskoGuide" target="_blank" rel="noopener">
+                <p class="tag">Social Channel</p>
+                <h3>Github</h3>
+                <p class="link-label">Github repository</p>
+            </a>
         </div>
-    </div>
-</section>
-
+    </section>
 {% endblock %}
+
+
+
+<section class="module-section" id="about-content">
+        <h1>About Us</h1>
+        <p>We are a team of students dedicated in helping you navigate the college life ahead</p>
+
+        <div class="module-grid">
+            {% for social in social_channels %}
+                <article class="module-card" href="https://www.facebook.com/profile.php?id=61580032224759" target="_blank" rel="noopener">
+                    <p class="tag">Social Channel</p>
+                    <h3>Facebook</h3>
+                    <p class="link-label">Corei6 FB Page</p>
+                </article>
+            {% endfor %}
+        </div>
+    </section>
