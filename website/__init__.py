@@ -1,6 +1,6 @@
 # website/__init__.py
 import os
-from flask import Flask
+from flask import Flask, session
 
 def create_app():
     """
