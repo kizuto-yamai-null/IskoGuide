@@ -64,9 +64,12 @@ def scholarship_checker():
         guidelines=guidelines,
         timelines=timelines,
         scholarship_options=list(timelines.keys()),
-        selected_scholarship=request.form.get('scholarship_type', '') if request.method == 'POST' else '',
-        submitted_gwa=request.form.get('gwa', '') if request.method == 'POST' else '',
-        submitted_income=request.form.get('income', '') if request.method == 'POST' else ''
+        selected_scholarship=request.form.get(
+            'scholarship_type', '') if request.method == 'POST' else '',
+        submitted_gwa=request.form.get(
+            'gwa', '') if request.method == 'POST' else '',
+        submitted_income=request.form.get(
+            'income', '') if request.method == 'POST' else ''
     )
 
 
@@ -79,7 +82,8 @@ def campus_directory():
 
     if request.method == 'POST':
         query_string = request.form.get('search_query', '').strip()
-        search_results = controller.campus_directory.search_campus_directory(query_string)
+        search_results = controller.campus_directory.search_campus_directory(
+            query_string)
 
     return render_template(
         "forStudent.html",
@@ -108,10 +112,12 @@ def student_forum():
                 try:
                     post_id = int(request.form.get('post_id', 0))
                     if action == 'approve':
-                        was_updated = controller.forum_module.approve_post(post_id)
+                        was_updated = controller.forum_module.approve_post(
+                            post_id)
                         session['forum_notice'] = "Post approved." if was_updated else "Post was not found."
                     else:
-                        was_updated = controller.forum_module.reject_post(post_id)
+                        was_updated = controller.forum_module.reject_post(
+                            post_id)
                         session['forum_notice'] = "Post rejected." if was_updated else "Post was not found."
                     return redirect(url_for('views.student_forum'))
                 except (ValueError, TypeError):
@@ -126,6 +132,25 @@ def student_forum():
                     was_reported = controller.forum_module.report_Post(post_id)
                     session['forum_notice'] = "Post reported for review." if was_reported else "Post was not found."
                     return redirect(url_for('views.student_forum'))
+                except (ValueError, TypeError):
+                    error_message = "Invalid post selected."
+
+        elif action == 'reply':
+            if current_role not in (1, 2):
+                error_message = "Only Admins and Moderators can reply to posts."
+            else:
+                try:
+                    post_id = int(request.form.get('post_id', 0))
+                    reply_content = request.form.get('reply_content', '').strip()
+                    success, message = controller.forum_module.add_reply(
+                        post_id,
+                        user_email,
+                        reply_content
+                    )
+                    if success:
+                        session['forum_notice'] = message
+                        return redirect(url_for('views.student_forum') + f"#post-{post_id}")
+                    error_message = message
                 except (ValueError, TypeError):
                     error_message = "Invalid post selected."
 
@@ -161,13 +186,21 @@ def student_forum():
             if clean_query in post.get('title', '').lower()
             or clean_query in post.get('content', '').lower()
             or clean_query in post.get('author', '').lower()
+            or any(
+                clean_query in reply.get('content', '').lower()
+                or clean_query in reply.get('author', '').lower()
+                for reply in post.get('replies', [])
+            )
         ]
 
-    pending_posts = controller.forum_module.get_pending_queue() if current_role in (1, 2) else []
+    total_replies = sum(len(post.get('replies', [])) for post in active_posts)
+    pending_posts = controller.forum_module.get_pending_queue(
+    ) if current_role in (1, 2) else []
     return render_template(
         "forum.html",
         posts=displayed_posts,
         total_posts=len(active_posts),
+        total_replies=total_replies,
         role=current_role,
         user_email=user_email,
         pending_posts=pending_posts,
