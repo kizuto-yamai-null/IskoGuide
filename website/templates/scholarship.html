@@ -1,302 +1,65 @@
-<!-- This is the Scholarship Page -->
-<!-- style.css must be in website/static to be rendered -->
-<!-- all images must be in website/static to be rendered -->
+{% extends "base.html" %}
 
+{% block title %}Scholarship Checker | IskoGuide{% endblock %}
+{% block header_class %}header-scholarship{% endblock %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block hero %}
+    <h1>Scholarship Checker</h1>
+    <p>Enter your GWA and monthly household income to check your baseline eligibility for available scholarship programs.</p>
+    <a href="#checker" class="hero-btn">Check Eligibility</a>
+{% endblock %}
 
-<!---- Main ---->
+{% block content %}
+<section class="module-section" id="checker">
+    <h1>Eligibility Form</h1>
+    <p>{{ guidelines }}</p>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}IskoGuide{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        .header-home{
-            min-height: 100vh;
-            width: 100%;
-            background-image: linear-gradient(url("images/scholarship.jpg"));
-            background-position: center;
-            background-size: cover;
-            position: relative;
-        }
-        .header-home{
-            min-height: 100vh;
-            width: 100%;
-            /* keep same visual effect but use home.jpg as the background */
-            background-image:
-                linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.12)),
-                url("{{ url_for('static', filename='images/scholarship.jpg') }}");
-            background-position: center;
-            background-size: cover;
-            position: relative;
-            color: inherit;
-        }
-        /* override the global .header background only on this page */
-        .header {
-            min-height: 100vh;
-            width: 100%;
-            background-image:
-                linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.12)),
-                url("{{ url_for('static', filename='images/scholarship.jpg') }}") !important;
-            background-position: center;
-            background-size: cover;
-            position: relative;
-            color: inherit;
-        }
-        .checker-container-backend { width: 80%; margin: 30px auto; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .form-card-backend { background: #fff3f3; padding: 25px; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.05); text-align: left; }
-        .input-box-backend { width: 100%; padding: 10px; margin: 8px 0 15px 0; border-radius: 6px; border: 1px solid rgba(0,0,0,0.15); font-family: inherit; }
-        @media(max-width: 900px) { .checker-container-backend { grid-template-columns: 1fr; } }
-    </style>
-</head>
+    <form class="module-panel" method="post" action="{{ url_for('views.scholarship_checker') }}#checker">
+        <div class="form-grid">
+            <label class="form-field">
+                <span>Scholarship Program</span>
+                <select name="scholarship_type" required>
+                    <option value="">Choose program</option>
+                    {% for program in scholarship_options %}
+                        <option value="{{ program }}" {% if selected_scholarship == program %}selected{% endif %}>{{ program }}</option>
+                    {% endfor %}
+                </select>
+            </label>
 
-<body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <section class="header" id="header">
-        <!-- Logo -->
-        <nav>
-            <a href="{{ url_for('static', filename='index.html') }}"><img src="{{ url_for('static', filename='images/pup_logo.png') }}"></a>
+            <label class="form-field">
+                <span>GWA</span>
+                <input type="number" name="gwa" min="1" max="5" step="0.01" value="{{ submitted_gwa }}" placeholder="Example: 1.75" required>
+            </label>
 
-            <div class="univ-dropdown" aria-label="Universities menu">
-                <button class="univ-btn" aria-haspopup="true" aria-expanded="false">Choose Universities</button>
-                <div class="dropdown-content" role="menu" aria-label="Universities list">
-                    <a class="dropdown-item" href="/">Polytechnic University of the Philippines</a>
-                    <a class="dropdown-item" href="/">University of the Philippines</a>
-                </div>
-            </div>
-            
-            <!-- Main Modules/Page-->
-            <div class="nav-links" id="navLinks" aria-hidden="true">
-                    <i class="fa fa-times" onclick="hideMenu()" aria-hidden="true"></i>
-                <ul>
-                    <li>
-                        <div class="nav-dropdown" aria-label="Home menu">
-                            <a class="btn" href="/"><button class="nav-link-btn" href="home">Home</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/home#profile"><span class="label">Profile</span></a>
-                                <a class="dropdown-item" href="/home#awards-recognition"><span class="label">Awards/Recognitions</span></a>
-                                <a class="dropdown-item" href="/home#campuses"><span class="label">Campuses</span></a>
-                                <a class="dropdown-item" href="/home#history"><span class="label">History</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="nav-dropdown" aria-label="Admission menu">
-                            <a class="btn" href="admission"><button class="nav-link-btn" href="admission">Admission</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/admission#programs"><span class="label">Programs</span></a>
-                                <a class="dropdown-item" href="/admission#colleges"><span class="label">Colleges</span></a>
-                                <a class="dropdown-item" href="/admission#requirements"><span class="label">Requirements</span></a>
-                                <a class="dropdown-item" href="/admission#timeline"><span class="label">Timeline</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="nav-dropdown" aria-label="Scholarship menu">
-                            <a class="btn" href="scholarship"><button class="nav-link-btn" href="scholarship">Scholarship</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/scholarship#seeAvailable"><span class="label">See Available</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="nav-dropdown" aria-label="For Students menu">
-                            <a class="btn" href="forStudent"><button class="nav-link-btn" href="forStudent">For Students</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/forStudent#services"><span class="label">Services</span></a>
-                                <a class="dropdown-item" href="/forStudent#organizations-clubs"><span class="label">Organizations/Clubs</span></a>
-                                <a class="dropdown-item" href="/forStudent#forms"><span class="label">Forms</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="nav-dropdown" aria-label="Forum menu">
-                            <a class="btn" href="forum"><button class="nav-link-btn" href="forum">Forum</button></a>
-                            <div class="dropdown-content" role="menu">
-                                <a class="dropdown-item" href="/forum#discussions"><span class="label">Discussions</span></a>
-                                <a class="dropdown-item" href="/forum#announcements"><span class="label">Announcements</span></a>
-                                <a class="dropdown-item" href="/forum#help"><span class="label">Help</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="login-li">
-                        <a class="login-btn" href="signup">Sign Up</a>
-                    </li>
-                </ul>
-            </div>
-                <i class="fa fa-bars" onclick="showMenu()"></i>
-        </nav>
+            <label class="form-field">
+                <span>Monthly Household Income</span>
+                <input type="number" name="income" min="0" step="100" value="{{ submitted_income }}" placeholder="Example: 25000" required>
+            </label>
+        </div>
 
-<!-- Main Title -->    
-    <div class="text-box" id="welcome3">
-        <h1>Scholarships Page</h1>
-        <p>Find here the available scholarships</p>
-        <a href="https://www.pup.edu.ph/" class="hero-btn">Visit Us Now</a>
-    </div>
-</section>
+        <button class="form-button" type="submit">Evaluate Scholarship</button>
+    </form>
 
-<!-- ========================================== -->
-<!-- 🛠️ BACKEND ARCHITECTURE INTEGRATION ZONE -->
-<!-- ========================================== -->
-<main class="checker-container-backend" id="main-content">
-    <!-- Interactive Evaluation Input Module -->
-    <div class="form-card-backend">
-        <h2>Eligibility Calculator Checker</h2>
-        <form method="POST" action="/scholarship" style="margin-top: 15px;">
-            <label for="scholarship_type">Target Scholarship Program:</label>
-            <select name="scholarship_type" id="scholarship_type" class="input-box-backend">
-                <option value="Tulong Dunong Program">Tulong Dunong Program (TDP)</option>
-                <option value="Academic Excellence Grant">Academic Excellence Scholarship</option>
-                <option value="Barangay Scholar Grant">Barangay Scholar Incentive</option>
-            </select>
-
-            <label for="gwa">Your General Weighted Average (GWA):</label>
-            <input type="text" name="gwa" id="gwa" class="input-box-backend" placeholder="e.g., 1.25" required>
-
-            <label for="income">Annual Household Gross Income (PHP):</label>
-            <input type="text" name="income" id="income" class="input-box-backend" placeholder="e.g., 250000" required>
-
-            <button type="submit" class="hero-btn" style="background: var(--accent); border: none; cursor: pointer; width: 100%; padding: 12px; margin-top: 5px;">Run Eligibility Analysis</button>
-        </form>
-    </div>
-
-    <!-- Live Evaluation Result Display Engine Output Panel -->
-    <div class="form-card-backend" style="background: #fff; border-left: 5px solid var(--accent);">
-        <h2>Evaluation Results</h2>
-        <div style="margin-top: 15px;">
-            {% if evaluation %}
-                <div style="padding: 15px; border-radius: 6px; margin-bottom: 15px; background: {% if evaluation.is_eligible %}#e8f5e9; color: #2e7d32;{% else %}#ffebee; color: #c62828;{% endif %}">
-                    <h3>Status: {% if evaluation.is_eligible %}QUALIFIED{% else %}NOT ELIGIBLE{% endif %}</h3>
-                    <p style="color: inherit; padding: 5px 0; margin: 0;">{{ evaluation.status_message }}</p>
-                </div>
-                <p><strong>Selected Program:</strong> {{ evaluation.scholarship_name }}</p>
-                <p><strong>GWA Metric Verdict:</strong> {{ evaluation.gwa_status }}</p>
-                <p><strong>Financial Metric Verdict:</strong> {{ evaluation.income_status }}</p>
-            {% else %}
-                <p style="color: #666;">Please populate the parameter attributes in the calculator module card and click submit to trigger backend validation checking loops.</p>
+    {% if evaluation %}
+        <div class="status-box {% if evaluation.is_eligible %}status-success{% else %}status-warning{% endif %}">
+            <h3>{{ evaluation.status_message }}</h3>
+            {% if evaluation.checked_gwa is defined %}
+                <p>Checked GWA: {{ "%.2f"|format(evaluation.checked_gwa) }}</p>
+                <p>Checked monthly income: Php {{ "{:,.2f}".format(evaluation.checked_income) }}</p>
             {% endif %}
         </div>
-    </div>
-</main>
-
-<section class="checker-container-backend" style="grid-template-columns: 1fr 1fr; margin-top: 0; padding-top: 0;">
-    <div class="form-card-backend" style="background: #fdfdfd; border: 1px solid rgba(0,0,0,0.05);">
-        <h3>Academic Grade Requirements</h3>
-        <ul style="margin-top: 10px; list-style: disc; padding-left: 20px;">
-            {% for rule in guidelines %}
-                <li style="padding: 4px 0; font-size: 14px; color: #555;">{{ rule }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="form-card-backend" style="background: #fdfdfd; border: 1px solid rgba(0,0,0,0.05);">
-        <h3>Active Submission Deadlines</h3>
-        <ul style="margin-top: 10px; list-style: disc; padding-left: 20px;">
-            {% for timeline in timelines %}
-                <li style="padding: 4px 0; font-size: 14px; color: #555;">{{ timeline }}</li>
-            {% endfor %}
-        </ul>
-    </div>
+    {% endif %}
 </section>
-<!-- ========================================== -->
 
-
-<!---- Scholarships section---->
-
-<section class="faqs" id="programs">
-    <h1>Scholarship 1</h1>
+<section class="faqs" id="deadlines">
+    <h1>Scholarship Deadlines</h1>
     <div class="faqs-row">
-        <div class="faqs-col">
-            <h3>What are the admission requirements?</h3>
-            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>What programs do you offer?</h3>
-            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>How can I contact the university?</h3>
-            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
-        </div>
+        {% for program, deadline in timelines.items() %}
+            <article class="faqs-col">
+                <h3>{{ program }}</h3>
+                <p>{{ deadline }}</p>
+            </article>
+        {% endfor %}
     </div>
 </section>
-
-<section class="faqs" id="colleges">
-    <h1>Scholarship 2</h1>
-    <div class="faqs-row">
-        <div class="faqs-col">
-            <h3>What are the admission requirements?</h3>
-            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>What programs do you offer?</h3>
-            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>How can I contact the university?</h3>
-            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
-        </div>
-    </div>
-</section>
-
-
-<section class="campus" id="requirements">
-    <h1>Scholarship 3</h1>
-    <div class="faqs-row">
-        <div class="faqs-col">
-            <h3>What are the admission requirements?</h3>
-            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>What programs do you offer?</h3>
-            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>How can I contact the university?</h3>
-            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
-        </div>
-    </div>
-</section>
-
-
-<!----Awards/Recognition section---->
-<!---- this section still under development --->
-
-
-
-
-<!----History section--->
-<!---- this section still under development --->
-
-
-
-<!---- Footer Section ---->
-<footer>
-    <p>&copy; 2026 Polytechnic University of the Philippines. All rights reserved.</p>
-</footer>
-
-<!--- JavaScript for Toggle Menu --->
-<script>
-    var navLinks = document.getElementById("navLinks");
-    var openBtn = document.querySelector('.fa-bars');
-    var closeBtn = document.querySelector('.fa-times');
-    function showMenu(){
-        navLinks.classList.add('open');
-        navLinks.setAttribute('aria-hidden','false');
-        if(openBtn) openBtn.setAttribute('aria-hidden','true');
-        if(closeBtn) closeBtn.setAttribute('aria-hidden','false');
-    }
-    function hideMenu(){
-        navLinks.classList.remove('open');
-        navLinks.setAttribute('aria-hidden','true');
-        if(openBtn) openBtn.setAttribute('aria-hidden','false');
-        if(closeBtn) closeBtn.setAttribute('aria-hidden','true');
-    }
-    
-</script>
-</body>
-</html>
+{% endblock %}

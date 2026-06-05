@@ -90,6 +90,8 @@ class ForumModule:
         """
         Returns only approved, public posts. Safely served to Guest/Visitor view states.
         """
+        for post in self.student_Posts:
+            post.setdefault("replies", [])
         return self.student_Posts
 
     # --- STAFF ADMINISTRATION METHODS ---
@@ -103,6 +105,7 @@ class ForumModule:
         for post in self.pending_queue:
             if post["post_id"] == post_id:
                 post["status"] = "approved"
+                post.setdefault("replies", [])
                 self.student_Posts.append(post)
                 self.pending_queue.remove(post)
                 self.active_Threads = len(self.student_Posts)

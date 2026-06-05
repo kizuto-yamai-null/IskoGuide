@@ -127,7 +127,7 @@ about_assets = {
         "linkedin": "PUP Official",
         "facebook": "Polytechnic University of the Philippines"
     },
-    # Direct communication desks pulled from official university contact nodes
+    # 🏢 Direct communication desks pulled from official university contact nodes
     "helpdesks": [
         {
             "office": "PUP Office of the University Registrar",

@@ -1,125 +1,266 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}IskoGuide For Students{% endblock %}</title>
-    <link class="nav-link" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="preconnect" href="https://fonts.gstatic.com"><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        .header {
-            min-height: 60vh;
-            width: 100%;
-            background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.12)), url("{{ url_for('static', filename='images/forStudents.jpg') }}") !important;
-            background-position: center;
-            background-size: cover;
-            position: relative;
-            color: inherit;
-        }
-    </style>
-</head>
+{% block title %}For Students | IskoGuide{% endblock %}
+{% block header_class %}header-students{% endblock %}
 
-<body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
-    <section class="header" id="header">
-        <nav>
-            <a href="/"><img src="{{ url_for('static', filename='images/pup_logo.png') }}"></a>
+{% block hero %}
+    <h1>For Students</h1>
+    <p>Search campus landmarks, student services, and shop locations using the Campus Directory module.</p>
+    <a href="#directory-search" class="hero-btn">Search Campus</a>
+{% endblock %}
 
-            <div class="univ-dropdown" aria-label="Universities menu">
-                <button class="univ-btn" aria-haspopup="true" aria-expanded="false">Choose Universities</button>
-                <div class="dropdown-content" role="menu" aria-label="Universities list">
-                    <a class="dropdown-item" href="/">Polytechnic University of the Philippines</a>
-                    <a class="dropdown-item" href="/">University of the Philippines</a>
+{% block content %}
+<section class="campus" id="campuses">
+    <h1>Our Campuses</h1>
+    <p>Explore the campus locations featured in IskoGuide.</p>
+
+    <div class="campus-row">
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/pup.jpg') }}" alt="PUP Sta. Mesa Campus">
+            <div class="layer">
+                <h3>Sta. Mesa Campus</h3>
+                <h4>1016 Anonas, Santa Mesa, Manila</h4>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/QC.jpg') }}" alt="PUP Quezon City Branch">
+            <div class="layer">
+                <h3>Quezon City Branch</h3>
+                <h4>Don Fabian, Quezon City, 1121 Metro Manila</h4>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/Taguig.jpg') }}" alt="PUP Taguig Branch">
+            <div class="layer">
+                <h3>Taguig City Branch</h3>
+                <h4>General Santos Ave, Lower Bicutan, Taguig, Metro Manila</h4>
+            </div>
+        </div>
+    </div>
+    <div class="campus-row">
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/sanjuan.jpg') }}" alt="PUP San Juan Campus">
+            <div class="layer">
+                <h3>San Juan Campus</h3>
+                <h4>A. Mabini St., Brgy. Addition Hills, San Juan City, Metro Manila</h4>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/paranaque.jpg') }}" alt="PUP Paranaque Campus">
+            <div class="layer">
+                <h3>Parañaque Campus</h3>
+                <h4>Wawa, Brgy. Sto. Niño, Parañaque City, Metro Manila</h4>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/stotomas.jpg') }}" alt="PUP Sto Tomas Campus">
+            <div class="layer">
+                <h3>Sto. Tomas Campus</h3>
+                <h4>A. Bonifacio St, Matandang Balara, Santo Tomas, 4234 Batangas</h4>
+            </div>
+        </div>
+    </div>
+    <div class="campus-row">
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/stamaria.jpg') }}" alt="PUP Sta Maria Campus">
+            <div class="layer">
+                <h3>Sta. Maria Campus</h3>
+                <h4>Barangay Pulong Buhangin, Santa Maria, Bulacan</h4>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/pulilan.jpg') }}" alt="PUP Pulilan Campus">
+            <div class="layer">
+                <h3>Pulilan Campus</h3>
+                <h4>Luna Street, in Barangay Balatong B, Pulilan, Bulacan</h4>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/bataan.jpg') }}" alt="PUP Bataan Branch">
+            <div class="layer">
+                <h3>Bataan Branch</h3>
+                <h4>Elliptical Road, Barangay Malaya, Mariveles, Bataan</h4>
+            </div>
+        </div>
+    </div>
+    <div class="campus-row">
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/cabiao.jpg') }}" alt="PUP Cabiao Campus">
+            <div class="layer">
+                <h3>Cabiao Campus</h3>
+                <h4>Cabiao, Nueva Ecija</h4>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/binan.jpg') }}" alt="PUP Biñan Campus">
+            <div class="layer">
+                <h3>Biñan Campus</h3>
+                <h4>Barangay Zapote, Biñan City Hall Compound, Biñan, Laguna</h4>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/calauan.jpg') }}" alt="PUP Calauan Campus">
+            <div class="layer">
+                <h3>Calauan Campus</h3>
+                <h4>Barangay Kanluran, Calauan, Laguna</h4>
+            </div>
+        </div>
+    </div>
+    <div class="campus-row">
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/sanpedro.jpg') }}" alt="PUP San Pedro Campus">
+            <div class="layer">
+                <h3>San Pedro Campus</h3>
+                <h4>Brgy. United Bayanihan San Pedro, Laguna</h4>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/starosa.jpg') }}" alt="PUP Sto Rosa Campus">
+            <div class="layer">
+                <h3>Sto. Rosa Campus</h3>
+                <h4>Tiongco Subdivision, Barangay Tagapo, City of Santa Rosa, Laguna</h4>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/bansud.jpg') }}" alt="PUP Bansud Campus">
+            <div class="layer">
+                <h3>Bansud Campus</h3>
+                <h4>Poblacion, Bansud, Oriental Mindoro</h4>
+            </div>
+        </div>
+    </div>
+    <div class="campus-row">
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/sablayan.jpg') }}" alt="PUP Sablayan Campus">
+            <div class="layer">
+                <h3>Sablayan Campus</h3>
+                <h4>Sitio Macambang, Barangay Buenavista, Sablayan, Occidental Mindoro</h4>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/leyte.jpg') }}" alt="PUP Leyte Campus">
+            <div class="layer">
+                <h3>Leyte Campus</h3>
+                <h4>Barangay Calaguise, Leyte</h4>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/talisay.jpg') }}" alt="PUP Talisay Campus">
+            <div class="layer">
+                <h3>Talisay Campus</h3>
+                <h4>Poblacion 5, Talisay, Batangas</h4>
+            </div>
+        </div>
+    </div>
+    <div class="campus-row">
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/alfonso.jpg') }}" alt="PUP Alfonso Campus">
+            <div class="layer">
+                <h3>Alfonso Campus</h3>
+                <h4>Mangas II, Alfonso, Cavite</h4>
+            </div>
+        </div>
+        <div class="campus-col">
+            <img src="{{ url_for('static', filename='images/maragondon.jpg') }}" alt="PUP Maragondon Branch">
+            <div class="layer">
+                <h3>Maragondon Branch</h3>
+                <h4>Barangay Garita A, Poblacion 1A, Maragondon, Cavite</h4>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="module-section" id="directory-search">
+    <h1>Campus Directory Search</h1>
+    <p>Try keywords like library, coffee, print, oval, chapel, or tambayan.</p>
+
+    <form class="module-panel search-panel" method="post" action="{{ url_for('views.campus_directory') }}#directory-search">
+        <label class="form-field">
+            <span>Search Keyword</span>
+            <input type="search" name="search_query" value="{{ query }}" placeholder="Search campus places and services">
+        </label>
+        <button class="form-button" type="submit">Search</button>
+    </form>
+
+    {% if search_results is not none %}
+        <div class="status-box">
+            <h3>Search results for "{{ query }}"</h3>
+            {% if search_results %}
+                <div class="module-grid">
+                    {% for result in search_results %}
+                        <article class="module-card">
+                            <p class="tag">{{ result.type }}</p>
+                            <h3>{{ result.name }}</h3>
+                            <p>{{ result.info }}</p>
+                        </article>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No matches found. Try a different keyword.</p>
+            {% endif %}
+        </div>
+    {% endif %}
+</section>
+
+<section class="module-section" id="landmarks">
+    <h1>Campus Landmarks</h1>
+    <div class="module-grid">
+        {% for landmark in landmarks %}
+            <article class="module-card">
+                <p class="tag">Landmark</p>
+                <h3>{{ landmark.name }}</h3>
+                <p><b>Location:</b> {{ landmark.location }}</p>
+                <p>{{ landmark.description }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="module-section" id="shops">
+    <h1>Student Shops and Services</h1>
+    <div class="module-grid">
+        {% for shop in shops %}
+            <article class="module-card">
+                <p class="tag">{{ shop.type_of_service }}</p>
+                <h3>{{ shop.name }}</h3>
+                <p><b>Location:</b> {{ shop.location }}</p>
+                <p>{{ shop.description }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="map" id="map">
+    <div class="map-inner">
+        <header class="map-header">
+            <h1>Find Us</h1>
+            <p>Locate the main campus and open the map image for a closer look.</p>
+        </header>
+
+        <div class="map-container">
+            <div class="map-card">
+                <div class="map-embed">
+                    <iframe src="https://www.google.com/maps?q=Polytechnic+University+of+the+Philippines&output=embed" title="PUP Map" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
-            
-            <div class="nav-links" id="navLinks" aria-hidden="true">
-                    <i class="fa fa-times" onclick="hideMenu()" aria-hidden="true"></i>
-                <ul>
-                    <li><a class="nav-link-btn" href="/">Home</a></li>
-                    <li><a class="nav-link-btn" href="/admission">Admission</a></li>
-                    <li><a class="nav-link-btn" href="/scholarship">Scholarship</a></li>
-                    <li><a class="nav-link-btn" href="/forStudent">For Students</a></li>
-                    <li><a class="nav-link-btn" href="/forum">Forum</a></li>
-                </ul>
-            </div>
-                <i class="fa fa-bars" onclick="showMenu()"></i>
-        </nav>
 
-<div class="text-box" id="welcome4">
-        <h1>For Students Page</h1>
-        <p>Find everything here about student life<br>Join us</p>
-        <a href="https://www.pup.edu.ph/" class="hero-btn">Visit Us Now</a>
-    </div>
-</section>
-
-<main id="main-content">
-</main>
-
-<section class="faqs" id="services">
-    <h1>Services</h1>
-    <div class="faqs-row">
-        <div class="faqs-col">
-            <h3>What are the admission requirements?</h3>
-            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>What programs do you offer?</h3>
-            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>How can I contact the university?</h3>
-            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
+            <aside class="map-details">
+                <a href="{{ url_for('static', filename='images/MAP.jpg') }}" target="_blank" rel="noopener">
+                    <img class="campus-thumb" src="{{ url_for('static', filename='images/MAP.jpg') }}" alt="Campus map thumbnail">
+                </a>
+                <div class="details-body">
+                    <h3>Main Campus, Sta. Mesa</h3>
+                    <p class="addr">Use the student directory module to search landmarks, shops, and services around campus.</p>
+                    <a class="map-btn" href="{{ url_for('views.campus_directory') }}">Open Directory</a>
+                </div>
+            </aside>
         </div>
     </div>
-</section>
-
-<section class="faqs" id="organizations-clubs">
-    <h1>Organizations and Clubs</h1>
-    <div class="faqs-row">
-        <div class="faqs-col">
-            <h3>What are the admission requirements?</h3>
-            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>What programs do you offer?</h3>
-            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>How can I contact the university?</h3>
-            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
-        </div>
+    <div class="requirement-actions" aria-label="Requirement links">
+        <a class="requirement-action" href="forStudent">
+            <i aria-hidden="true"></i>
+            <span>Back to Top</span>
+        </a>
     </div>
 </section>
-
-<section class="campus" id="forms">
-    <h1>Forms</h1>
-    <div class="faqs-row">
-        <div class="faqs-col">
-            <h3>What are the admission requirements?</h3>
-            <p>To apply for admission, you will need to submit your high school transcript, a completed application form, and any additional documents required by the university. Please check our admissions page for specific requirements.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>What programs do you offer?</h3>
-            <p>We offer a wide range of undergraduate and graduate programs in various fields such as engineering, business, arts, and sciences. Please visit our academic programs page for more information.</p>
-        </div>
-        <div class="faqs-col">
-            <h3>How can I contact the university?</h3>
-            <p>You can contact us through our official email address, phone number, or by visiting our campus. Please refer to our contact page for more details.</p>
-        </div>
-    </div>
-</section>
-
-<footer>
-    <p>© 2026 Polytechnic University of the Philippines. All rights reserved.</p>
-</footer>
-
-<script>
-    var navLinks = document.getElementById("navLinks");
-    function showMenu(){ navLinks.classList.add('open'); }
-    function hideMenu(){ navLinks.classList.remove('open'); }
-</script>
-</body>
-</html>
+{% endblock %}

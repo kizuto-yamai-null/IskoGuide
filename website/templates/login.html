@@ -1,6 +1,52 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock %}
+
+{% block title %}Log In | IskoGuide{% endblock %}
+{% block header_class %}header-signup{% endblock %}
+
+{% block hero %}
+    <h1>Log In</h1>
+    <p>Choose your role. Visitors can enter without credentials; students use email and password; staff use a security PIN.</p>
+    <a href="#login-form" class="hero-btn">Open Login</a>
+{% endblock %}
 
 {% block content %}
-<h1>Log In Page</h1>
+<section class="module-section" id="login-form">
+    <h1>Access IskoGuide</h1>
+
+    {% if error %}
+        <div class="status-box status-warning">
+            <h3>{{ error }}</h3>
+        </div>
+    {% endif %}
+
+    <form class="module-panel auth-panel" method="post" action="{{ url_for('auth.login') }}">
+        <label class="form-field">
+            <span>Role</span>
+            <select name="role_choice" required>
+                <option value="4">Visitor</option>
+                <option value="3">Student</option>
+                <option value="2">Moderator</option>
+                <option value="1">Admin</option>
+            </select>
+        </label>
+
+        <label class="form-field">
+            <span>Student Email</span>
+            <input type="email" name="email" placeholder="Use this for Student login">
+        </label>
+
+        <label class="form-field">
+            <span>Password</span>
+            <input type="password" name="password" placeholder="Use this for Student login">
+        </label>
+
+        <label class="form-field">
+            <span>Staff PIN</span>
+            <input type="number" name="pin_input" placeholder="Use this for Admin or Moderator login">
+        </label>
+
+        <button class="form-button" type="submit">Continue</button>
+        <p class="auth-switch">Need a student account? <a href="{{ url_for('auth.signup') }}">Sign up here</a>.</p>
+    </form>
+</section>
 {% endblock %}

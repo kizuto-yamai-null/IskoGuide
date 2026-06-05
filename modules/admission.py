@@ -18,6 +18,12 @@ class AdmissionModule:
         for track, docs in self.requirements_pool.items():
             master_list.extend(docs)
         return list(set(master_list)) # Returns unique checklist entries safely
+    def show_Enrollment_Guide(self):
+        """Returns a generic master collection list across all enrollment pipelines."""
+        master_list = []
+        for track, docs in self.requirements_pool.items():
+            master_list.extend(docs)
+        return list(set(master_list)) # Returns unique checklist entries safely
 
     def list_Requirements(self, gwa=1.0):
         """Returns baseline threshold informational arrays for registration."""
