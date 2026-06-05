@@ -141,7 +141,8 @@ def student_forum():
             else:
                 try:
                     post_id = int(request.form.get('post_id', 0))
-                    reply_content = request.form.get('reply_content', '').strip()
+                    reply_content = request.form.get(
+                        'reply_content', '').strip()
                     success, message = controller.forum_module.add_reply(
                         post_id,
                         user_email,
