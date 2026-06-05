@@ -1898,6 +1898,120 @@ footer {
     color: #777 !important;
 }
 
+.forum-replies {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.forum-replies summary {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #fff;
+    color: #7f1d1d;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: left;
+    cursor: pointer;
+    list-style: none;
+}
+
+.forum-replies summary::-webkit-details-marker {
+    display: none;
+}
+
+.forum-replies summary .fa {
+    flex: 0 0 auto;
+    color: #b91c1c;
+    transition: transform 0.2s ease;
+}
+
+.forum-replies[open] summary {
+    background: #fee2e2;
+    border-color: #fecaca;
+}
+
+.forum-replies[open] summary .fa {
+    transform: rotate(180deg);
+}
+
+.forum-reply-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.forum-reply {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 10px;
+    min-width: 0;
+    padding: 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #f8fafc;
+}
+
+.forum-reply-avatar {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fff;
+    color: #b91c1c;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.forum-reply-body {
+    min-width: 0;
+}
+
+.forum-reply-body p {
+    margin-bottom: 4px;
+    color: #444;
+    padding: 0;
+}
+
+.forum-reply-body span,
+.forum-reply-empty {
+    color: #777;
+    font-size: 13px;
+}
+
+.forum-reply-empty {
+    padding: 0;
+}
+
+.forum-reply-form {
+    display: grid;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.forum-reply-form textarea {
+    width: 100%;
+    min-height: 76px;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font: inherit;
+    resize: vertical;
+}
+
+.forum-reply-form .forum-text-btn {
+    justify-self: start;
+}
+
 .forum-tags {
     display: flex;
     flex-wrap: wrap;
