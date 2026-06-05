@@ -58,7 +58,7 @@ html, body {
 /*==============================================================================================*/
 
 .header.header-signup {
-    background-image: linear-gradient(var(--bg-dark), rgba(154, 25, 25, 0.7)), url("images/home.jpg");
+    background-image: linear-gradient(var(--bg-dark), rgba(154, 25, 25, 0.7)), url("images/forum.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
