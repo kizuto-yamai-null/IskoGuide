@@ -1,1 +1,5 @@
 __pycache__/
+# Ignore root data files while keeping them stored locally
+/accounts.csv
+/login_history.csv
+*.csv
