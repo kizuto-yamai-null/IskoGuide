@@ -11,14 +11,12 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 @views.route('/home')
-@views.route('/home')
 def home():
     role_num = session.get('role', 4)
     role_labels = {1: "Admin", 2: "Moderator", 3: "Student", 4: "Visitor"}
     return render_template("index.html", role=role_labels.get(role_num, "Visitor"))
 
 
-@views.route('/admission', methods=['GET', 'POST'])
 @views.route('/admission', methods=['GET', 'POST'])
 def admission_guide():
     """
@@ -187,7 +185,7 @@ def student_forum():
         # Thread Submission Router
         elif action == 'create':
             if current_role == 4:
-                error_message = "Visitors are limited to view-only access. Log in to submit a post."
+                error_message = "Access Denied: Visitors are limited to VIEW-ONLY access."
             else:
                 post_title = request.form.get('title', 'Campus Discussion')
                 post_content = request.form.get('content', '').strip()
@@ -262,4 +260,3 @@ def about_credits():
         social_channels=socials_list,
         helpdesk_offices=offices_list
     )
-    

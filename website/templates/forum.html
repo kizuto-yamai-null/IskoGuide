@@ -8,16 +8,6 @@
     <p>Ask questions, share ideas, and connect with people.</p>
     <a href="#submit-post" class="hero-btn">New Post</a>
 {% endblock %}
-{% extends "base.html" %}
-
-{% block title %}Student Forum | IskoGuide{% endblock %}
-{% block header_class %}header-forum{% endblock %}
-
-{% block hero %}
-    <h1>Welcome to the IskoGuide Forum</h1>
-    <p>Ask questions, share ideas, and connect with people.</p>
-    <a href="#submit-post" class="hero-btn">New Post</a>
-{% endblock %}
 
 {% block content %}
 <section class="forum-page">
@@ -174,9 +164,9 @@
 
         {% if role == 4 %}
             <p>Visitors can read approved posts. Log in as a student, moderator, or admin to submit a post.</p>
-            <a class="forum-primary-btn" href="{{ url_for('auth.login') }}">Log In</a>                                   <!-- Go to auth.py def login() -->
+            <a class="forum-primary-btn" href="{{ url_for('auth.login') }}">Log In</a>
         {% else %}
-            <form method="post" action="{{ url_for('views.student_forum') }}#submit-post">                               <!-- Go to views.py def student_forum() -->
+            <form method="post" action="{{ url_for('views.student_forum') }}#submit-post">
                 <input type="hidden" name="action" value="create">
                 <input type="text" name="title" maxlength="80" placeholder="Post Title" required>
                 <textarea name="content" placeholder="Write your discussion..." required></textarea>
@@ -197,12 +187,12 @@
                         <p>{{ post.content }}</p>
                         <p class="forum-post-info">Submitted by {{ post.author }}</p>
                         <div class="forum-actions">
-                            <form method="post" action="{{ url_for('views.student_forum') }}#moderation">            <!-- Go to views.py def student_forum() -->
+                            <form method="post" action="{{ url_for('views.student_forum') }}#moderation">
                                 <input type="hidden" name="action" value="approve">
                                 <input type="hidden" name="post_id" value="{{ post.post_id }}">
                                 <button class="forum-text-btn approve" type="submit">Approve</button>
                             </form>
-                            <form method="post" action="{{ url_for('views.student_forum') }}#moderation">             <!-- Go to views.py def student_forum() -->
+                            <form method="post" action="{{ url_for('views.student_forum') }}#moderation">
                                 <input type="hidden" name="action" value="reject">
                                 <input type="hidden" name="post_id" value="{{ post.post_id }}">
                                 <button class="forum-text-btn reject" type="submit">Reject</button>
